@@ -2,7 +2,7 @@ import * as http from '../utils/http';
 // import axios from 'axios';
 
 let res = null;
-const baseUrl = 'http://127.0.0.1:8848/api/auth/login';
+// const baseUrl = 'http://127.0.0.1:8848/api/auth/login';
 const segment = 'auth/login';
 
 export const login = async (email, password) => {

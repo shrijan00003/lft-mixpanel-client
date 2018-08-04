@@ -1,5 +1,7 @@
 import React from 'react';
 
+import './signup.css';
+
 const renderField = ({
   input,
   label,
@@ -7,8 +9,7 @@ const renderField = ({
   meta: { touched, error, warning },
 }) => (
   <div>
-    <label>{label}</label>
-    <div>
+    <div className="input-wrapper">
       <input {...input} placeholder={label} type={type} />
       {touched &&
         ((error && <span>{error}</span>) ||

@@ -61,7 +61,6 @@ class UserLogin extends React.Component {
           isLogedIn: true,
         });
       } else {
-        console.log(loginResponse.response);
         this.setState({
           errorMessage: loginResponse.response.data.message,
         });
@@ -85,7 +84,7 @@ class UserLogin extends React.Component {
       pwErr = 'Password cannot be empty.';
     }
 
-    if (emailErr != '' || pwErr != '') {
+    if (emailErr !== '' || pwErr !== '') {
       this.setState({
         emailError: emailErr,
         passwordError: pwErr,
