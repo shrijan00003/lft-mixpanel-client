@@ -1,5 +1,11 @@
 import axios from 'axios';
 import auth from './auth';
+import {
+  ID,
+  REFRESH_TOKEN,
+  ACCESS_TOKEN,
+  PARSE,
+} from '../constants/auth/authConstants';
 
 /**
  * creating axios instance
@@ -7,7 +13,7 @@ import auth from './auth';
 const axiosInstance = axios.create({
   baseURL: 'http://127.0.0.1:8848/api/',
   headers: {
-    authorization: '', //auth.getToken("refreshToken"),
+    authorization: auth.getToken(ACCESS_TOKEN),
   },
 });
 
@@ -19,18 +25,30 @@ axiosInstance.interceptors.response.use(
     return response;
   },
   async error => {
-    const originalRequest = error.config;
+    const pendingRequest = error.config;
     if (error.response.status === 401) {
       const data = {
-        refreshToken: auth.getToken('refreshToken'),
+        user_id: auth.getToken(ID),
+        refresh_token: auth.getToken(REFRESH_TOKEN),
       };
 
       const res = await post('auth/refresh/', data);
 
       auth.setNewTokens(res.data);
-      originalRequest.headers.authorization = auth.getToken('refreshToken');
+      pendingRequest.headers.authorization = auth.getToken(ACCESS_TOKEN);
 
-      return axios(originalRequest);
+      let pendingRequestData = PARSE(pendingRequest.data);
+
+      // INCASE OF LOGOUT REFRESH_TOKEN IS SEND TO DATA BY UPDATING AFTER REFRESH
+      if (pendingRequestData.refresh_token) {
+        pendingRequestData.refresh_token = auth.getToken(REFRESH_TOKEN);
+      }
+
+      pendingRequest.data = pendingRequestData;
+
+      return axios(pendingRequest);
+    } else if (error.response.status === 404) {
+      return error;
     } else {
       return error;
     }
