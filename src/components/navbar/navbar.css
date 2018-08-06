@@ -1,0 +1,119 @@
+header {
+  width: 100%;
+  background: black;
+}
+
+/* NAVBAR DESIGN */
+.navbar-wrapper {
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.925);
+}
+
+.top-navbar {
+  margin: 0 auto;
+  padding: 0px 8px;
+}
+
+.navbar-full {
+  width: 100%;
+}
+
+.navbar-normal {
+  width: 80%;
+}
+
+.top-navbar ul li {
+  float: left;
+  list-style-type: none;
+  padding: 18px 20px;
+}
+
+.top-navbar ul li:hover {
+  background-color: rgba(61, 60, 60, 0.973);
+}
+
+.top-navbar ul li a {
+  text-decoration: none;
+  color: white;
+}
+
+.signout-button {
+  padding: 18px;
+  color: lightgray;
+  float: right;
+  cursor: pointer;
+}
+
+.signout-button:hover {
+  color: white;
+  font-weight: bold;
+}
+
+.navbar-logo {
+  color: white;
+  font-weight: bold;
+  padding: 15px 20px 15px 0px;
+  float: left;
+  font-size: 22px;
+}
+
+.navbar-logo a {
+  color: white;
+  text-decoration: none;
+}
+
+/* profile section navbar*/
+.navbar-right {
+  /*background-color: pink;*/
+  /* width:30%; */
+  height: 100%;
+  float: right;
+}
+.navbar-right ul li {
+  list-style-type: none;
+  float: left;
+  width: auto;
+  padding: 18px 10px;
+  position: relative;
+  color: white;
+}
+.navbar-right ul li:hover {
+  background-color: #373738;
+}
+.navbar-right ul li a {
+  text-decoration: none;
+  color: white;
+  font-family: arial;
+}
+.navbar-right ul li img {
+  width: 20px;
+  height: 15px;
+  padding-left: 10px;
+  padding-top: 5px;
+  float: right;
+}
+.navbar-right ul li ul {
+  display: none;
+  margin-top: 18px;
+  right: 0;
+}
+
+.navbar-right ul li ul li {
+  float: none;
+  color: white;
+  cursor: pointer;
+}
+.navbar-right ul li:hover ul {
+  display: block;
+  position: absolute;
+  background-color: #373738;
+  width: 200px;
+}
+
+.navbar-right ul li:hover ul li ul {
+  display: none;
+}
+
+.navbar-right ul li ul li:hover {
+  background-color: #595a5b;
+}

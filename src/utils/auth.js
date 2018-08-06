@@ -1,19 +1,22 @@
-const USER_INFO = 'name';
-const ACCESS_TOKEN = 'accessToken';
-const DETAILS_STORAGE = 'userDetails';
-
-const parse = JSON.parse;
-const stringify = JSON.stringify;
+import store from '../store';
+import { refreshLogin } from '../actions/authActions';
+import {
+  NAME,
+  ACCESS_TOKEN,
+  DETAILS_STORAGE,
+  PARSE,
+  STRINGIFY,
+} from '../constants/auth/authConstants';
 
 const auth = {
   // TO GET STORED TOKEN DATA
   getDetails(key) {
-    if (localStorage && parse(localStorage.getItem(DETAILS_STORAGE))) {
-      return parse(localStorage.getItem(DETAILS_STORAGE))[key] || null;
+    if (localStorage && PARSE(localStorage.getItem(DETAILS_STORAGE))) {
+      return PARSE(localStorage.getItem(DETAILS_STORAGE))[key] || null;
     }
 
-    if (sessionStorage && parse(sessionStorage.getItem(DETAILS_STORAGE))) {
-      return parse(sessionStorage.getItem(DETAILS_STORAGE))[key] || null;
+    if (sessionStorage && PARSE(sessionStorage.getItem(DETAILS_STORAGE))) {
+      return PARSE(sessionStorage.getItem(DETAILS_STORAGE))[key] || null;
     }
 
     return null;
@@ -28,30 +31,35 @@ const auth = {
   authenticate(userCredentisls) {
     const initialDetails = {
       id: userCredentisls.data.id,
-      //   name: userCredentisls.data.name,
+      name: userCredentisls.data.userName,
       accessToken: userCredentisls.data.accessToken,
       refreshToken: userCredentisls.data.refreshToken,
     };
 
-    localStorage.setItem(DETAILS_STORAGE, stringify(initialDetails));
-    console.log(initialDetails);
+    localStorage.setItem(DETAILS_STORAGE, STRINGIFY(initialDetails));
   },
 
   // SETTING NEW ACCESS TOKEN AND REFRESH TOKEN
   setNewTokens(tokens) {
-    let refreshedDetails = parse(localStorage.getItem(DETAILS_STORAGE));
-    refreshedDetails.accessToken = tokens.data.newAccessToken;
-    refreshedDetails.refreshToken = tokens.data.newRefreshToken;
+    let refreshedDetails = PARSE(localStorage.getItem(DETAILS_STORAGE));
+    refreshedDetails.accessToken = tokens.accessToken;
+    refreshedDetails.refreshToken = tokens.refreshToken;
 
-    localStorage.setItem(DETAILS_STORAGE, stringify(refreshedDetails));
+    localStorage.setItem(DETAILS_STORAGE, STRINGIFY(refreshedDetails));
+    store.dispatch(
+      refreshLogin({
+        accessToken: tokens.accessToken,
+        refreshToken: tokens.refreshToken,
+      })
+    );
   },
 
   // GET USER DETAILS
-  getUserDetails(infoKey = USER_INFO) {
+  getUserDetails(infoKey = NAME) {
     return auth.getDetails(infoKey);
   },
 
-  // CLEARS THE TOKENS FROM STORAGE
+  // CLEARS THE STORED VALUES FROM STORAGE
   clear() {
     if (localStorage && localStorage.getItem(DETAILS_STORAGE)) {
       return localStorage.removeItem(DETAILS_STORAGE) || null;

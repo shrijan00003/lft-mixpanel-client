@@ -1,13 +1,13 @@
 .login-form {
-  width: 30%;
   margin: 50px auto;
+  float: none;
 }
 .login-form h2 {
   text-align: center;
 }
 
 .login-form input {
-  width: 98.8%;
+  width: 100%;
   margin: 5px 0px;
   padding: 5px 0px;
 }
@@ -31,4 +31,60 @@
 .register-success-message p {
   font-size: 13px;
   color: rgb(34, 149, 226);
+}
+
+/* TOOLTIP DESIGN */
+.tooltip {
+  position: relative;
+  display: block;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  color: red;
+  z-index: 1;
+}
+
+.tooltip .tooltiptext::after {
+  content: '';
+}
+
+.show-tooltip .tooltiptext {
+  visibility: visible;
+}
+@media only screen and (min-width: 600px) {
+  .tooltip {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted rgba(241, 7, 7, 0.678);
+  }
+
+  .tooltip .tooltiptext {
+    visibility: hidden;
+    width: 220px;
+    background-color: rgba(241, 7, 7, 0.678);
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    top: -16px;
+    left: 110%;
+  }
+
+  .tooltip .tooltiptext::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: 100%;
+    margin-top: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent rgba(241, 7, 7, 0.678) transparent transparent;
+  }
+  .show-tooltip .tooltiptext {
+    visibility: visible;
+    margin-left: 5px;
+  }
 }

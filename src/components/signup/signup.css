@@ -1,0 +1,42 @@
+.signup-form-wrapper {
+  width: 40%;
+  margin: 50px auto;
+  text-align: center;
+}
+
+.signup-form-wrapper input {
+  width: 98.8%;
+  margin: 5px 0px;
+  padding: 5px 0px;
+}
+
+.signup-form-wrapper button {
+  width: 100%;
+  margin: 5px 0px;
+  padding: 5px 0px;
+}
+
+.signup-form-wrapper label {
+  color: red;
+}
+
+.input-wrapper span {
+  text-align: left;
+  float: left;
+  color: red;
+}
+
+.form-error {
+  color: red;
+  text-align: left;
+  float: left;
+}
+
+.hr-design {
+  margin: 5px 0px;
+}
+
+.signup-footer {
+  margin: 5px auto;
+  font-size: 12px;
+}
