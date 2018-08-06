@@ -19,13 +19,24 @@ export const setLoginError = error => ({
   },
 });
 
-export const refreshLogin = refreshToken => ({
+export const refreshLogin = (tokens = {}) => ({
   type: ACTIONS.REFRESH_FULFILLLED,
   payload: {
-    refreshToken,
+    tokens,
   },
+});
+
+export const logoutUserBegin = () => ({
+  type: ACTIONS.LOGOUT_PENDING,
 });
 
 export const setLogoutSuccess = () => ({
   type: ACTIONS.LOGOUT_FULFILLLED,
+});
+
+export const setLogoutError = error => ({
+  type: ACTIONS.LOGOUT_REJECTED,
+  payload: {
+    error,
+  },
 });

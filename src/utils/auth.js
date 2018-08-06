@@ -1,3 +1,5 @@
+import store from '../store';
+import { refreshLogin } from '../actions/authActions';
 import {
   NAME,
   ACCESS_TOKEN,
@@ -44,6 +46,12 @@ const auth = {
     refreshedDetails.refreshToken = tokens.refreshToken;
 
     localStorage.setItem(DETAILS_STORAGE, STRINGIFY(refreshedDetails));
+    store.dispatch(
+      refreshLogin({
+        accessToken: tokens.accessToken,
+        refreshToken: tokens.refreshToken,
+      })
+    );
   },
 
   // GET USER DETAILS

@@ -4,6 +4,7 @@ const INITIAL_STATE = {
   error: null,
   isLogedIn: false,
   isLoggingIn: false,
+  isLoggingOut: false,
   user: {
     id: null,
     name: null,
@@ -42,13 +43,27 @@ const authReducer = (state = INITIAL_STATE, action) => {
     case ACTIONS.REFRESH_FULFILLLED:
       return {
         ...state,
-        token: {
-          ...state.tokens,
-          refresh: action.payload.refreshToken,
-        },
+        tokens: action.payload.tokens,
       };
+
+    case ACTIONS.LOGOUT_PENDING: {
+      return {
+        ...state,
+        isLoggingOut: true,
+        error: null,
+      };
+    }
+
     case ACTIONS.LOGOUT_FULFILLLED: {
       return INITIAL_STATE;
+    }
+
+    case ACTIONS.LOGOUT_REJECTED: {
+      return {
+        ...state,
+        isLoggingOut: false,
+        error: action.payload.error,
+      };
     }
     default:
       return state;

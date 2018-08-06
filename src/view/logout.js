@@ -2,12 +2,25 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { logout } from '../services/authServices';
-import { setLogoutSuccess } from '../actions/authActions';
+import {
+  logoutUserBegin,
+  setLogoutSuccess,
+  setLogoutError,
+} from '../actions/authActions';
 
 let loginResponse = null;
-
+let statusMessage = null;
 const mapStateToProps = state => {
+  if (state.auth.isLoggingOut) {
+    statusMessage = 'Please wait...';
+  } else if (state.auth.error) {
+    statusMessage = state.auth.error.data.message;
+  } else {
+    statusMessage = null;
+  }
+
   return {
+    loginStatus: statusMessage,
     isLogedIn: state.auth.isLogedIn,
   };
 };
@@ -15,58 +28,52 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     logoutUser: async () => {
+      dispatch(logoutUserBegin());
       loginResponse = await logout();
 
       if (loginResponse.status === 200) {
         dispatch(setLogoutSuccess());
-        return loginResponse;
       } else {
-        console.log(loginResponse.response);
-        return loginResponse.response;
+        dispatch(setLogoutError(loginResponse.response));
       }
     },
   };
 };
 
-// const Logout = ({ isLogedIn, logoutUser = f => f }) => {
-//   let Component = <Redirect to={'/dashboard'} />;
+const Logout = ({ loginStatus, isLogedIn, logoutUser = f => f }) => {
+  logoutUser();
 
-//   const logout = new Promise((resolve, reject) => {
-//     resolve(logoutUser());
-//   }).then(res => {
-//     if (res.status === 200) {
-//       Component = <Redirect to={'/login'} />;
-//     }
-//   });
-//   const loadLoginPage = setInterval(() => {
-//     return Component;
-//   }, 1);
-// };
-
-class Logout extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      isLogedOut: false,
-    };
+  if (!isLogedIn) {
+    return <Redirect to={'/login'} />;
+  } else {
+    return <span>{loginStatus}</span>;
   }
+};
 
-  componentDidMount = () => {
-    new Promise((resolve, reject) => {
-      resolve(this.props.logoutUser());
-    }).then(res => {
-      if (res.status === 200) {
-        this.setState({
-          isLogedOut: true,
-        });
-      }
-    });
-  };
+// class Logout extends React.Component {
+//   constructor() {
+//     super();
+//     this.state = {
+//       isLogedOut: false,
+//     };
+//   }
 
-  render() {
-    return this.state.isLogedOut ? <Redirect to={'/login'} /> : <span />;
-  }
-}
+//   componentDidMount = () => {
+//     new Promise((resolve, reject) => {
+//       resolve(this.props.logoutUser());
+//     }).then(res => {
+//       if (res.status === 200) {
+//         this.setState({
+//           isLogedOut: true,
+//         });
+//       }
+//     });
+//   };
+
+//   render() {
+//     return this.state.isLogedOut ? <Redirect to={'/login'} /> : <span />;
+//   }
+// }
 
 const EnhancedLogout = connect(
   mapStateToProps,
