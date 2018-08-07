@@ -1,17 +1,18 @@
 header {
   width: 100%;
-  background: black;
+  background: rgb(255, 255, 255);
+  box-shadow: 0px 1px 2px black;
 }
 
 /* NAVBAR DESIGN */
 .navbar-wrapper {
   width: 100%;
-  background-color: rgba(0, 0, 0, 0.925);
+  background-color: rgba(250, 246, 246, 0.925);
 }
 
 .top-navbar {
   margin: 0 auto;
-  padding: 0px 8px;
+  padding: 0px 0px;
 }
 
 .navbar-full {
@@ -29,12 +30,18 @@ header {
 }
 
 .top-navbar ul li:hover {
-  background-color: rgba(61, 60, 60, 0.973);
+  color: rgb(71, 70, 70);
+  padding: 18px 20px;
+  border-bottom: 2px solid rgb(24, 27, 194);
+}
+
+.top-navbar ul li:hover a {
+  color: rgb(167, 9, 9);
 }
 
 .top-navbar ul li a {
   text-decoration: none;
-  color: white;
+  color: rgb(17, 13, 48);
 }
 
 .signout-button {
@@ -50,11 +57,14 @@ header {
 }
 
 .navbar-logo {
+  width: 220px;
+  background-color: rgb(27, 43, 82);
   color: white;
   font-weight: bold;
-  padding: 15px 20px 15px 0px;
+  padding: 16px 20px 15px 15px;
   float: left;
   font-size: 22px;
+  text-align: center;
 }
 
 .navbar-logo a {
@@ -73,24 +83,36 @@ header {
   list-style-type: none;
   float: left;
   width: auto;
-  padding: 18px 10px;
+  padding: 19px 10px;
   position: relative;
-  color: white;
+  color: rgb(121, 121, 124);
 }
 .navbar-right ul li:hover {
-  background-color: #373738;
+  background-color: rgb(235, 235, 235);
+  padding: 19px 10px;
+  border: none;
+}
+
+.navbar-right ul li:hover a {
+  color: rgb(39, 38, 38);
 }
 .navbar-right ul li a {
   text-decoration: none;
-  color: white;
+  color: rgb(72, 72, 75);
   font-family: arial;
 }
-.navbar-right ul li img {
-  width: 20px;
-  height: 15px;
-  padding-left: 10px;
-  padding-top: 5px;
+
+.profile-pic-topnavbar {
+  width: 35px;
+  height: 35px;
   float: right;
+  border-radius: 50%;
+  border: 1px solid rgb(112, 110, 110);
+  overflow: hidden;
+  margin: -10px 10px;
+}
+.profile-pic-topnavbar img {
+  width: 100%;
 }
 .navbar-right ul li ul {
   display: none;
@@ -100,13 +122,18 @@ header {
 
 .navbar-right ul li ul li {
   float: none;
-  color: white;
+  color: rgb(44, 43, 43);
   cursor: pointer;
+  padding: 10px 15px;
+  font-size: 12px;
 }
 .navbar-right ul li:hover ul {
   display: block;
   position: absolute;
-  background-color: #373738;
+  background-color: rgb(255, 254, 254);
+  border: 1px solid rgb(228, 228, 228);
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
   width: 200px;
 }
 
@@ -115,5 +142,12 @@ header {
 }
 
 .navbar-right ul li ul li:hover {
-  background-color: #595a5b;
+  background-color: #dce9f7;
+  padding: 10px 15px;
+}
+
+/* Side Nav Menu */
+.side-navbar {
+  background-color: rgb(13, 13, 34);
+  height: 700px;
 }

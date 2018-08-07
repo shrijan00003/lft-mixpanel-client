@@ -1,11 +1,11 @@
 import React from 'react';
 import { Link, Redirect } from 'react-router-dom';
-import { signupUser } from '../services/signupServices';
+import { signupUser, checkUniqueEmail } from '../services/signupServices';
 
 import '../components/signup/signup.css';
 
 let userDetails = {
-  name: '',
+  name: [],
   phone: '',
   email: '',
   domain: '',
@@ -13,6 +13,20 @@ let userDetails = {
   password: '',
   re_password: '',
 };
+
+let $name = null,
+  $email = null,
+  $phone = null,
+  $domain = null,
+  $company = null,
+  $password = null,
+  $re_password = null;
+
+let validName = false,
+  validEmail = false,
+  validPhone = false,
+  validDomain = false,
+  validCompany = false;
 
 class SignUp extends React.Component {
   constructor() {
@@ -25,28 +39,47 @@ class SignUp extends React.Component {
 
   //   FUNCTION TO SETS NAME
   setName = name => {
-    userDetails.name = name.target.value;
-    document.getElementById('name').innerHTML = '';
+    const fullname = name.target.value.split(' ');
+    if (fullname.length === 2 && fullname[0] !== '' && fullname[1] !== '') {
+      validName = true;
+      $name.innerHTML = '';
+      userDetails.name = fullname;
+    } else {
+      validName = false;
+      userDetails.name = fullname;
+      $name.innerHTML = 'Provide first name and last name.';
+    }
   };
 
   //   FUNCTION TO SET EMAIL
-  setEmail = email => {
+  setEmail = async email => {
     userDetails.email = email.target.value;
 
     if (
       userDetails.email !== '' &&
       !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(userDetails.email)
     ) {
-      document.getElementById('email').innerHTML = 'Email is invalid.';
+      validEmail = false;
+      $email.innerHTML = 'Email is invalid.';
       return;
+    } else {
+      const count = await checkUniqueEmail(email.target.value);
+
+      if (count.data.data > 0) {
+        validEmail = false;
+        $email.innerHTML = 'This email already exists.';
+        return;
+      }
     }
-    document.getElementById('email').innerHTML = '';
+    validEmail = true;
+    $email.innerHTML = '';
   };
 
   //   FUNCTION TO SET COMPANY
   setCompany = company => {
+    validCompany = true;
+    $company.innerHTML = '';
     userDetails.company = company.target.value;
-    document.getElementById('company').innerHTML = '';
   };
 
   //   FUNCTION TO SET PHONE
@@ -54,37 +87,38 @@ class SignUp extends React.Component {
     userDetails.phone = phone.target.value;
 
     if (userDetails.phone.length !== 10) {
-      document.getElementById('phone').innerHTML =
-        'Phone number must be of length 10';
+      validPhone = false;
+      $phone.innerHTML = 'Phone number must be of length 10';
       return;
     }
-    document.getElementById('phone').innerHTML = '';
+    validPhone = true;
+    $phone.innerHTML = '';
   };
 
   //   FUNCTION TO SET EMAIL
   setDomainName = domain => {
+    validDomain = true;
+    $domain.innerHTML = '';
     userDetails.domain = domain.target.value;
-    document.getElementById('domain').innerHTML = '';
   };
 
   //   FUNCTION TO SET PASSWORD
   setPassword = password => {
     userDetails.password = password.target.value;
     if (userDetails.password.length <= 5) {
-      document.getElementById('password').innerHTML =
-        'Password length must be of minimum 5 characters';
-
+      $password.innerHTML = 'Password length must be of minimum 5 characters';
       return;
     }
-    document.getElementById('password').innerHTML = '';
+
+    $password.innerHTML = '';
   };
 
   //   FUNCTION TO SET RE PASSWORD
   setRePassword = rePassword => {
     userDetails.re_password = rePassword.target.value;
     if (userDetails.re_password !== userDetails.password)
-      document.getElementById('re_password').innerHTML = 'Password not matched';
-    else document.getElementById('re_password').innerHTML = '';
+      $re_password.innerHTML = 'Password not matched';
+    else $re_password.innerHTML = '';
   };
 
   //   VAIDATION AND CALL API SERVICE ON SUCCESS
@@ -100,7 +134,10 @@ class SignUp extends React.Component {
     ];
 
     formField.forEach(field => {
-      if (userDetails[field.toLowerCase()] === '') {
+      if (
+        userDetails[field.toLowerCase()] === '' ||
+        userDetails[field.toLowerCase()].length < 2
+      ) {
         const $elem = document.getElementById(field.toLowerCase());
         const msg = field === 're_password' ? 'Confirm Password' : field;
         $elem.innerHTML = msg + ' cannot be empty';
@@ -109,12 +146,11 @@ class SignUp extends React.Component {
 
     if (
       userDetails.password === userDetails.re_password &&
-      userDetails.name !== '' &&
-      userDetails.email !== '' &&
-      userDetails.password !== '' &&
-      /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(userDetails.email) &&
-      userDetails.phone.length === 10 &&
-      userDetails.password.length >= 5
+      validName &&
+      validEmail &&
+      validCompany &&
+      validDomain &&
+      validPhone
     ) {
       const res = await signupUser(userDetails);
       if (res.status === 201) {
@@ -126,6 +162,16 @@ class SignUp extends React.Component {
           'Internal service error.';
       }
     }
+  };
+
+  componentDidMount = () => {
+    $name = document.getElementById('name');
+    $email = document.getElementById('email');
+    $phone = document.getElementById('phone');
+    $domain = document.getElementById('domain');
+    $company = document.getElementById('company');
+    $password = document.getElementById('password');
+    $re_password = document.getElementById('re_password');
   };
 
   render() {
@@ -142,7 +188,7 @@ class SignUp extends React.Component {
             }}
           />
         ) : (
-          <div className="signup-form-wrapper">
+          <div className="col-4 col-s-7 signup-form-wrapper">
             <h2>Sign Up</h2>
             <hr className="hr-design" />
 
@@ -150,7 +196,7 @@ class SignUp extends React.Component {
             <input
               onChange={name => this.setName(name)}
               type="text"
-              placeholder="Full Name"
+              placeholder="First and Last Name"
             />
             <span className="form-error" id="name" />
 

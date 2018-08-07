@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import NavbarComponent from '../components/navbar/navbar';
+import NavbarComponent from '../components/navbar/topNavbar';
 
 const mapStateToProps = state => {
   return {

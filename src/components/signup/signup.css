@@ -1,11 +1,11 @@
 .signup-form-wrapper {
-  width: 40%;
   margin: 50px auto;
+  float: none;
   text-align: center;
 }
 
 .signup-form-wrapper input {
-  width: 98.8%;
+  width: 100%;
   margin: 5px 0px;
   padding: 5px 0px;
 }

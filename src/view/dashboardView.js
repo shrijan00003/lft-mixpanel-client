@@ -3,8 +3,10 @@ import React from 'react';
 class Dashboard extends React.Component {
   render() {
     return (
-      <div>
-        <h1>This is dashboard</h1>
+      <div className="container row">
+        <div class="col-12">
+          <h1>This is dashboard</h1>
+        </div>
       </div>
     );
   }

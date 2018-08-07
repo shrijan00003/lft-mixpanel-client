@@ -1,15 +1,31 @@
 import auth from '../utils/auth';
 import * as http from '../utils/http';
+import { getUserDetails, getLocation } from '../utils/userDetails';
 import { REFRESH_TOKEN } from '../constants/auth/authConstants';
 
 let res = null;
 const segment = 'auth';
+const userDetails = getUserDetails();
 
+/**
+ *
+ * @param {string} email
+ * @param {string} password
+ */
 export const login = async (email, password) => {
   const data = {
-    user_email: email,
+    user_identity: email,
     password: password,
+
+    //user details for tracking users
+    os: userDetails.os,
+    browser: userDetails.browser,
+    details: userDetails.fullUserAgent,
+    device: userDetails.mobile ? 'Mobile' : 'PC',
+    location: JSON.stringify(userDetails.location),
   };
+
+  console.log(data);
 
   try {
     res = await http.post(segment + '/login', data);
@@ -19,6 +35,9 @@ export const login = async (email, password) => {
   }
 };
 
+/**
+ * Logout function
+ */
 export const logout = async () => {
   const data = {
     refresh_token: auth.getToken(REFRESH_TOKEN),

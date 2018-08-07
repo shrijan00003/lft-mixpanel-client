@@ -8,7 +8,7 @@ const LogoutButton = withRouter(({ history }) => (
   <li onClick={() => history.push('/logout')}>Log out</li>
 ));
 
-class Navbar extends React.Component {
+class TopNavbar extends React.Component {
   render() {
     let navbarCss = auth.getToken() ? 'navbar-full' : 'navbar-normal';
     navbarCss += ' top-navbar row';
@@ -24,7 +24,7 @@ class Navbar extends React.Component {
             {auth.getToken() ? (
               <span>
                 <li>
-                  <NavLink to={{ pathname: '/dashboard' }}>Home </NavLink>:
+                  <NavLink to={{ pathname: '/dashboard' }}>Home </NavLink>
                 </li>
                 <li>
                   <NavLink to={{ pathname: '/todos' }}>Todos </NavLink>
@@ -55,10 +55,12 @@ class Navbar extends React.Component {
               ) : (
                 <li>
                   {auth.getUserDetails('name')}
-                  <img
-                    src={require('../../images/downarrow.png')}
-                    alt="down arrow"
-                  />
+                  <div className="profile-pic-topnavbar">
+                    <img
+                      src={require('../../images/dp.jpg')}
+                      alt="down arrow"
+                    />
+                  </div>
                   <ul>
                     <LogoutButton />
                     <li>Setting</li>
@@ -73,4 +75,4 @@ class Navbar extends React.Component {
   }
 }
 
-export default Navbar;
+export default TopNavbar;
