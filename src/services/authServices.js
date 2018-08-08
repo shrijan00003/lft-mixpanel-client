@@ -4,8 +4,11 @@ import { getUserDetails, getLocation } from '../utils/userDetails';
 import { REFRESH_TOKEN } from '../constants/auth/authConstants';
 
 let res = null;
-const segment = 'auth';
+let loginAttempt = null;
+const loginSegment = 'auth/login';
+const logoutSegment = 'auth/logout';
 const userDetails = getUserDetails();
+const loginAttemptSegment = 'auth/logincount';
 
 /**
  *
@@ -25,17 +28,23 @@ export const login = async (email, password) => {
     location: JSON.stringify(userDetails.location),
   };
 
-  console.log(data);
-
   try {
-    res = await http.post(segment + '/login', data);
-    return res;
+    loginAttempt = await http.post(loginAttemptSegment, {
+      user_identity: email,
+    });
+
+    if (loginAttempt.data) {
+      return await http.post(loginSegment, data).then(res => res);
+    } else {
+      throw loginAttempt;
+    }
   } catch (err) {
     return err;
   }
 };
 
 /**
+ *
  * Logout function
  */
 export const logout = async () => {
@@ -44,7 +53,7 @@ export const logout = async () => {
   };
 
   const logoutResponse = await http
-    .post(segment + '/logout', data)
+    .post(logoutSegment, data)
     .then(res => {
       auth.clearDetails();
       return res;
