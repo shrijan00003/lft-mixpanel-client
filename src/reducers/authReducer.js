@@ -2,9 +2,9 @@ import { ACTIONS } from '../constants/auth/authConstants';
 
 const INITIAL_STATE = {
   error: null,
-  isLogedIn: false,
   isLoggingIn: false,
   isLoggingOut: false,
+  isLogedIn: false,
   user: {
     id: null,
     name: null,
@@ -65,8 +65,21 @@ const authReducer = (state = INITIAL_STATE, action) => {
         error: action.payload.error,
       };
     }
+
+    case ACTIONS.PAGE_RELODED:
+      return {
+        ...state,
+        user: action.payload.user,
+        tokens: action.payload.tokens,
+        isLogedIn: true,
+      };
+
     default:
       return state;
   }
+};
+window.onbeforeunload = e => {
+  console.log(e);
+  return 'Stop this event';
 };
 export default authReducer;

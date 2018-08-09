@@ -151,3 +151,80 @@ header {
   background-color: rgb(13, 13, 34);
   height: 700px;
 }
+
+.side-navbar-title {
+  width: 95%;
+  padding: 8px 15px;
+  margin: auto;
+  border-bottom: 1px solid white;
+}
+
+.side-navbar-title h1 {
+  font-size: 14px;
+  color: rgb(205, 208, 228);
+}
+
+.side-navbar-menu-list {
+  padding: 10px 0px;
+}
+
+.side-navbar-menu-list {
+  width: 100%;
+}
+
+.side-navbar-menu-list ul li {
+  list-style-type: none;
+  color: rgb(196, 189, 189);
+}
+
+.side-navbar-menu-list ul li:hover {
+  background-color: rgb(32, 28, 90);
+  color: white;
+}
+
+.side-navbar-menu-list ul a {
+  text-decoration: none;
+  color: white;
+}
+
+/* Sub menu design */
+.side-navbar-sub-menu-list {
+  background-color: rgb(45, 45, 107);
+  display: none;
+}
+
+.side-navbar-sub-menu-list li {
+  list-style-type: none;
+  font-size: 13px;
+  color: rgb(196, 189, 189);
+  border-left: 3px solid rgb(9, 126, 9);
+}
+
+.side-navbar-sub-menu-list li:hover {
+  background-color: rgb(23, 19, 75);
+}
+
+.list-menu-titles {
+  padding: 12px 10px;
+}
+
+.sub-menu {
+  padding: 10px 25px;
+}
+
+.list-span {
+  padding-left: 10px;
+}
+
+.show-sub-memu {
+  display: block;
+  transition: all 0.3s ease-in-out 0s, visibility 0s linear 0.3s,
+    z-index 0s linear 0.01s;
+  transition-delay: 0s, 0s, 0.3s;
+}
+
+.active-memu {
+  border-left: 3px solid rgb(9, 126, 9);
+  background-color: rgb(32, 28, 90);
+  color: white;
+}

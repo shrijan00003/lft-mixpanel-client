@@ -1,4 +1,12 @@
-import { ACTIONS } from '../constants/auth/authConstants';
+import store from '../store';
+import auth from '../utils/auth';
+import {
+  ID,
+  NAME,
+  ACTIONS,
+  ACCESS_TOKEN,
+  REFRESH_TOKEN,
+} from '../constants/auth/authConstants';
 
 export const loginUserBegin = data => ({
   type: ACTIONS.LOGIN_PENDING,
@@ -40,3 +48,28 @@ export const setLogoutError = error => ({
     error,
   },
 });
+
+export const setLoginDetailsAfterReload = (user, tokens) => ({
+  type: ACTIONS.PAGE_RELODED,
+  payload: {
+    user,
+    tokens,
+  },
+});
+
+window.onload = () => {
+  if (auth.getToken()) {
+    store.dispatch(
+      setLoginDetailsAfterReload(
+        {
+          id: auth.getDetails(ID),
+          name: auth.getDetails(NAME),
+        },
+        {
+          accessToken: auth.getToken(ACCESS_TOKEN),
+          refreshToken: auth.getToken(REFRESH_TOKEN),
+        }
+      )
+    );
+  }
+};

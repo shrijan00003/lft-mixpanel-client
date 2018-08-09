@@ -1,9 +1,8 @@
 import auth from '../utils/auth';
 import * as http from '../utils/http';
-import { getUserDetails, getLocation } from '../utils/userDetails';
+import { getUserDetails } from '../utils/userDetails';
 import { REFRESH_TOKEN } from '../constants/auth/authConstants';
 
-let res = null;
 let loginAttempt = null;
 const loginSegment = 'auth/login';
 const logoutSegment = 'auth/logout';
