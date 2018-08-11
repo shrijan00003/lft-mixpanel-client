@@ -4,11 +4,12 @@ import {
   ID,
   NAME,
   ACTIONS,
+  USER_NAME,
   ACCESS_TOKEN,
   REFRESH_TOKEN,
-} from '../constants/auth/authConstants';
+} from '../constants/authConstants';
 
-export const loginUserBegin = data => ({
+export const loginUserBegin = () => ({
   type: ACTIONS.LOGIN_PENDING,
 });
 
@@ -64,6 +65,7 @@ window.onload = () => {
         {
           id: auth.getDetails(ID),
           name: auth.getDetails(NAME),
+          userName: auth.getDetails(USER_NAME),
         },
         {
           accessToken: auth.getToken(ACCESS_TOKEN),

@@ -41,15 +41,14 @@ const mapDispatchToProps = dispatch => {
 
         const user = {
           id: loginResponse.data.id,
-          name: loginResponse.data.userName,
+          name: loginResponse.data.name,
+          userName: loginResponse.data.userName,
         };
         dispatch(setLoginSuccess(user, tokens));
       } else {
         dispatch(setLoginError(loginResponse.response));
       }
-    },
-    setLoginError: () => dispatch(setLoginError()),
-    setLoginSuccess: (user, token) => dispatch(setLoginSuccess(user, token)),
+    }
   };
 };
 

@@ -108,5 +108,6 @@ body {
 }
 
 .container {
-  float: left;
+  width: auto;
+  overflow: hidden;
 }

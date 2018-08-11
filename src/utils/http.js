@@ -5,7 +5,7 @@ import {
   REFRESH_TOKEN,
   ACCESS_TOKEN,
   PARSE,
-} from '../constants/auth/authConstants';
+} from '../constants/authConstants';
 
 /**
  * creating axios instance
@@ -37,14 +37,14 @@ axiosInstance.interceptors.response.use(
       auth.setNewTokens(res.data);
       pendingRequest.headers.authorization = auth.getToken(ACCESS_TOKEN);
 
-      let pendingRequestData = PARSE(pendingRequest.data);
-
-      // INCASE OF LOGOUT REFRESH_TOKEN IS SEND TO DATA BY UPDATING AFTER REFRESH
-      if (pendingRequestData.refresh_token) {
-        pendingRequestData.refresh_token = auth.getToken(REFRESH_TOKEN);
+      if (pendingRequest.data) {
+        let pendingRequestData = PARSE(pendingRequest.data);
+        // INCASE OF LOGOUT REFRESH_TOKEN IS SEND TO DATA BY UPDATING AFTER REFRESH
+        if (pendingRequestData.refresh_token) {
+          pendingRequestData.refresh_token = auth.getToken(REFRESH_TOKEN);
+          pendingRequest.data = pendingRequestData;
+        }
       }
-
-      pendingRequest.data = pendingRequestData;
 
       return axios(pendingRequest);
     } else if (error.response.status === 404) {
@@ -60,7 +60,7 @@ axiosInstance.interceptors.response.use(
  * @param {String} url
  * @param {Object} params
  */
-export function get(url, params) {
+export function get(url, params = {}) {
   return axiosInstance({
     method: 'get',
     url,

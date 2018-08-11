@@ -1,4 +1,4 @@
-import { ACTIONS } from '../constants/auth/authConstants';
+import { ACTIONS } from '../constants/authConstants';
 
 const INITIAL_STATE = {
   error: null,
@@ -8,6 +8,7 @@ const INITIAL_STATE = {
   user: {
     id: null,
     name: null,
+    userName: null,
   },
   tokens: {
     accessToken: null,
@@ -78,8 +79,5 @@ const authReducer = (state = INITIAL_STATE, action) => {
       return state;
   }
 };
-window.onbeforeunload = e => {
-  console.log(e);
-  return 'Stop this event';
-};
+
 export default authReducer;

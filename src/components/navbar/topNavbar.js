@@ -1,11 +1,19 @@
 import React from 'react';
 import auth from '../../utils/auth';
 import { NavLink, withRouter } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import './navbar.css';
+import { USER_NAME } from '../../constants/authConstants';
+
+let $elem = null;
+let menuCollapse = true;
 
 const LogoutButton = withRouter(({ history }) => (
-  <li onClick={() => history.push('/logout')}>Log out</li>
+  <li onClick={() => history.push('/logout')}>
+    <span>Log out</span>
+    <FontAwesomeIcon icon="sign-out-alt" pull="right"/>
+  </li>
 ));
 
 const TopNavbar = () => {
@@ -15,38 +23,48 @@ const TopNavbar = () => {
   return (
     <header>
       <nav className={navbarCss}>
-        <div className="navbar-logo">
-          <NavLink to={{ pathname: '/dashboard' }}>MixPanel</NavLink>
-        </div>
+        {auth.getToken() ? (
+          <div id="" className="navbar-logo side-nav">
+            <NavLink to={{ pathname: '/dashboard' }}>
+              <FontAwesomeIcon icon="bug" />
+              <span> MixPanel</span>
+            </NavLink>
+          </div>
+        ) : (
+          <div className="navbar-logo">
+            <NavLink to={{ pathname: '/dashboard' }}> MixPanel</NavLink>
+          </div>
+        )}
 
         <ul>
           {auth.getToken() ? (
             <span>
-              <li>
-                <NavLink to={{ pathname: '/dashboard' }}>Dashboard </NavLink>
+              <li id="collapse-menu" onClick={() => collapseMenu()}>
+                <FontAwesomeIcon icon="bars" />
               </li>
             </span>
           ) : (
-            <span />
+            <span>
+              <NavLink to={{ pathname: '/dashboard' }}>
+                <li>About</li>
+              </NavLink>
+              <NavLink to={{ pathname: '/dashboard' }}>
+                <li>Contact</li>
+              </NavLink>
+            </span>
           )}
-          <li>
-            <NavLink to={{ pathname: '/dashboard' }}>About </NavLink>
-          </li>
-          <li>
-            <NavLink to={{ pathname: '/dashboard' }}>Contact </NavLink>
-          </li>
         </ul>
 
         <div className="navbar-right">
           <ul>
             {!auth.getToken() ? (
               <div>
-                <li>
-                  <NavLink to={{ pathname: '/login' }}>Login </NavLink>
-                </li>
-                <li>
-                  <NavLink to={{ pathname: '/signup' }}>Sign Up </NavLink>
-                </li>
+                <NavLink to={{ pathname: '/login' }}>
+                  <li>Login</li>
+                </NavLink>
+                <NavLink to={{ pathname: '/signup' }}>
+                  <li>Sign Up</li>
+                </NavLink>
               </div>
             ) : (
               <li>
@@ -56,7 +74,18 @@ const TopNavbar = () => {
                 </div>
                 <ul>
                   <LogoutButton />
-                  <li>Setting</li>
+                  <NavLink
+                    to={{ pathname: '/profile' }} // + auth.getStoreState(USER_NAME) }}
+                  >
+                    <li>
+                      <span>Profile</span>{' '}
+                      <FontAwesomeIcon icon="user" pull="right"/>
+                    </li>
+                  </NavLink>
+                  <li>
+                    <span>Setting</span>
+                    <FontAwesomeIcon icon="user-cog" pull="right" />
+                  </li>
                 </ul>
               </li>
             )}
@@ -65,6 +94,20 @@ const TopNavbar = () => {
       </nav>
     </header>
   );
+};
+
+const collapseMenu = () => {
+  $elem = document.getElementsByClassName('side-nav');
+
+  if (menuCollapse) {
+    $elem[0].classList.add('collapsed-menu');
+    $elem[1].classList.add('collapsed-menu');
+    menuCollapse = false;
+  } else {
+    $elem[0].classList.remove('collapsed-menu');
+    $elem[1].classList.remove('collapsed-menu');
+    menuCollapse = true;
+  }
 };
 
 export default TopNavbar;

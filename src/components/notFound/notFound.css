@@ -1,0 +1,10 @@
+.not-found-404-wrapper {
+  margin: 50px auto;
+  float: none;
+  text-align: center;
+}
+
+.not-found-404-wrapper h1 {
+  font-size: 100px;
+  color: red;
+}

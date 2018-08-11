@@ -1,7 +1,7 @@
 import auth from '../utils/auth';
 import * as http from '../utils/http';
 import { getUserDetails } from '../utils/userDetails';
-import { REFRESH_TOKEN } from '../constants/auth/authConstants';
+import { REFRESH_TOKEN } from '../constants/authConstants';
 
 let loginAttempt = null;
 const loginSegment = 'auth/login';
