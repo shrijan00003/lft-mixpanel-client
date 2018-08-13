@@ -1,6 +1,15 @@
-import { ACTIONS } from '../constants/auth/authConstants';
+import store from '../store';
+import auth from '../utils/auth';
+import {
+  ID,
+  NAME,
+  ACTIONS,
+  USER_NAME,
+  ACCESS_TOKEN,
+  REFRESH_TOKEN,
+} from '../constants/authConstants';
 
-export const loginUserBegin = data => ({
+export const loginUserBegin = () => ({
   type: ACTIONS.LOGIN_PENDING,
 });
 
@@ -40,3 +49,29 @@ export const setLogoutError = error => ({
     error,
   },
 });
+
+export const setLoginDetailsAfterReload = (user, tokens) => ({
+  type: ACTIONS.PAGE_RELODED,
+  payload: {
+    user,
+    tokens,
+  },
+});
+
+window.onload = () => {
+  if (auth.getToken()) {
+    store.dispatch(
+      setLoginDetailsAfterReload(
+        {
+          id: auth.getDetails(ID),
+          name: auth.getDetails(NAME),
+          userName: auth.getDetails(USER_NAME),
+        },
+        {
+          accessToken: auth.getToken(ACCESS_TOKEN),
+          refreshToken: auth.getToken(REFRESH_TOKEN),
+        }
+      )
+    );
+  }
+};

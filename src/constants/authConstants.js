@@ -1,5 +1,6 @@
 export const ID = 'id';
 export const NAME = 'name';
+export const USER_NAME = 'userName';
 export const ACCESS_TOKEN = 'accessToken';
 export const REFRESH_TOKEN = 'refreshToken';
 export const DETAILS_STORAGE = 'userDetails';
@@ -23,4 +24,6 @@ export const ACTIONS = {
   REFRESH_PENDING: `${REFRESH}_PENDING`,
   REFRESH_FULFILLLED: `${REFRESH}_FULFILLED`,
   REFRESH_REJECTED: `${REFRESH}_REJECTED`,
+
+  PAGE_RELODED: 'pageReloded',
 };

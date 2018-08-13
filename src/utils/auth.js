@@ -6,7 +6,7 @@ import {
   DETAILS_STORAGE,
   PARSE,
   STRINGIFY,
-} from '../constants/auth/authConstants';
+} from '../constants/authConstants';
 
 const auth = {
   // TO GET STORED TOKEN DATA
@@ -31,7 +31,8 @@ const auth = {
   authenticate(userCredentisls) {
     const initialDetails = {
       id: userCredentisls.data.id,
-      name: userCredentisls.data.userName,
+      name: userCredentisls.data.name,
+      userName: userCredentisls.data.userName,
       accessToken: userCredentisls.data.accessToken,
       refreshToken: userCredentisls.data.refreshToken,
     };
@@ -75,6 +76,12 @@ const auth = {
   // CALLS CLEAR TO CLEAR TOKENS WHILE SIGNOUT
   clearDetails() {
     return auth.clear();
+  },
+
+  // GET STATE FRO STORES
+  getStoreState(key) {
+    // console.log(store.getState());
+    return store.getState().auth.user.userName;
   },
 };
 

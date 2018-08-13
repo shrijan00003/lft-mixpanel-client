@@ -1,17 +1,18 @@
 header {
   width: 100%;
-  background: black;
+  background: rgb(255, 255, 255);
+  box-shadow: 0px 1px 2px black;
 }
 
 /* NAVBAR DESIGN */
 .navbar-wrapper {
   width: 100%;
-  background-color: rgba(0, 0, 0, 0.925);
+  background-color: rgba(250, 246, 246, 0.925);
 }
 
 .top-navbar {
   margin: 0 auto;
-  padding: 0px 8px;
+  padding: 0px 0px;
 }
 
 .navbar-full {
@@ -29,12 +30,18 @@ header {
 }
 
 .top-navbar ul li:hover {
-  background-color: rgba(61, 60, 60, 0.973);
+  color: rgb(71, 70, 70);
+  padding: 18px 20px;
+  border-bottom: 2px solid rgb(24, 27, 194);
+}
+
+.top-navbar ul li:hover a {
+  color: rgb(167, 9, 9);
 }
 
 .top-navbar ul li a {
   text-decoration: none;
-  color: white;
+  color: rgb(17, 13, 48);
 }
 
 .signout-button {
@@ -50,11 +57,14 @@ header {
 }
 
 .navbar-logo {
+  width: 220px;
+  background-color: rgb(0, 51, 66);
   color: white;
   font-weight: bold;
-  padding: 15px 20px 15px 0px;
+  padding: 16px 20px 15px 15px;
   float: left;
   font-size: 22px;
+  text-align: center;
 }
 
 .navbar-logo a {
@@ -73,24 +83,36 @@ header {
   list-style-type: none;
   float: left;
   width: auto;
-  padding: 18px 10px;
+  padding: 19px 10px;
   position: relative;
-  color: white;
+  color: rgb(121, 121, 124);
 }
 .navbar-right ul li:hover {
-  background-color: #373738;
+  background-color: rgb(235, 235, 235);
+  padding: 19px 10px;
+  border: none;
+}
+
+.navbar-right ul li:hover a {
+  color: rgb(39, 38, 38);
 }
 .navbar-right ul li a {
   text-decoration: none;
-  color: white;
+  color: rgb(13, 71, 88);
   font-family: arial;
 }
-.navbar-right ul li img {
-  width: 20px;
-  height: 15px;
-  padding-left: 10px;
-  padding-top: 5px;
+
+.profile-pic-topnavbar {
+  width: 35px;
+  height: 35px;
   float: right;
+  border-radius: 50%;
+  border: 1px solid rgb(112, 110, 110);
+  overflow: hidden;
+  margin: -10px 10px;
+}
+.profile-pic-topnavbar img {
+  width: 100%;
 }
 .navbar-right ul li ul {
   display: none;
@@ -100,13 +122,18 @@ header {
 
 .navbar-right ul li ul li {
   float: none;
-  color: white;
+  color: rgb(13, 71, 88);
   cursor: pointer;
+  padding: 10px 15px;
+  font-size: 12px;
 }
 .navbar-right ul li:hover ul {
   display: block;
   position: absolute;
-  background-color: #373738;
+  background-color: rgb(255, 254, 254);
+  border: 1px solid rgb(228, 228, 228);
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
   width: 200px;
 }
 
@@ -115,5 +142,159 @@ header {
 }
 
 .navbar-right ul li ul li:hover {
-  background-color: #595a5b;
+  background-color: #dce9f7;
+  padding: 10px 15px;
+}
+
+/* Side Nav Menu */
+.side-navbar {
+  background-color: rgb(13, 71, 88);
+  height: 700px;
+}
+
+.side-navbar-title {
+  width: 95%;
+  padding: 8px 0px 4px 0px;
+  margin: auto;
+  border-bottom: 1px solid white;
+}
+
+.side-navbar-title h1 {
+  font-size: 14px;
+  color: rgb(205, 208, 228);
+}
+
+.side-navbar-menu-list {
+  padding: 10px 0px;
+}
+
+.side-navbar-menu-list {
+  width: 100%;
+}
+
+.side-navbar-menu-list ul li {
+  list-style-type: none;
+  color: rgb(221, 219, 219);
+  font-size: 14px;
+}
+
+.side-navbar-menu-list ul li:hover {
+  background-color: rgb(10, 45, 58);
+  color: white;
+}
+
+.side-navbar-menu-list ul a {
+  text-decoration: none;
+  color: white;
+}
+
+/* Sub menu design */
+.side-navbar-sub-menu-list {
+  background-color: rgb(21, 53, 63);
+  display: none;
+}
+
+.side-navbar-sub-menu-list li {
+  list-style-type: none;
+  font-size: 13px;
+  color: rgb(196, 189, 189);
+  padding: 0px 20px;
+  border-right: 4px solid rgb(196, 196, 196);
+}
+
+.side-navbar-sub-menu-list li:hover {
+  background-color: rgb(7, 35, 44);
+}
+
+.sub-menu {
+  padding: 10px 25px;
+}
+
+.show-sub-memu {
+  display: block;
+  transition: all 0.3s ease-in-out 0s, visibility 0s linear 0.3s,
+    z-index 0s linear 0.01s;
+  transition-delay: 0s, 0s, 0.3s;
+}
+
+.menu-list {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.2s ease;
+  z-index: 0;
+}
+
+.list-span {
+  padding-left: 10px;
+}
+
+.list-menu-titles {
+  padding: 12px 10px;
+}
+
+.ink {
+  display: block;
+  position: absolute;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 100%;
+  transform: scale(0);
+}
+
+.animate {
+  animation: ripple 0.65s linear;
+}
+
+@keyframes ripple {
+  100% {
+    opacity: 0;
+    transform: scale(2.5);
+  }
+}
+
+.active-memu {
+  border-right: 4px solid rgb(196, 196, 196);
+  background-color: rgb(7, 35, 44);
+  color: white;
+}
+.active-memu .list-menu-titles {
+  color: white;
+}
+/* Collapse menu on click */
+#collapse-menu:hover {
+  border: none;
+  color: rgb(78, 82, 167);
+
+  cursor: pointer;
+}
+
+.collapsed-menu {
+  width: 70px;
+}
+
+.collapsed-menu span {
+  display: none;
+}
+
+.collapsed-menu div div ul li div span {
+  font-size: 10px;
+  padding: 3px 0px;
+  display: block;
+  text-align: center;
+}
+.collapsed-menu .side-navbar .side-navbar-title {
+  display: none;
+}
+
+.collapsed-menu div div ul li div {
+  text-align: center;
+  font-size: 20px;
+  padding: 12px 0px;
+}
+
+.collapsed-menu .side-navbar .side-navbar-sub-menu-list li {
+  padding: 0px;
+}
+
+.collapsed-menu div div ul li div .fa-angle-down {
+  display: none;
 }
