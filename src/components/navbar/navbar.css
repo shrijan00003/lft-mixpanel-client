@@ -1,3 +1,8 @@
+html,
+body {
+  height: 100%;
+}
+
 header {
   width: 100%;
   background: rgb(255, 255, 255);
@@ -149,7 +154,7 @@ header {
 /* Side Nav Menu */
 .side-navbar {
   background-color: rgb(13, 71, 88);
-  height: 700px;
+  height: 100vh;
 }
 
 .side-navbar-title {

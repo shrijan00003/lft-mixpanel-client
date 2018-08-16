@@ -6,6 +6,7 @@ import {
   ACCESS_TOKEN,
   PARSE,
 } from '../constants/authConstants';
+import setUserDetails from '../services/profileServices';
 
 /**
  * creating axios instance
@@ -14,6 +15,8 @@ const axiosInstance = axios.create({
   baseURL: 'http://127.0.0.1:8848/api/',
   headers: {
     authorization: auth.getToken(ACCESS_TOKEN),
+    // clientid: setUser,
+    // Email: email,
   },
 });
 

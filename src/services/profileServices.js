@@ -10,5 +10,16 @@ export const fetchProfile = () => {
     .catch(err => {
       return err;
     });
+
   return res;
 };
+
+// export const setUserDetail = async () => {
+//   let loginResponse = await fetchProfile();
+//   let userClientDetails = {
+//     clientId: loginResponse.data.userProfile.clientId,
+//     Email: loginResponse.data.userProfile.userEmail,
+//   };
+//   return userClientDetails;
+//   console.log(loginResponse.data, 'dataaaaaaaaaaaaaaaaa');
+// };
