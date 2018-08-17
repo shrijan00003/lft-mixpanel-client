@@ -20,10 +20,10 @@ const pieOptions = {
     },
   ],
   legend: {
-    position: 'bottom',
+    position: 'left',
     alignment: 'center',
     textStyle: {
-      color: '233238',
+      color: '#233238',
       fontSize: 14,
     },
   },
@@ -39,13 +39,49 @@ const pieOptions = {
   fontName: 'Roboto',
 };
 class PieChartData extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      osName: [],
+      osNo: [],
+      osUsage: [['Os', 'Os Usage']],
+    };
+  }
+  componentDidMount() {
+    // let device = this.props.trackData.data;
+    let device = [{ os: 'mint' }, { os: 'mint' }, { os: 'lin' }, { os: 'win' }];
+    let osName = [];
+    let userNo = [];
+    let osUse = [];
+    let prev;
+
+    for (let i in device) {
+      if (device[i].os !== prev) {
+        osName.push(device[i].os);
+        userNo.push(1);
+      } else {
+        userNo[userNo.length - 1]++;
+      }
+      prev = device[i].os;
+    }
+    for (let i in osName) {
+      osUse.push([osName[i], userNo[i]]);
+    }
+
+    console.log(userNo, osName, osUse);
+    this.setState(prevState => ({
+      osName: [...prevState.osName, ...osName],
+      osNo: [...prevState.osNo, ...userNo],
+      osUsage: [...prevState.osUsage, ...osUse],
+    }));
+  }
   render() {
-    console.log(this.props, 'inside piechart');
+    console.log(this.props, this.state, 'inside piechart');
     return (
       <div className="App">
         <Chart
           chartType="PieChart"
-          data={[['Age', 'Weight'], ['a', 12], ['b', 5.5]]}
+          data={this.state.osUsage}
           options={pieOptions}
           graph_id="PieChart"
           width={'100%'}

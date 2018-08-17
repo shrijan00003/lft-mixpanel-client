@@ -4,6 +4,8 @@ import store from '../store';
 import TableData from '../components/dashboard/tableData';
 import Dash from './dash';
 import PieChartData from './pieChartData';
+import '../components/dashboard/dashboard.css';
+
 // import SingleMap from "./singleMap";
 
 const data1 = [

@@ -29,9 +29,10 @@ class TableData extends React.Component {
                 width="100%"
                 data={this.props.chartData}
                 option={{
+                  showRowNumber: true,
                   allowHtml: true,
+                  cssClassNames: cssClassNames,
                 }}
-                cssClassNames={{ cssClassNames }}
               />
             </div>
             <div className="col-8">

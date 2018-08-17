@@ -140,6 +140,7 @@ class SideNavbar extends React.Component {
                     </div>
                   </li>
                 </NavLink>
+
                 <NavLink to={{ pathname: '/audience/filter' }}>
                   <li
                     id="filter"
@@ -149,6 +150,30 @@ class SideNavbar extends React.Component {
                     <div className="list-menu-titles sub-menu">
                       <FontAwesomeIcon icon="bookmark" />
                       <span className="list-span">Filter</span>
+                    </div>
+                  </li>
+                </NavLink>
+                <NavLink to={{ pathname: '/audience/tracks' }}>
+                  <li
+                    id="tracks"
+                    className="sub-menu-list"
+                    onClick={() => setActiveSubMenu()}
+                  >
+                    <div className="list-menu-titles sub-menu">
+                      <FontAwesomeIcon icon="bookmark" />
+                      <span className="list-span">Tracks</span>
+                    </div>
+                  </li>
+                </NavLink>
+                <NavLink to={{ pathname: '/audience/pages' }}>
+                  <li
+                    id="pages"
+                    className="sub-menu-list"
+                    onClick={() => setActiveSubMenu()}
+                  >
+                    <div className="list-menu-titles sub-menu">
+                      <FontAwesomeIcon icon="bookmark" />
+                      <span className="list-span">Pages</span>
                     </div>
                   </li>
                 </NavLink>
