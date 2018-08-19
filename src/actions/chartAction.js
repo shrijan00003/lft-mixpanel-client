@@ -6,9 +6,9 @@ export const FETCH_CHART_SUCCESS = 'FETCH_CHART_SUCCESS';
 //   type: FETCH_CHARTS_BEGIN
 // });
 
-export const fetchChartSuccess = chart => ({
+export const fetchChartSuccess = (chart, singleChart) => ({
   type: FETCH_CHART_SUCCESS,
-  payload: { chart },
+  payload: { chart, singleChart },
 });
 
 // export const fetchchartsError = error => ({

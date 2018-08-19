@@ -1,7 +1,7 @@
 import React from 'react';
 import AtGlance from '../components/dashboard/atGlance';
 import UserSources from '../components/dashboard/userSurces';
-import GeoChart from './geoChart';
+// import GeoChart from './geoChart';
 // import TableData from '../components/dashboard/tableData';
 import TableData from '../components/dashboard/tableData';
 import '../components/dashboard/dashboard.css';

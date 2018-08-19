@@ -2,43 +2,14 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Chart from 'react-google-charts';
 
-const pieOptions = {
-  title: '',
-  pieHole: 0.5,
-  slices: [
-    {
-      color: '#2BB673',
-    },
-    {
-      color: '#d91e48',
-    },
-    {
-      color: '#007fad',
-    },
-    {
-      color: '#e9a227',
-    },
-  ],
-  legend: {
-    position: 'bottom',
-    alignment: 'center',
-    textStyle: {
-      color: '#233238',
-      fontSize: 14,
-    },
-  },
-  tooltip: {
-    showColorCode: true,
-  },
-  chartArea: {
-    left: 0,
-    top: 0,
-    width: '100%',
-    height: '80%',
-  },
-  fontName: 'Roboto',
-};
-class PieChartData extends React.Component {
+let data = [
+  ['Element', 'Density'],
+  ['Copper', 8.94], // RGB value
+  ['Silver', 10.49], // English color name
+  ['Gold', 19.3],
+  ['Platinum', 21.45],
+];
+class BarChartData extends React.Component {
   constructor() {
     super();
     this.state = {
@@ -48,21 +19,21 @@ class PieChartData extends React.Component {
     };
   }
   componentDidMount() {
-    // let device = this.props.trackData.data;
-    let device = [{ os: 'mint' }, { os: 'mint' }, { os: 'lin' }, { os: 'win' }];
+    let device = this.props.pageData.data;
+
     let osName = [];
     let userNo = [];
     let osUse = [];
     let prev;
 
     for (let i in device) {
-      if (device[i].os !== prev) {
-        osName.push(device[i].os);
+      if (device[i].referrer !== prev) {
+        osName.push(device[i].referrer);
         userNo.push(1);
       } else {
         userNo[userNo.length - 1]++;
       }
-      prev = device[i].os;
+      prev = device[i].referrer;
     }
     for (let i in osName) {
       osUse.push([osName[i], userNo[i]]);
@@ -79,14 +50,23 @@ class PieChartData extends React.Component {
       <div className="App">
         <div className="row">
           <div className="col-7">
+            {/*<Chart
+                //   chartType="BarChart"
+                //   width="100%"
+                //   height="400px"
+                //   data={[
+                //     ['Element', 'Density'],
+                //     ['Copper', 8.94], // RGB value
+                //     ['Silver', 10.49], // English color name
+                //     ['Gold', 19.3],
+                //     ['Platinum', 21.45],
+                //   ]}
+                 // />}*/}
             <Chart
-              chartType="PieChart"
-              data={this.state.osUsage}
-              options={pieOptions}
-              graph_id="PieChart"
+              chartType="BarChart"
+              data={data} //{this.state.osUsage}
               width={'100%'}
-              height={'300px'}
-              legend_toggle
+              height={'250px'}
             />
           </div>
           <div className="col-3">
@@ -105,4 +85,4 @@ class PieChartData extends React.Component {
   }
 }
 
-export default PieChartData;
+export default BarChartData;

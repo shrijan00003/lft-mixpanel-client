@@ -27,33 +27,8 @@
 }
 
 /******************** Google table CSS  ***********************/
-.cssHeaderRow {
-  background-color: #2a94d6;
-}
-.cssTableRow {
-  background-color: #f0f1f2;
-}
-.cssOddTableRow {
-  background-color: #f0f1f2;
-}
-.cssSelectedTableRow {
-  font-size: 20px;
-  font-weight: bold;
-}
-.cssHoverTableRow {
-  background: rgb(100, 190, 27);
-}
-.cssHeaderCell {
-  color: #1da88a;
-  font-size: 16px;
-  padding: 10px !important;
-  border: solid 1px #fa6363;
-}
-.cssTableCell {
-  font-size: 16px;
-  padding: 10px !important;
-  border: solid 1px #ffffff;
-}
-.cssRowNumberCell {
-  text-align: center;
+th,
+td {
+  padding: 15px;
+  text-align: left;
 }

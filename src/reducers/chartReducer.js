@@ -5,6 +5,7 @@ const INITIAL_STATE = {
   isLoaded: false,
   //   isLoading: false,
   chartData: null,
+  chartSingleData: null,
   //   charts: [],
   //   metadata: {},
   //   loading: true,
@@ -25,7 +26,7 @@ const chartReducer = (state = INITIAL_STATE, action) => {
         ...state,
         isLoaded: true,
         chartData: action.payload.chart,
-        // data: action.payload.data,
+        chartSingleData: action.payload.singleChart, // data: action.payload.data,
         //options: action.payload.options
       };
 

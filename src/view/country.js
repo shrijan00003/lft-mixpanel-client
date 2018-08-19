@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
-import Chart from 'react-google-charts';
-import store from '../store';
+import { initMap } from '../services/chartServices';
 
+import Chart from 'react-google-charts';
+import isoCountries from '../datas/isoCountries';
+import store from '../store';
 import TableData from '../components/dashboard/tableData';
 import Dash from './dash';
 import PieChartData from './pieChartData';
-import BarChartData from './barChartData';
-import { initMap } from '../services/chartServices';
-import '../components/dashboard/dashboard.css';
+import SingleMap from './singleMap';
 
 // import SingleMap from "./singleMap";
 
@@ -18,13 +18,16 @@ const data1 = [
   [27.5291, 84.3542],
 ];
 
-class GeoChartUI extends React.Component {
+class Country extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       country: '',
       totalUsers: '',
-      latlngArray: ['Latitude', 'Longitude'],
+      latlngArray: [['Latitude', 'Longitude']],
+      chartData: '',
+      isClicked: false,
+      code: '',
     };
   }
 
@@ -45,38 +48,68 @@ class GeoChartUI extends React.Component {
     let result = await initMap(loc);
     let singleLatLng = result.latlngArr;
 
-    this.setState({
-      country: result.countries,
-      totalUsers: result.users,
-    });
     let chartDataArray = [['Country', 'Total users']];
     for (let i in result.countries) {
       chartDataArray.push([result.countries[i], result.users[i]]);
     }
     this.props.fetchChart(chartDataArray, singleLatLng);
+    this.setState(prevState => ({
+      country: result.countries,
+      totalUsers: result.users,
+      chartData: chartDataArray,
+      latlngArray: [...prevState.latlngArray, ...singleLatLng],
+    }));
   }
+
+  chartEvents = [
+    {
+      eventName: 'select',
+      callback: Chart => {
+        this.onSelectEvent(Chart);
+      },
+    },
+  ];
+
+  onSelectEvent(Chart) {
+    let val = Chart.chartWrapper.getChart().getSelection()[0];
+    console.log(val.row, Chart.props);
+    if (val) {
+      console.log(this.state);
+      this.getName(this.state.chartData[val.row + 1][0]);
+    }
+  }
+  getName = name => {
+    var key = Object.keys(isoCountries).filter(function(key) {
+      return isoCountries[key] === name;
+    })[0];
+    this.setState({
+      isClicked: true,
+      code: key,
+    });
+  };
 
   render() {
     return (
+      //   <div>Country</div>
       <div>
         {this.props.chartData === null ? (
           <span>Loading... </span>
         ) : (
           <div>
-            <div>
-              <Dash {...this.props} />
+            <div className="col-5">
+              <Chart
+                chartType="GeoChart"
+                width="100%"
+                height="400"
+                data={this.props.chartData}
+                chartEvents={this.chartEvents}
+              />
             </div>
-            <div>
-              <TableData {...this.props} />
-            </div>
-            <div className="row">
-              <div className="col-6">
-                <PieChartData {...this.props} />
+            {this.state.isClicked ? (
+              <div className="col-5">
+                <SingleMap {...this.state} />
               </div>
-              <div className="col-6">
-                <BarChartData {...this.props} />
-              </div>
-            </div>
+            ) : null}
           </div>
         )}
       </div>
@@ -84,4 +117,4 @@ class GeoChartUI extends React.Component {
   }
 }
 
-export default GeoChartUI;
+export default Country;

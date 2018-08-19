@@ -15,35 +15,49 @@ var cssClassNames = {
   rowNumberCell: 'cssRowNumberCell',
 };
 
+const Page = ({ name, referrer, search, title, url, path }) => (
+  <tr>
+    <td> {name} </td>
+    <td> {referrer} </td>
+    <td>{search}</td>
+    <td>{title}</td>
+    <td>
+      <a href={url}>{url}</a>
+    </td>
+    <td>{path}</td>
+  </tr>
+);
+
 class TableData extends React.Component {
   render() {
+    console.log(this.props);
+
     return (
       <div>
         {this.props.chartData === null ? (
           <span>Loading... </span>
         ) : (
           <div className="row">
-            <div className="col-4">
-              <Chart
-                chartType="Table"
-                width="100%"
-                data={this.props.chartData}
-                option={{
-                  showRowNumber: true,
-                  allowHtml: true,
-                  cssClassNames: cssClassNames,
-                }}
-              />
-            </div>
-            <div className="col-8">
+            <div className="col-7">
               <Chart
                 chartType="GeoChart"
-                width="100%"
+                width="90%"
                 height="500"
                 data={this.props.chartData}
               />
             </div>
+            <div className="col-3">
+              <table>
+                {this.props.chartData.map((person, index) => (
+                  <tr>
+                    <td> {person[0]} </td>
+                    <td> {person[1]} </td>
+                  </tr>
+                ))}
+              </table>
+            </div>
           </div>
+          /*} </div>*/
         )}
       </div>
     );

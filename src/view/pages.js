@@ -1,7 +1,7 @@
 import React from 'react';
 import AtGlance from '../components/dashboard/atGlance';
 import UserSources from '../components/dashboard/userSurces';
-import GeoChart from './geoChart';
+// import GeoChart from './geoChart';
 import Chart from 'react-google-charts';
 import '../components/pages/pages.css';
 
@@ -11,12 +11,16 @@ import '../components/dashboard/dashboard.css';
 import store from '../store';
 import GeoChartUI from './geoChartUI';
 
-const Page = ({ name, referrer, search, title }) => (
+const Page = ({ name, referrer, search, title, url, path }) => (
   <tr>
     <td> {name} </td>
     <td> {referrer} </td>
     <td>{search}</td>
     <td>{title}</td>
+    <td>
+      <a href={url}>{url}</a>
+    </td>
+    <td>{path}</td>
   </tr>
 );
 
@@ -44,6 +48,8 @@ class Pages extends React.Component {
                 <th> Referrer </th>
                 <th>Search</th>
                 <th>Title</th>
+                <th>Url</th>
+                <th>Path</th>
               </tr>
 
               {this.props.pageData.data.map((person, index) => (

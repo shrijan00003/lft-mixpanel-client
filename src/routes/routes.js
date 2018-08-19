@@ -7,9 +7,10 @@ import PrivateRoute from './privateRoutes';
 import NotFound from '../view/notFoundView';
 import NavbarView from '../view/navbarView';
 // import { Dashboard } from '../view/dashboard';
-import { GeoChart1 } from '../view/geoChart';
+// import { GeoChart1 } from '../view/geoChart';
 import GeoChartUI from '../view/geoChartUI';
-import { Tracks, Pages, Dashboard } from '../view/dashboard';
+import { Tracks, Pages, Dashboard, Country } from '../view/dashboard';
+// import Country from '../view/country';
 import ProfileView from '../view/profileView';
 import { USER_NAME } from '../constants/authConstants';
 import SideNavView from '../components/navbar/sideNavbar';
@@ -43,6 +44,7 @@ const Routes = () => {
           <PrivateRoute exact path="/audience/pages" component={Pages} />
 
           <PrivateRoute exact path="/audience" component={Tracks} />
+          <PrivateRoute exact path="/country" component={Country} />
 
           <PrivateRoute
             exact

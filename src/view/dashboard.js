@@ -19,6 +19,7 @@ import { fetchPagesData } from '../services/pageServices';
 import GeoChartUI from './geoChartUI';
 import TracksView from './tracks';
 import PagesView from './pages';
+import CountryView from './country';
 
 let statusMessage = null;
 let trackResponse = null;
@@ -43,6 +44,8 @@ const mapStateToProps = state => {
     pageIsLoaded: state.page.isLoaded,
     pageIsLoading: state.page.isLoading,
     pageData: state.page.pageData,
+    chartData: state.chart.chartData,
+    chartSingleData: state.chart.chartSingleData,
   };
 };
 
@@ -51,7 +54,6 @@ const mapDispatchToProps = dispatch => {
     fetchPage: async () => {
       dispatch(fetchPageBegin());
       pageResponse = await fetchPagesData();
-      console.log(pageResponse, 'response');
       if (pageResponse.status === 200) {
         dispatch(fetchPageSuccess(pageResponse.data));
       } else {
@@ -61,7 +63,6 @@ const mapDispatchToProps = dispatch => {
     fetchTrack: async () => {
       dispatch(fetchTrackBegin());
       trackResponse = await fetchTracksData();
-      console.log(trackResponse, 'response');
 
       if (trackResponse.status === 200) {
         dispatch(fetchTrackSuccess(trackResponse.data));
@@ -69,6 +70,8 @@ const mapDispatchToProps = dispatch => {
         dispatch(fetchTrackFailure(trackResponse.response));
       }
     },
+    fetchChart: (chart, singleChart) =>
+      dispatch(fetchChartSuccess(chart, singleChart)),
   };
 };
 
@@ -86,5 +89,15 @@ export const Pages = connect(
   mapStateToProps,
   mapDispatchToProps
 )(PagesView);
+
+export const Country = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(CountryView);
+
+export const GeoChart = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(GeoChartUI);
 
 // export default Dashboard;
