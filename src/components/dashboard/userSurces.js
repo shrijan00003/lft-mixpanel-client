@@ -5,8 +5,8 @@ const renderUserSource = () => {
   //   func('c');
   return (
     <div>
-      <div>
-        <h2> Where are your users coming from</h2>
+      <div style={{ textAlign: 'center', padding: '15px' }}>
+        <h2> Where are your users coming from?</h2>
       </div>
     </div>
   );

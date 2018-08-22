@@ -3,22 +3,19 @@ import AtGlance from '../components/dashboard/atGlance';
 import UserSources from '../components/dashboard/userSurces';
 // import GeoChart from './geoChart';
 // import TableData from '../components/dashboard/tableData';
-import { GeoChart } from './dashboard';
+import { GeoChart, Country } from './dashboard';
 import TableData from '../components/dashboard/tableData';
 import '../components/dashboard/dashboard.css';
 import store from '../store';
-import GeoChartUI from './geoChartUI';
+import CountryS from './country';
 
-class DashboardView extends React.Component {
+class CountryHOC extends React.Component {
   componentDidMount() {
     if (!this.props.isLoaded) {
       this.props.fetchTrack();
     }
     if (!this.props.pageIsLoaded) {
       this.props.fetchPage();
-    }
-    if (!this.props.userIsLoaded) {
-      this.props.fetchUserData();
     }
   }
   render() {
@@ -28,7 +25,7 @@ class DashboardView extends React.Component {
           <span>{this.props.statusMessage} </span>
         ) : (
           <div>
-            <GeoChart />
+            <CountryS {...this.props} />
           </div>
         )}
       </div>
@@ -36,4 +33,4 @@ class DashboardView extends React.Component {
   }
 }
 
-export default DashboardView;
+export default CountryHOC;

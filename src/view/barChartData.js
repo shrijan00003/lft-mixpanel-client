@@ -15,7 +15,7 @@ class BarChartData extends React.Component {
     this.state = {
       osName: [],
       osNo: [],
-      osUsage: [['Os', 'Os Usage']],
+      osUsage: [['Top Referrers', 'Total no.']],
     };
   }
   componentDidMount() {
@@ -49,7 +49,7 @@ class BarChartData extends React.Component {
     return (
       <div className="App">
         <div className="row">
-          <div className="col-7">
+          <div className="col-6">
             {/*<Chart
                 //   chartType="BarChart"
                 //   width="100%"
@@ -64,16 +64,16 @@ class BarChartData extends React.Component {
                  // />}*/}
             <Chart
               chartType="BarChart"
-              data={data} //{this.state.osUsage}
+              data={this.state.osUsage} //{data}
               width={'100%'}
-              height={'250px'}
+              height={'215px'}
             />
           </div>
-          <div className="col-3">
+          <div className="col-6">
             <table>
               {this.state.osUsage.map((person, index) => (
                 <tr>
-                  <td> {person[0]} </td>
+                  <td> {person[0]} </td> {/*/{person[0].split('.')[1]}*/}
                   <td> {person[1]} </td>
                 </tr>
               ))}

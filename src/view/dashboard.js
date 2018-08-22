@@ -5,21 +5,35 @@ import {
   fetchTrackBegin,
   fetchTrackSuccess,
   fetchTrackFailure,
+  fetchTrackWithLocationBegin,
+  fetchTrackWithLocationSuccess,
+  fetchTrackWithLocationFailure,
 } from '../actions/trackActions';
 import {
   fetchPageBegin,
   fetchPageSuccess,
   fetchPageFailure,
 } from '../actions/pageActions';
+
+import {
+  fetchUserDataBegin,
+  fetchUserDataSuccess,
+  fetchUserDataFailure,
+} from '../actions/userActions';
+
 import { fetchChartSuccess } from '../actions/chartAction';
 
-import { fetchTracksData } from '../services/trackServices';
+import {
+  fetchTracksData,
+  fetchTracksDataWithLocation,
+} from '../services/trackServices';
 import { fetchPagesData } from '../services/pageServices';
 
 import GeoChartUI from './geoChartUI';
-import TracksView from './tracks';
-import PagesView from './pages';
-import CountryView from './country';
+import TracksView from './tracksHOC';
+import PagesView from './pagesHOC';
+import CountryView from './countryHOC';
+import { fetchUsersData } from '../services/userDataServices';
 
 let statusMessage = null;
 let trackResponse = null;
@@ -46,6 +60,12 @@ const mapStateToProps = state => {
     pageData: state.page.pageData,
     chartData: state.chart.chartData,
     chartSingleData: state.chart.chartSingleData,
+    locIsLoading: state.track.locIsLoading,
+    locIsLoaded: state.track.locIsLoaded,
+    trackDataWithLoc: state.track.trackDataWithLoc,
+    userIsLoaded: state.userData.isLoaded,
+    userIsLoading: state.userData.isLoading,
+    usersDetails: state.userData.userData,
   };
 };
 
@@ -60,18 +80,42 @@ const mapDispatchToProps = dispatch => {
         dispatch(fetchPageFailure(pageResponse.response));
       }
     },
-    fetchTrack: async () => {
+    fetchTrack: async (query = null) => {
+      console.log(query, 'Dashboard');
       dispatch(fetchTrackBegin());
-      trackResponse = await fetchTracksData();
+      trackResponse = await fetchTracksData(query);
 
       if (trackResponse.status === 200) {
+        console.log(trackResponse, 'resp');
+
         dispatch(fetchTrackSuccess(trackResponse.data));
       } else {
         dispatch(fetchTrackFailure(trackResponse.response));
       }
     },
+    fetchTrackWithLocation: async (query = null) => {
+      dispatch(fetchTrackWithLocationBegin());
+      trackResponse = await fetchTracksDataWithLocation(query);
+
+      if (trackResponse.status === 200) {
+        dispatch(fetchTrackWithLocationSuccess(trackResponse.data));
+      } else {
+        dispatch(fetchTrackWithLocationFailure(trackResponse.response));
+      }
+    },
     fetchChart: (chart, singleChart) =>
       dispatch(fetchChartSuccess(chart, singleChart)),
+
+    fetchUserData: async () => {
+      dispatch(fetchUserDataBegin());
+      trackResponse = await fetchUsersData();
+
+      if (trackResponse.status === 200) {
+        dispatch(fetchUserDataSuccess(trackResponse.data));
+      } else {
+        dispatch(fetchUserDataSuccess(trackResponse.response));
+      }
+    },
   };
 };
 

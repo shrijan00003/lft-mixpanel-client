@@ -32,19 +32,22 @@ class Country extends React.Component {
   }
 
   async componentDidMount() {
-    // let locationFromStore = store.getState().track.trackData.data[0].location;
-    // let loc = [];
-    // loc.push(JSON.parse(locationFromStore));
+    let locationFromStore = this.props.trackData.data;
+    let loc = [];
+    for (let i in locationFromStore) {
+      loc.push(locationFromStore[i].location);
+    }
+    console.log(loc, this.props);
 
-    let loc = [
-      { latitude: 40.714224, longitude: -73.961452 },
-      { latitude: '27.7115559', longitude: '85.32911899999999' },
-      { latitude: '28.238', longitude: '83.9956' },
-      { latitude: '39.9042', longitude: '116.4074' },
-      { latitude: '27.5291', longitude: '84.3542' },
-      // { latitude: "28.7041", longitude: "77.1025" }
-      // { latitude: "20.5937", longitude: "78.9629" }
-    ];
+    // let loc = [
+    //   { latitude: 40.714224, longitude: -73.961452 },
+    //   { latitude: '27.7115559', longitude: '85.32911899999999' },
+    //   { latitude: '28.238', longitude: '83.9956' },
+    //   { latitude: '39.9042', longitude: '116.4074' },
+    //   { latitude: '27.5291', longitude: '84.3542' },
+    //   // { latitude: "28.7041", longitude: "77.1025" }
+    //   // { latitude: "20.5937", longitude: "78.9629" }
+    // ];
     let result = await initMap(loc);
     let singleLatLng = result.latlngArr;
 
@@ -52,7 +55,9 @@ class Country extends React.Component {
     for (let i in result.countries) {
       chartDataArray.push([result.countries[i], result.users[i]]);
     }
+    console.log(chartDataArray, 'chart', this.props);
     this.props.fetchChart(chartDataArray, singleLatLng);
+
     this.setState(prevState => ({
       country: result.countries,
       totalUsers: result.users,
@@ -72,16 +77,15 @@ class Country extends React.Component {
 
   onSelectEvent(Chart) {
     let val = Chart.chartWrapper.getChart().getSelection()[0];
-    console.log(val.row, Chart.props);
     if (val) {
-      console.log(this.state);
       this.getName(this.state.chartData[val.row + 1][0]);
     }
   }
   getName = name => {
     var key = Object.keys(isoCountries).filter(function(key) {
-      return isoCountries[key] === name;
+      return isoCountries[key] == name;
     })[0];
+    console.log(key);
     this.setState({
       isClicked: true,
       code: key,
@@ -96,20 +100,31 @@ class Country extends React.Component {
           <span>Loading... </span>
         ) : (
           <div>
-            <div className="col-5">
-              <Chart
-                chartType="GeoChart"
-                width="100%"
-                height="400"
-                data={this.props.chartData}
-                chartEvents={this.chartEvents}
-              />
-            </div>
-            {this.state.isClicked ? (
-              <div className="col-5">
-                <SingleMap {...this.state} />
+            <div>
+              <div>
+                <Chart
+                  chartType="GeoChart"
+                  width="80%"
+                  data={this.props.chartData}
+                  chartEvents={this.chartEvents}
+                />
               </div>
-            ) : null}
+              {/*<div className="col-4">
+                <table>
+                  {this.props.chartData.map((person, index) => (
+                    <tr>
+                      <td> {person[0]} </td>
+                      <td> {person[1]} </td>
+                    </tr>
+                  ))}
+                </table>
+                </div>*/}
+              {this.state.isClicked ? (
+                <div>
+                  <SingleMap {...this.state} {...this.props} />
+                </div>
+              ) : null}
+            </div>
           </div>
         )}
       </div>

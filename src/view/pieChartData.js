@@ -48,8 +48,9 @@ class PieChartData extends React.Component {
     };
   }
   componentDidMount() {
-    // let device = this.props.trackData.data;
-    let device = [{ os: 'mint' }, { os: 'mint' }, { os: 'lin' }, { os: 'win' }];
+    console.log(this.props);
+    let device = this.props.trackData.data;
+    // let device = [{ os: 'mint' }, { os: 'mint' }, { os: 'lin' }, { os: 'win' }];
     let osName = [];
     let userNo = [];
     let osUse = [];
@@ -78,18 +79,18 @@ class PieChartData extends React.Component {
     return (
       <div className="App">
         <div className="row">
-          <div className="col-7">
+          <div className="col-6" style={{ paddingTop: 50 + 'px' }}>
             <Chart
               chartType="PieChart"
               data={this.state.osUsage}
               options={pieOptions}
               graph_id="PieChart"
               width={'100%'}
-              height={'300px'}
+              height={'180px'}
               legend_toggle
             />
           </div>
-          <div className="col-3">
+          <div className="col-6">
             <table>
               {this.state.osUsage.map((person, index) => (
                 <tr>

@@ -5,6 +5,7 @@ import profileReducer from './profileReducer';
 import trackReducer from './trackReducer';
 import pageReducer from './pageReducer';
 import chartReducer from './chartReducer';
+import userReducer from './userReducer';
 import { ACTIONS } from '../constants/authConstants';
 
 const reducer = combineReducers({
@@ -14,6 +15,7 @@ const reducer = combineReducers({
   track: trackReducer,
   chart: chartReducer,
   page: pageReducer,
+  userData: userReducer,
 });
 
 const rootReducer = (state, action) => {

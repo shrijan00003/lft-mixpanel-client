@@ -9,44 +9,51 @@ import store from '../store';
 import GeoChartUI from './geoChartUI';
 
 class Dash extends React.Component {
+  componentDidMount() {
+    console.log(this.props);
+  }
   render() {
     return (
       <div className="container row">
-        <div className="col-12">
-          <div className="row">
-            <AtGlance
-              icon="users"
-              title="Total Users"
-              percentage="4"
-              data={this.props.trackData.data.length}
-              isIncreased={false}
-            />
-            <AtGlance
-              icon="map"
-              title="Total Countries"
-              percentage="10"
-              data={this.props.chartData.length - 1}
-              isIncreased={true}
-            />
-            <AtGlance
-              icon="bookmark"
-              title="Daily Average Users"
-              percentage="5"
-              data="103"
-              isIncreased={false}
-            />
-            <AtGlance
-              icon="circle"
-              title="Active Users"
-              percentage="9"
-              data="10"
-              isIncreased={true}
-            />
+        {this.props.usersDetails === null ? (
+          <span>Loading... </span>
+        ) : (
+          <div className="col-12">
+            <div className="row">
+              <AtGlance
+                icon="users"
+                title="Total Users"
+                percentage={this.props.usersDetails.byWeek.percent}
+                data={this.props.usersDetails.total}
+                isIncreased={this.props.usersDetails.byWeek.isIncrease}
+              />
+              <AtGlance
+                icon="map"
+                title="Total Countries"
+                percentage={this.props.usersDetails.byWeek.percent}
+                data={this.props.chartData.length - 1}
+                isIncreased={this.props.usersDetails.byWeek.isIncrease}
+              />
+              <AtGlance
+                icon="bookmark"
+                title="Daily Average Users"
+                percentage={this.props.usersDetails.byWeek.percent}
+                data={this.props.usersDetails.total}
+                isIncreased={this.props.usersDetails.byWeek.isIncrease}
+              />
+              <AtGlance
+                icon="circle"
+                title="Active Users"
+                percentage="9"
+                data="10"
+                isIncreased={true}
+              />
+            </div>
+            <div className="row">
+              <UserSources />
+            </div>
           </div>
-          <div className="row">
-            <UserSources />
-          </div>
-        </div>
+        )}
       </div>
     );
   }

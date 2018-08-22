@@ -1,125 +1,188 @@
-import React, { Component } from 'react';
+import React from 'react';
+import AtGlance from '../components/dashboard/atGlance';
+import UserSources from '../components/dashboard/userSurces';
+// import GeoChart from './geoChart';
 import Chart from 'react-google-charts';
-import store from '../store';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
+// import TableData from '../components/dashboard/tableData';
 import TableData from '../components/dashboard/tableData';
-import Dash from './dash';
-import PieChartData from './pieChartData';
-import '../components/dashboard/dashboard.css';
+// import '../components/dashboard/dashboard.css';
+import '../components/pages/pages.css';
+import store from '../store';
+import GeoChartUI from './geoChartUI';
+import { getAddress } from '../services/geocodingServices';
 
-// import SingleMap from "./singleMap";
+const Table = ({
+  eventName,
+  os,
+  createdAt,
+  browser,
+  ipAddress,
+  device,
+  location,
+}) => (
+  <tr>
+    <td> {eventName} </td>
+    <td> {os} </td>
+    <td> {createdAt} </td>
+    <td>{browser}</td>
+    <td>{ipAddress}</td>
 
-const data1 = [
-  ['Latitude', 'Longitude'],
-  [27.7115559, 85.32911899999999],
-  [28.238, 83.9956],
-  [27.5291, 84.3542],
-];
+    <td>{device}</td>
+    <td>{location.address}</td>
+  </tr>
+);
 
-class GeoChartUI extends React.Component {
-  constructor(props) {
-    super(props);
+class Tracks extends React.Component {
+  constructor() {
+    super();
     this.state = {
-      country: '',
-      totalUsers: '',
-      latlngArray: ['Latitude', 'Longitude'],
+      search: '',
+      page: '10',
+      current_page: 1,
+      date: '',
     };
+
+    this.handleChange = this.handleChange.bind(this);
+    this.handleClick = this.handleClick.bind(this);
+  }
+  handleClick(event) {
+    this.setState({
+      current_page: Number(event.target.id),
+    });
   }
 
-  initMap = async () => {
-    var geocoder = new window.google.maps.Geocoder();
-
-    // let locationFromStore = store.getState().track.trackData.data[0].location;
-    // let loc = [];
-    // loc.push(JSON.parse(locationFromStore));
-
-    let loc = [
-      { latitude: 40.714224, longitude: -73.961452 },
-      { latitude: '27.7115559', longitude: '85.32911899999999' },
-      { latitude: '28.238', longitude: '83.9956' },
-      { latitude: '39.9042', longitude: '116.4074' },
-      { latitude: '27.5291', longitude: '84.3542' },
-      // { latitude: "28.7041", longitude: "77.1025" }
-
-      //  { latitude: "20.5937", longitude: "78.9629" }
-    ];
-    let latlngArr = [];
-
-    return new Promise(resolve => {
-      let array = [];
-      for (let input in loc) {
-        var latlng = {
-          lat: parseFloat(loc[input].latitude),
-          lng: parseFloat(loc[input].longitude),
-        };
-        latlngArr.push(Object.values(latlng));
-
-        geocoder.geocode({ location: latlng }, function(results, status) {
-          if (status === 'OK') {
-            if (results[0]) {
-              //   console.log(results[results.length - 1].formatted_address);
-              array.push(results[results.length - 1].formatted_address);
-              // console.log(array, inputs, "init");
-              if (array.length === loc.length) {
-                resolve(array);
-              }
-            } else {
-              window.alert('No results found');
-            }
-          } else {
-            window.alert('Geocoder failed due to: ' + status);
-          }
-        });
-      }
-      console.log(latlngArr);
-    });
-  };
-
-  async componentDidMount() {
-    let country = await this.initMap();
-
-    let countries = [],
-      users = [],
-      prev;
-
-    country.sort();
-    for (let i = 0; i < country.length; i++) {
-      if (country[i] !== prev) {
-        countries.push(country[i]);
-        users.push(1);
-      } else {
-        users[users.length - 1]++;
-      }
-      prev = country[i];
-    }
-
-    // let arrPop = [10, 2000, 800];
-    // let r = [];
-    this.setState({
-      country: countries,
-      totalUsers: users,
-    });
-    let array = [['Country', 'Total users']];
-    for (let i in countries) {
-      array.push([countries[i], users[i]]);
-    }
-    this.props.fetchChart(array);
+  handleChange(event) {
+    this.setState({ [event.target.name]: event.target.value });
   }
 
   render() {
+    let pagesArray = [];
+
+    let list = this.props.trackData.data;
+
+    const { search, page, current_page, date } = this.state;
+    // var newdate = date.split("/").reverse().join("-");
+
+    let filteredList = list.filter(
+      e => {
+        return (
+          e.eventName.toLowerCase().includes(search.toLowerCase()) &&
+          e.createdAt.toLowerCase() > date.toLowerCase()
+
+          //  e.createdAt.toLowerCase().includes(date.toLowerCase())
+        );
+      }
+      // ||
+      // e.gender.toLowerCase().startsWith(search.toLowerCase()) ||
+      // e.company.toLowerCase().includes(search.toLowerCase())
+    );
+
+    ///// To get the required data in pagination /////
+
+    const lastDataIndex = current_page * page;
+
+    let firstDataIndex = lastDataIndex - page;
+    if (firstDataIndex >= list.length) {
+      firstDataIndex = 0;
+    }
+
+    const displayData = filteredList.slice(firstDataIndex, lastDataIndex);
+    let totalPage = Math.ceil(filteredList.length / page);
+
+    ////// To display Page numbers /////////
+
+    const pageNumbers = [];
+    for (let i = 1; i <= totalPage; i++) {
+      pageNumbers.push(i);
+    }
+
     return (
-      <div>
-        {this.props.chartData === null ? (
-          <span>Loading... </span>
+      <div className="container row">
+        {this.props.trackData === null ? (
+          <span>{this.props.statusMessage} </span>
         ) : (
           <div>
-            <div>
-              <Dash {...this.props} />
+            {/*            {JSON.stringify(getAddress(this.props.trackData.data[0].location))}{' '}
+        */}{' '}
+            <div className="row">
+              <div className="col-6">
+                <div className="input-label">Search By Event Name</div>
+                <input
+                  name="search"
+                  className="input-search"
+                  placeholder="Search by Event Name"
+                  onChange={this.handleChange}
+                />
+              </div>
+              <div className="col-6" style={{ paddingLeft: '70px' }}>
+                <div className="input-label">Search By Date (After)</div>
+
+                <input
+                  type="date"
+                  name="date"
+                  className="input-search"
+                  placeholder="Search By Date"
+                  onChange={this.handleChange}
+                />
+              </div>
             </div>
-            <div>
-              <TableData {...this.props} />
+            <div className="select">
+              No. of results to show: &nbsp;
+              <select
+                className="input-select"
+                value={this.state.value}
+                name="page"
+                onChange={this.handleChange}
+              >
+                <option value="2">2</option>
+                <option value="5">5</option>
+                <option selected value="10">
+                  10
+                </option>
+              </select>
             </div>
-            <div>
-              <PieChartData {...this.props} />
+            <table>
+              <tbody>
+                <tr>
+                  <th> Event Name </th>
+                  <th> Os </th>
+                  <th> Created At </th>
+                  <th>Browser</th>
+                  <th>Ip Address</th>
+                  <th>Device</th>
+                  <th>Location</th>
+                </tr>
+                {displayData.map((person, index) => (
+                  <Table key={index} {...person} />
+                ))}
+              </tbody>
+            </table>
+            {/*<ul className="responsive-table">
+             <li class="table-header">
+                <div class="col coll-1">Event Title</div>
+                <div class="col coll-2">Os </div>
+                <div class="col coll-3">created At </div>
+                <div class="col coll-4">Browser</div>
+                <div class="col coll-5">Ip Address</div>
+                <div class="col coll-6">Device</div>
+                <div class="col coll-7">Location</div>
+              </li> */}
+            <div className="pagination">
+              <strong>
+                Pages: &nbsp;
+                {pageNumbers.map((number, index) => (
+                  <button
+                    className="pager"
+                    key={index}
+                    id={number}
+                    onClick={this.handleClick}
+                  >
+                    {number}
+                  </button>
+                ))}
+              </strong>
             </div>
           </div>
         )}
@@ -128,4 +191,7 @@ class GeoChartUI extends React.Component {
   }
 }
 
-export default GeoChartUI;
+export default Tracks;
+
+// select * from tracks join event_metadata
+// on tracks.metadata_id = event_metadata.id where tracks.event_name=delete_account;

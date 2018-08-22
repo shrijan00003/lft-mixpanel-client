@@ -2,6 +2,9 @@ import {
   FETCH_TRACK_BEGIN,
   FETCH_TRACK_SUCCESS,
   FETCH_TRACK_FAILURE,
+  FETCH_TRACK_LOCATION_BEGIN,
+  FETCH_TRACK_LOCATION_SUCCESS,
+  FETCH_TRACK_LOCATION_FAILURE,
 } from '../constants/trackConstants';
 
 const INITIAL_STATE = {
@@ -9,6 +12,9 @@ const INITIAL_STATE = {
   isLoaded: false,
   isLoading: false,
   trackData: null,
+  locIsLoading: false,
+  locIsLoaded: false,
+  trackDataWithLoc: null,
 };
 
 const trackReducer = (state = INITIAL_STATE, action) => {
@@ -26,7 +32,7 @@ const trackReducer = (state = INITIAL_STATE, action) => {
         error: null,
         isLoaded: true,
         isLoading: false,
-        trackData: action.payload.data.tracksWithMeta,
+        trackData: action.payload.data,
       };
 
     case FETCH_TRACK_FAILURE:
@@ -35,6 +41,30 @@ const trackReducer = (state = INITIAL_STATE, action) => {
         error: action.payload.error,
         isLoaded: false,
         isLoading: false,
+      };
+
+    case FETCH_TRACK_LOCATION_BEGIN:
+      return {
+        ...state,
+        error: null,
+        lociILoading: true,
+      };
+
+    case FETCH_TRACK_LOCATION_SUCCESS:
+      return {
+        ...state,
+        error: null,
+        LocIsLoaded: true,
+        LocIsLoading: false,
+        trackDataWithLoc: action.payload.data,
+      };
+
+    case FETCH_TRACK_LOCATION_FAILURE:
+      return {
+        ...state,
+        error: action.payload.error,
+        locIsLoaded: false,
+        locIsLoading: false,
       };
 
     default:

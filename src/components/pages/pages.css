@@ -1,3 +1,7 @@
+.container {
+  margin: 10px;
+}
+
 table {
   border-collapse: collapse;
   width: 100%;
@@ -5,18 +9,160 @@ table {
 
 td,
 th {
-  border: 1px solid #ddd;
-  padding: 5px;
-  width: 33.33%;
+  border-bottom: 1px solid #ddd;
+
+  width: 10%;
 }
 th {
-  padding-top: 8px;
-  padding-bottom: 8px;
   text-align: left;
-  background-color: #1c1d5c;
+  background-color: rgb(21, 53, 63);
+  padding: 25px 15px;
+
   color: white;
+  font-size: 14px;
+  text-transform: uppercase;
 }
 
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
 tr:hover {
   background-color: #ddd;
 }
+
+/***************  INPUT *************/
+
+.input-search {
+  float: left;
+  width: 100%;
+  border: 1px solid silver;
+  padding: 5px;
+  width: 60%;
+
+  height: 40px;
+  border-radius: 5px;
+  outline: none;
+  color: #ddd;
+}
+
+.input-search:focus {
+  color: #000000;
+}
+.input-label {
+  padding-bottom: 10px;
+}
+.select {
+  padding: 14px;
+}
+.input-select {
+  padding: 6px;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+.pagination {
+  text-align: right;
+  padding: 15px;
+}
+.pager {
+  padding: 3px 5px;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+}
+.pager:hover {
+  background: #ddd;
+}
+/* body {
+  font-family: 'lato', sans-serif;
+}
+.container {
+  margin: 10px;
+}
+
+.responsive-table li {
+  border-radius: 3px;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+.responsive-table .table-header {
+  background-color: rgb(7, 35, 44);
+  padding: 25px 10px;
+  color: #ffffff;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0em;
+}
+.responsive-table .table-row {
+  padding: 5px 0px;
+  background-color: #ffffff;
+  box-shadow: 0px 0px 12px 0px rgba(0, 0, 0, 0.1);
+}
+.responsive-table .col-1 {
+  flex-basis: 15%;
+}
+.responsive-table .col-2 {
+  flex-basis: 10%;
+}
+.responsive-table .col-3 {
+  flex-basis: 20%;
+}
+.responsive-table .col-4 {
+  flex-basis: 10%;
+}
+.responsive-table .col-5 {
+  flex-basis: 10%;
+}
+.responsive-table .col-6 {
+  flex-basis: 15%;
+}
+.responsive-table .col-7 {
+  flex-basis: 20%;
+}
+/********************/
+/*
+.responsive-table .coll-1 {
+  flex-basis: 13%;
+}
+.responsive-table .coll-2 {
+  flex-basis: 10%;
+}
+.responsive-table .coll-3 {
+  flex-basis: 14%;
+}
+.responsive-table .coll-4 {
+  flex-basis: 10%;
+}
+.responsive-table .coll-5 {
+  flex-basis: 11%;
+}
+.responsive-table .coll-6 {
+  flex-basis: 18%;
+}
+.responsive-table .coll-7 {
+  flex-basis: 25%;
+}
+
+@media all and (max-width: 767px) {
+  .table-header {
+    display: none;
+  }
+
+  li {
+    display: block;
+  }
+  .col {
+    flex-basis: 100%;
+  }
+  .col {
+    display: flex;
+    padding: 10px 0;
+  }
+  .col:before {
+    padding-right: 10px;
+    content: attr(data-label);
+    flex-basis: 50%;
+    text-align: right;
+  }
+} */

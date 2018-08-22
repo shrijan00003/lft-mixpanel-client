@@ -18,6 +18,7 @@ import {
   faUserFriends,
   faTachometerAlt,
   faChalkboardTeacher,
+  faSearch,
 } from '@fortawesome/free-solid-svg-icons';
 
 library.add(
@@ -37,5 +38,7 @@ library.add(
   faSignOutAlt,
   faUserFriends,
   faTachometerAlt,
-  faChalkboardTeacher
+  faChalkboardTeacher,
+
+  faSearch
 );

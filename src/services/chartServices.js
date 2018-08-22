@@ -9,12 +9,15 @@ export async function initMap(loc) {
         lat: parseFloat(loc[input].latitude),
         lng: parseFloat(loc[input].longitude),
       };
+      console.log(latlng, 'latlng');
       latlngArr.push(Object.values(latlng));
 
       geocoder.geocode({ location: latlng }, function(results, status) {
         if (status === 'OK') {
           if (results[0]) {
-            array.push(results[results.length - 1].formatted_address);
+            let countryName = results[0].formatted_address.split(',');
+
+            array.push(countryName[countryName.length - 1].trim());
             if (array.length === loc.length) {
               let countries = [],
                 users = [],
