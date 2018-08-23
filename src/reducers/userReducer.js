@@ -2,7 +2,7 @@ import {
   FETCH_USERDATA_BEGIN,
   FETCH_USERDATA_SUCCESS,
   FETCH_USERDATA_FAILURE,
-} from '../constants/trackConstants';
+} from '../constants/mixpanelConstants';
 
 const INITIAL_STATE = {
   error: null,
@@ -26,7 +26,9 @@ const userReducer = (state = INITIAL_STATE, action) => {
         error: null,
         isLoaded: true,
         isLoading: false,
-        userData: action.payload.data,
+        userData: action.payload.totalUser,
+        metaData: action.payload.allMeta,
+        avgData: action.payload.avgUser,
       };
 
     case FETCH_USERDATA_FAILURE:

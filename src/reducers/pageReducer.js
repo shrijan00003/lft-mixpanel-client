@@ -2,7 +2,7 @@ import {
   FETCH_PAGE_BEGIN,
   FETCH_PAGE_SUCCESS,
   FETCH_PAGE_FAILURE,
-} from '../constants/trackConstants';
+} from '../constants/mixpanelConstants';
 
 const INITIAL_STATE = {
   error: null,

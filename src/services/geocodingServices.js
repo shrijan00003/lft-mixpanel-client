@@ -11,8 +11,6 @@ export async function getAddress(loc) {
     geocoder.geocode({ location: latlng }, function(results, status) {
       if (status === 'OK') {
         if (results[0]) {
-          console.log(results[0].formatted_address.split(','));
-
           resolve(results[0].formatted_address);
         }
       } else {

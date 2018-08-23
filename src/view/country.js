@@ -37,7 +37,6 @@ class Country extends React.Component {
     for (let i in locationFromStore) {
       loc.push(locationFromStore[i].location);
     }
-    console.log(loc, this.props);
 
     // let loc = [
     //   { latitude: 40.714224, longitude: -73.961452 },
@@ -55,7 +54,6 @@ class Country extends React.Component {
     for (let i in result.countries) {
       chartDataArray.push([result.countries[i], result.users[i]]);
     }
-    console.log(chartDataArray, 'chart', this.props);
     this.props.fetchChart(chartDataArray, singleLatLng);
 
     this.setState(prevState => ({

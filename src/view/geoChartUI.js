@@ -25,13 +25,11 @@ class GeoChartUI extends React.Component {
     // let locationFromStore = store.getState().track.trackData.data[0].location;
     // let loc = [];
     // loc.push(JSON.parse(locationFromStore));
-    let locationFromStore = this.props.trackData.data;
-    console.log(locationFromStore, 'kjdjfnsjkfhksjddfjksdhfksjdfkjs');
+    let locationFromStore = this.props.usersDetails.metaData;
     let loc = [];
     for (let i in locationFromStore) {
       loc.push(locationFromStore[i].location);
     }
-    console.log(loc, this.props);
 
     // let loc = [
     //   { latitude: 40.714224, longitude: -73.961452 },

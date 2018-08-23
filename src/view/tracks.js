@@ -86,25 +86,24 @@ class Tracks extends React.Component {
       page_size: this.state.pageSizeApi,
     };
     let trackResponse = await fetchTracksData(params);
-    console.log(trackResponse, 'dancetothis');
+    console.log(trackResponse);
     this.setState({
       searchApi: trackResponse.data,
+      pageSizeApi: trackResponse.data.metadata.pageSize,
+      pageApi: trackResponse.data.metadata.page,
       // pageApi: trackResponse.data.metadata.page,
       // pageSizeApi: trackResponse.data.metadata.pageSize,
     });
   }
 
   async changer(event) {
-    console.log('insider');
     await this.setState({ [event.target.name]: event.target.value });
-    console.log(this.state.apiCol.split(','));
     let trackResponse = await fetchTracksDataWithCount(
       '?get=' +
         this.state.apiCol.split(',')[0] +
         '&table=' +
         this.state.apiCol.split(',')[1]
     );
-    console.log(trackResponse, 'ooooooooo');
     this.setState({ ans: trackResponse.data.data });
   }
   async componentDidMount() {

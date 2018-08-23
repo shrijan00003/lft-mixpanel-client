@@ -47,7 +47,6 @@ class Pages extends React.Component {
   // }
 
   async handleChange(event) {
-    console.log(event.target.name, event.target.value);
     await this.setState({ [event.target.name]: event.target.value });
 
     let params = {
@@ -57,7 +56,6 @@ class Pages extends React.Component {
       page_size: this.state.page_size,
     };
     let trackResponse = await fetchPagesData(params);
-    console.log(trackResponse, 'onemoretime');
     this.setState({
       searchApiResult: trackResponse.data,
       // pageApi: trackResponse.data.metadata.page,

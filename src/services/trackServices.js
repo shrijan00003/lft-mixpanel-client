@@ -15,13 +15,14 @@ export const fetchTracksDataWithLocation = (query = null) => {
 };
 
 export const fetchTracksData = (props = {}) => {
-  console.log(segment);
   res = http
     .get(segment, {
       event_name: props ? props.event_name : '',
       page_size: props ? props.page_size : null,
       page: props ? props.page : null,
       date: props ? props.date : null,
+      longitude: props ? props.longitude : null,
+      latitude: props ? props.latitude : null,
     })
     .then(tracksWithMeta => tracksWithMeta)
     .catch(err => {

@@ -1,6 +1,7 @@
 import React from 'react';
 import { render } from 'react-dom';
 import { Chart } from 'react-google-charts';
+import { fetchTracksData } from '../services/trackServices';
 
 const Table = ({
   eventName,
@@ -29,7 +30,10 @@ class SingleMap extends React.Component {
     this.state = {
       latlngArr: '',
       latlngSearch: '',
+      latSearch: '',
+      lngSearch: '',
       isClicked: false,
+      searchResult: null,
     };
   }
   componentDidMount() {
@@ -46,7 +50,7 @@ class SingleMap extends React.Component {
     },
   ];
 
-  onSelectEvent(Chart) {
+  async onSelectEvent(Chart) {
     let val = Chart.chartWrapper.getChart().getSelection()[0];
     if (val) {
       console.log(val.row, 'single', this.state.latlngArr[val.row + 1][0]);
@@ -60,7 +64,17 @@ class SingleMap extends React.Component {
       this.setState({
         isClicked: true,
       });
-      this.props.fetchTrackWithLocation(this.state.latlngSearch);
+
+      let params = {
+        // : this.state.search,
+        latitude: this.state.latlngArr[val.row + 1][0],
+
+        longitude: this.state.latlngArr[val.row + 1][1],
+      };
+
+      let trackResponse = await fetchTracksData(params);
+      this.setState({ searchResult: trackResponse.data });
+      //  this.props.fetchTrackWithLocation(this.state.latlngSearch);
     }
   }
 
@@ -97,7 +111,7 @@ class SingleMap extends React.Component {
             <div>
               {this.state.isClicked ? (
                 <div>
-                  {this.props.trackDataWithLoc === null ? (
+                  {this.state.searchResult === null ? (
                     <span>Loading... </span>
                   ) : (
                     <table>
@@ -111,7 +125,7 @@ class SingleMap extends React.Component {
                         <th>Location</th>
                       </tr>
 
-                      {this.props.trackDataWithLoc.data.map((person, index) => (
+                      {this.state.searchResult.data.map((person, index) => (
                         <Table key={index} {...person} />
                       ))}
                     </table>

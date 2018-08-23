@@ -9,7 +9,6 @@ export async function initMap(loc) {
         lat: parseFloat(loc[input].latitude),
         lng: parseFloat(loc[input].longitude),
       };
-      console.log(latlng, 'latlng');
       latlngArr.push(Object.values(latlng));
 
       geocoder.geocode({ location: latlng }, function(results, status) {

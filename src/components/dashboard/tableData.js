@@ -30,8 +30,6 @@ const Page = ({ name, referrer, search, title, url, path }) => (
 
 class TableData extends React.Component {
   render() {
-    console.log(this.props);
-
     return (
       <div>
         {this.props.chartData === null ? (

@@ -5,7 +5,7 @@ import {
   FETCH_TRACK_LOCATION_BEGIN,
   FETCH_TRACK_LOCATION_SUCCESS,
   FETCH_TRACK_LOCATION_FAILURE,
-} from '../constants/trackConstants';
+} from '../constants/mixpanelConstants';
 
 const INITIAL_STATE = {
   error: null,

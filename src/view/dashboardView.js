@@ -24,8 +24,11 @@ class DashboardView extends React.Component {
   render() {
     return (
       <div className="container row">
-        {this.props.trackData === null ? (
-          <span>{this.props.statusMessage} </span>
+        {this.props.usersDetails.userData === null ? (
+          <span>
+            {this.props.statusMessage}
+            kkkkk...{' '}
+          </span>
         ) : (
           <div>
             <GeoChart />

@@ -13,36 +13,22 @@ class BarChartData extends React.Component {
   constructor() {
     super();
     this.state = {
-      osName: [],
-      osNo: [],
-      osUsage: [['Top Referrers', 'Total no.']],
+      referrerUsage: [['Top Referrers', 'Total no.']],
     };
   }
   componentDidMount() {
-    let device = this.props.pageData.data;
+    let refer = this.props.pageData.data;
 
-    let osName = [];
-    let userNo = [];
-    let osUse = [];
-    let prev;
+    var obj = refer.reduce(function(acc, curr) {
+      acc[curr.os] ? acc[curr.os]++ : (acc[curr.os] = 1);
+      return acc;
+    }, {});
 
-    for (let i in device) {
-      if (device[i].referrer !== prev) {
-        osName.push(device[i].referrer);
-        userNo.push(1);
-      } else {
-        userNo[userNo.length - 1]++;
-      }
-      prev = device[i].referrer;
-    }
-    for (let i in osName) {
-      osUse.push([osName[i], userNo[i]]);
-    }
-
+    var result = Object.keys(obj).map(function(key) {
+      return [key, obj[key]];
+    });
     this.setState(prevState => ({
-      osName: [...prevState.osName, ...osName],
-      osNo: [...prevState.osNo, ...userNo],
-      osUsage: [...prevState.osUsage, ...osUse],
+      referrerUsage: [...prevState.referrerUsage, ...result],
     }));
   }
   render() {
@@ -64,14 +50,14 @@ class BarChartData extends React.Component {
                  // />}*/}
             <Chart
               chartType="BarChart"
-              data={this.state.osUsage} //{data}
+              data={this.state.referrerUsage} //{data}
               width={'100%'}
               height={'215px'}
             />
           </div>
           <div className="col-6">
             <table>
-              {this.state.osUsage.map((person, index) => (
+              {this.state.referrerUsage.map((person, index) => (
                 <tr>
                   <td> {person[0]} </td> {/*/{person[0].split('.')[1]}*/}
                   <td> {person[1]} </td>

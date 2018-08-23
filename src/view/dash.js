@@ -9,9 +9,6 @@ import store from '../store';
 import GeoChartUI from './geoChartUI';
 
 class Dash extends React.Component {
-  componentDidMount() {
-    console.log(this.props);
-  }
   render() {
     return (
       <div className="container row">
@@ -23,23 +20,23 @@ class Dash extends React.Component {
               <AtGlance
                 icon="users"
                 title="Total Users"
-                percentage={this.props.usersDetails.byWeek.percent}
-                data={this.props.usersDetails.total}
-                isIncreased={this.props.usersDetails.byWeek.isIncrease}
+                percentage={this.props.usersDetails.userData.byWeek.percent}
+                data={this.props.usersDetails.userData.total}
+                isIncreased={this.props.usersDetails.userData.byWeek.isIncrease}
               />
               <AtGlance
                 icon="map"
                 title="Total Countries"
-                percentage={this.props.usersDetails.byWeek.percent}
+                percentage={this.props.usersDetails.userData.byWeek.percent}
                 data={this.props.chartData.length - 1}
-                isIncreased={this.props.usersDetails.byWeek.isIncrease}
+                isIncreased={this.props.usersDetails.userData.byWeek.isIncrease}
               />
               <AtGlance
                 icon="bookmark"
                 title="Daily Average Users"
-                percentage={this.props.usersDetails.byWeek.percent}
-                data={this.props.usersDetails.total}
-                isIncreased={this.props.usersDetails.byWeek.isIncrease}
+                percentage={this.props.usersDetails.userData.byWeek.percent}
+                data={this.props.usersDetails.avgData.dailyUser.average}
+                isIncreased={this.props.usersDetails.userData.byWeek.isIncrease}
               />
               <AtGlance
                 icon="circle"

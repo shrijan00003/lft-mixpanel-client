@@ -65,7 +65,7 @@ const mapStateToProps = state => {
     trackDataWithLoc: state.track.trackDataWithLoc,
     userIsLoaded: state.userData.isLoaded,
     userIsLoading: state.userData.isLoading,
-    usersDetails: state.userData.userData,
+    usersDetails: state.userData,
   };
 };
 
@@ -81,13 +81,10 @@ const mapDispatchToProps = dispatch => {
       }
     },
     fetchTrack: async (query = null) => {
-      console.log(query, 'Dashboard');
       dispatch(fetchTrackBegin());
       trackResponse = await fetchTracksData(query);
 
       if (trackResponse.status === 200) {
-        console.log(trackResponse, 'resp');
-
         dispatch(fetchTrackSuccess(trackResponse.data));
       } else {
         dispatch(fetchTrackFailure(trackResponse.response));
@@ -109,9 +106,16 @@ const mapDispatchToProps = dispatch => {
     fetchUserData: async () => {
       dispatch(fetchUserDataBegin());
       trackResponse = await fetchUsersData();
+      console.log(trackResponse);
 
       if (trackResponse.status === 200) {
-        dispatch(fetchUserDataSuccess(trackResponse.data));
+        dispatch(
+          fetchUserDataSuccess(
+            trackResponse.data.allMetadata,
+            trackResponse.data.averageUser,
+            trackResponse.data.totalUserData
+          )
+        );
       } else {
         dispatch(fetchUserDataSuccess(trackResponse.response));
       }
