@@ -73,21 +73,21 @@ class PieChartData extends React.Component {
     var resultt = Object.keys(ob).map(function(key) {
       return [key, ob[key]];
     });
-    // let w = resultt.sort(function(a, b) {
+    // let sortList = resultt.sort(function(a, b) {
     //   return b[1] - a[1];
     // });
-    // let d = w.length > 3 ? 3 : w.length;
-    // console.log(d, 'length');
-    // let s = w.splice(0, d);
-    // let t = w;
-    // console.log(w, s, t);
-    // if (t.length > 0) {
-    //   let q = t.reduce((a, b) => a[1] + b[1]);
+    // let len = sortList.length > 3 ? 3 : sortList.length;
+    // console.log(len, 'length');
+    // let showResult = sortList.splice(0, len);
+    // let restResult = sortList;
+    // console.log(sortList, showResult, restResult);
+    // if (restResult.length > 0) {
+    //   let q = restResult.reduce((a, b) => a[1] + b[1]);
     //   console.log(q);
-    //   s.push(['Others', q]);
+    //   showResult.push(['Others', q]);
     // }
 
-    // console.log(s, 'kkko');
+    // console.log(showResult, 'kkko');
 
     // let osName = [];
     // let userNo = [];
@@ -109,29 +109,27 @@ class PieChartData extends React.Component {
       return acc;
     }, {});
     console.log(obj);
-    let result = [];
-    if (obj) {
-      Object.keys(obj).map(function(key) {
-        result.push([key, obj[key]]);
-      });
-    }
+    var result = Object.keys(obj).map(function(key) {
+      console.log([key, obj[key]]);
+      return [key, obj[key]];
+    });
     console.log(result, 'result');
 
-    let w = result.sort(function(a, b) {
+    let sortList = result.sort(function(a, b) {
       return b[1] - a[1];
     });
-    let d = w.length > 1 ? 1 : w.length;
-    console.log(d, 'length');
-    let s = w.splice(0, d);
-    let t = w;
-    console.log(w, s, t);
-    if (t.length > 0) {
-      let q = t.reduce((a, b) => a[1] + b[1]);
+    let len = sortList.length > 5 ? 5 : sortList.length;
+    console.log(len, 'length');
+    let showResult = sortList.splice(0, len);
+    let restResult = sortList;
+    console.log(sortList, showResult, restResult);
+    if (restResult.length > 0) {
+      let q = restResult.reduce((a, b) => a[1] + b[1]);
       console.log(q);
-      s.push(['Others', q]);
+      showResult.push(['Others', q]);
     }
 
-    console.log(s, 'kkko');
+    console.log(showResult, 'kkko');
 
     // let sortedResult = result.sort(function(a, b) {
     //   return b[1] - a[1];
@@ -157,7 +155,7 @@ class PieChartData extends React.Component {
     this.setState(prevState => ({
       // osName: [...prevState.osName, ...osName],
       // osNo: [...prevState.osNo, ...userNo],
-      osUsage: [...prevState.osUsage, ...result],
+      osUsage: [...prevState.osUsage, ...showResult],
     }));
   }
   render() {
