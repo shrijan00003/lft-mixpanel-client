@@ -30,10 +30,12 @@ const mapDispatchToProps = dispatch => {
   return {
     loginUser: async (email, password) => {
       dispatch(loginUserBegin());
-      loginResponse = await login(email, password);
-
-      if (loginResponse.status === 200) {
-        auth.authenticate(loginResponse);
+      try{
+        loginResponse = await login(email, password);
+        
+        
+        if (loginResponse.status === 200) {
+          auth.authenticate(loginResponse);
         const tokens = {
           accessToken: loginResponse.data.accessToken,
           refreshToken: loginResponse.data.refreshToken,
@@ -48,6 +50,10 @@ const mapDispatchToProps = dispatch => {
       } else {
         dispatch(setLoginError(loginResponse.response));
       }
+      
+            } catch (err ){
+              console.log(err);
+            }
     }
   };
 };

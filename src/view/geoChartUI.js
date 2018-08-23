@@ -58,12 +58,12 @@ class GeoChartUI extends React.Component {
     return (
       <div>
         {this.props.chartData === null ? (
-          <span>Loading... </span>
+          <span>{this.props.statusMessage}</span>
         ) : (
           <div>
             {this.props.usersDetails === null ? (
-              <span>Loading... </span>
-            ) : (
+          <span>{this.props.statusMessage}</span>
+        ) : (
               <div>
                 <Dash {...this.props} />
               </div>
@@ -75,7 +75,7 @@ class GeoChartUI extends React.Component {
         )}
 
         {this.props.pageData === null ? (
-          <span>Loading... </span>
+          <span>{this.props.statusMessage}</span>
         ) : (
           <div className="row">
             <div className="col-6">

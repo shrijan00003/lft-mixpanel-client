@@ -38,7 +38,10 @@ export const login = async (email, password) => {
       throw loginAttempt;
     }
   } catch (err) {
-    return err;
+    throw {
+      status : 'not connected'
+    }
+    // return err;
   }
 };
 

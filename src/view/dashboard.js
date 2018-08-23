@@ -40,13 +40,20 @@ let trackResponse = null;
 let pageResponse = null;
 
 const mapStateToProps = state => {
-  if (state.track.isLoading || state.page.isLoading) {
+  if (state.track.isLoading) {
+    statusMessage = 'Please wait for track data...';
+  } 
+  else if (state.page.isLoading) {
+    statusMessage = 'Please wait for page data...';
+  } 
+  else if (state.userData.isLoading) {
     statusMessage = 'Please wait...';
   } else if (state.track.error) {
     statusMessage = state.track.error.data.message;
   } else if (state.page.error) {
     statusMessage = state.page.error.data.message;
-  } else {
+  }
+  else {
     statusMessage = null;
   }
 
