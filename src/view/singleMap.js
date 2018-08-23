@@ -92,7 +92,7 @@ class SingleMap extends React.Component {
     return (
       <div>
         {this.props.trackData === null ? (
-          <span>Loading... </span>
+          <span>{this.props.statusMessage}</span>
         ) : (
           <div>
             <div>
@@ -112,7 +112,7 @@ class SingleMap extends React.Component {
               {this.state.isClicked ? (
                 <div>
                   {this.state.searchResult === null ? (
-                    <span>Loading... </span>
+                    <span>{this.props.statusMessage} </span>
                   ) : (
                     <table>
                       <tr>

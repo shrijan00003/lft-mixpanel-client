@@ -90,7 +90,7 @@ class Tracks extends React.Component {
     this.setState({
       searchApi: trackResponse.data,
       pageSizeApi: trackResponse.data.metadata.pageSize,
-      pageApi: trackResponse.data.metadata.page,
+      pageApi: '1',
       // pageApi: trackResponse.data.metadata.page,
       // pageSizeApi: trackResponse.data.metadata.pageSize,
     });

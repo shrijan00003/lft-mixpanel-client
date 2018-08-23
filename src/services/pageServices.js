@@ -17,3 +17,14 @@ export const fetchPagesData = (props = {}) => {
     });
   return res;
 };
+
+export const fetchPagesDataWithCount = query => {
+  console.log(query);
+  res = http
+    .get(segment + '/paths' + query)
+    .then(tracksWithMeta => tracksWithMeta)
+    .catch(err => {
+      return err;
+    });
+  return res;
+};

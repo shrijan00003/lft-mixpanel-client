@@ -27,8 +27,26 @@ class BarChartData extends React.Component {
     var result = Object.keys(obj).map(function(key) {
       return [key, obj[key]];
     });
+
+    let sortList = result.sort(function(a, b) {
+      return b[1] - a[1];
+    });
+    let len = sortList.length > 4 ? 4 : sortList.length;
+    console.log(len, 'length');
+    let showResult = sortList.splice(0, len);
+    let restResult = sortList;
+    console.log(sortList, showResult, restResult);
+    let q;
+    if (restResult.length > 1) {
+      q = restResult.reduce((a, b) => a[1] + b[1]);
+      showResult.push(['Others', q]);
+    } else if (restResult.length === 1) {
+      q = restResult[0][1];
+      showResult.push(['Others', q]);
+    }
+    console.log(showResult, 'kkko');
     this.setState(prevState => ({
-      referrerUsage: [...prevState.referrerUsage, ...result],
+      referrerUsage: [...prevState.referrerUsage, ...showResult],
     }));
   }
   render() {

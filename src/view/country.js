@@ -95,7 +95,7 @@ class Country extends React.Component {
       //   <div>Country</div>
       <div>
         {this.props.chartData === null ? (
-          <span>Loading... </span>
+          <span>{this.props.statusMessage} </span>
         ) : (
           <div>
             <div>

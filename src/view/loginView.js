@@ -48,7 +48,7 @@ const mapDispatchToProps = dispatch => {
       } else {
         dispatch(setLoginError(loginResponse.response));
       }
-    }
+    },
   };
 };
 

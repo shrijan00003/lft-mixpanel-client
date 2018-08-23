@@ -33,7 +33,7 @@ class TableData extends React.Component {
     return (
       <div>
         {this.props.chartData === null ? (
-          <span>Loading... </span>
+          <span>{this.props.statusMessage}</span>
         ) : (
           <div className="row">
             <div className="col-7">

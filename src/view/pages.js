@@ -5,7 +5,7 @@ import UserSources from '../components/dashboard/userSurces';
 import Chart from 'react-google-charts';
 import '../components/pages/pages.css';
 import { fetchPagesData } from '../services/pageServices';
-
+import { fetchPagesDataWithCount } from '../services/pageServices';
 // import TableData from '../components/dashboard/tableData';
 import TableData from '../components/dashboard/tableData';
 import '../components/dashboard/dashboard.css';
@@ -26,6 +26,13 @@ const Page = ({ name, referrer, search, title, url, path, createdAt }) => (
   </tr>
 );
 
+const Table1 = ({ ...person }) => (
+  <tr>
+    <td> {person[Object.keys(person)[0]]} </td>
+    <td> {person[Object.keys(person)[1]]} </td>
+  </tr>
+);
+
 class Pages extends React.Component {
   constructor() {
     super();
@@ -35,9 +42,12 @@ class Pages extends React.Component {
       page: 1,
       date: '',
       searchApiResult: null,
+      ans: null,
+      apiCol: 'referrer',
     };
 
     this.handleChange = this.handleChange.bind(this);
+    this.changer = this.changer.bind(this);
     // this.handleClick = this.handleClick.bind(this);
   }
   // handleClick(event) {
@@ -50,7 +60,7 @@ class Pages extends React.Component {
     await this.setState({ [event.target.name]: event.target.value });
 
     let params = {
-      // : this.state.search,
+      search: this.state.search,
       date: this.state.date,
       page: this.state.page,
       page_size: this.state.page_size,
@@ -58,14 +68,28 @@ class Pages extends React.Component {
     let trackResponse = await fetchPagesData(params);
     this.setState({
       searchApiResult: trackResponse.data,
-      // pageApi: trackResponse.data.metadata.page,
-      // pageSizeApi: trackResponse.data.metadata.pageSize,
+      page: '1',
     });
+  }
+
+  async changer(event) {
+    await this.setState({ [event.target.name]: event.target.value });
+    let trackResponse = await fetchPagesDataWithCount(
+      '?get=' + this.state.apiCol + '&table=pages'
+    );
+    console.log(trackResponse, 'trackresp');
+    this.setState({ ans: trackResponse.data.data });
   }
 
   async componentDidMount() {
     let list = this.props.pageData.data;
     this.setState({ searchApiResult: this.props.pageData });
+
+    let trackResponse = await fetchPagesDataWithCount(
+      '?get=search&table=pages'
+    );
+    console.log(trackResponse);
+    this.setState({ ans: trackResponse.data.data });
   }
 
   render() {
@@ -154,6 +178,40 @@ class Pages extends React.Component {
                   10
                 </option>
               </select>
+            </div>
+            <div className="row">
+              Select results to show: &nbsp;
+              <div className="col-4">
+                <div className="select">
+                  <select
+                    className="input-select"
+                    value={this.state.value}
+                    name="apiCol"
+                    onChange={this.changer}
+                  >
+                    <option value="path">path</option>
+                    <option value="referrer">referrer</option>
+                    <option selected value="search">
+                      search
+                    </option>
+                  </select>
+                </div>
+              </div>
+              {this.state.ans === null ? (
+                <span>Calculaing... </span>
+              ) : (
+                <div className="col-8">
+                  <table>
+                    <tr>
+                      <td> Name </td>
+                      <td> Count </td>
+                    </tr>
+                    {this.state.ans.map((person, index) => (
+                      <Table1 key={index} {...person} />
+                    ))}
+                  </table>
+                </div>
+              )}
             </div>
             <div style={{ textAlign: 'center', padding: '25px' }}>
               PAGES RESULTS

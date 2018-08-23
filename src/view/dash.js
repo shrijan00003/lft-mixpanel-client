@@ -13,7 +13,7 @@ class Dash extends React.Component {
     return (
       <div className="container row">
         {this.props.usersDetails === null ? (
-          <span>Loading... </span>
+          <span>{this.props.statusMessage} </span>
         ) : (
           <div className="col-12">
             <div className="row">
