@@ -23,7 +23,7 @@ class DashboardView extends React.Component {
   }
   render() {
     return (
-      <div className="content-wrapper row">
+      <div className="container row">
         {this.props.usersDetails.userData === null ? (
           <span>{this.props.statusMessage}</span>
         ) : (
@@ -34,14 +34,10 @@ class DashboardView extends React.Component {
             <div>
               <GeoChart />
             </div>
-            browser breakdown in tracks and pages: showing 10 of 10 rows date
-            from and to
-            <div className="col-6">
+            <div className="col-4">
               <div className="padding-left">
-                <div className="chart-data">
-                  <div style={{ textAlign: 'center', padding: '15px' }}>
-                    <h3> Top Os Usage</h3>
-                  </div>
+                <div className="chart-data row">
+                  <h3> Top Os Usage</h3>
                   <TracksChartView {...this.props} />
                 </div>
               </div>
@@ -52,12 +48,11 @@ class DashboardView extends React.Component {
         {this.props.pageData === null ? (
           <span>{this.props.statusMessage} </span>
         ) : (
-          <div className="col-6">
+          <div className="col-8">
             <div className="padding-right">
-              <div className="chart-data">
-                <div style={{ textAlign: 'center', padding: '15px' }}>
-                  <h3> Top Referrers</h3>
-                </div>
+              <div className="chart-data row">
+                <h3> Top Referrers</h3>
+
                 <PagesChartView {...this.props} />
               </div>
             </div>

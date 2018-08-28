@@ -1,23 +1,18 @@
-import React, { Component } from 'react';
-import Chart from 'react-google-charts';
+import React from 'react';
 import './dashboard.css';
 
 class TableData extends React.Component {
   render() {
-    return (
-      <div>
-        <table>
-          <tbody>
-            {this.props.data.map((data, index) => (
-              <tr key={index}>
-                <td> {data[0]} </td>
-                <td> {data[1]} </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    );
+    return this.props.data.map((data, index) => {
+      if (data[0] && data[1]) {
+        return (
+          <tr key={index}>
+            <td> {data[0]} </td>
+            <td> {data[1]} </td>
+          </tr>
+        );
+      }
+    });
   }
 }
 

@@ -1,5 +1,6 @@
 body {
-  font-family: 'lato', sans-serif;
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: rgb(248, 247, 247);
 }
 
 * {
@@ -110,11 +111,8 @@ body {
 
 .container {
   width: auto;
-}
-
-.content-wrapper {
-  width: auto;
   overflow: hidden;
+  padding: 10px;
 }
 
 .padding-left {
@@ -123,4 +121,9 @@ body {
 
 .padding-right {
   padding-right: 10px;
+}
+
+.no-margin-no-padding {
+  margin: 0;
+  padding: 0;
 }

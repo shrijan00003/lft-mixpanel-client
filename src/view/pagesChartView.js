@@ -9,7 +9,7 @@ class ReferrerChart extends React.Component {
   constructor() {
     super();
     this.state = {
-      referrerUsage: [['Top Referrers', 'Total no.']],
+      referrerUsage: [['', '']],
     };
   }
   componentDidMount() {
@@ -24,7 +24,7 @@ class ReferrerChart extends React.Component {
     return (
       <div className="col-12">
         <div className="row">
-          <div className="col-6">
+          <div className="col-8">
             <Chart
               chartType="BarChart"
               data={this.state.referrerUsage} //{data}
@@ -32,8 +32,18 @@ class ReferrerChart extends React.Component {
               height={'215px'}
             />
           </div>
-          <div className="col-6">
-            <TableData data={this.state.referrerUsage} />
+          <div className="col-4">
+            <table className="mixpanel-data-table">
+              <thead>
+                <tr>
+                  <th>Referrers</th>
+                  <th>Visits</th>
+                </tr>
+              </thead>
+              <tbody>
+                <TableData data={this.state.referrerUsage} />
+              </tbody>
+            </table>
           </div>
         </div>
       </div>

@@ -1,6 +1,7 @@
 import React from 'react';
-import '../components/dashboard/dashboard.css';
 import WorldMapView from './worldMapView';
+
+import '../components/dashboard/dashboard.css';
 
 class CheckWorldMapProps extends React.Component {
   componentDidMount() {

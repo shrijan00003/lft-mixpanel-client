@@ -24,7 +24,7 @@ import { fetchTracksData } from '../services/trackServices';
 import { fetchPagesData } from '../services/pageServices';
 import { fetchUsersData } from '../services/userDataServices';
 
-import GeoChartView from './geoChartView';
+import GeoCountriesView from './geoCountries';
 import CheckTracksProps from './checkTrackProps';
 import CheckPagesProps from './checkPageProps';
 import CheckWorldMapProps from './checkWorldMapProps';
@@ -129,4 +129,4 @@ export const WorldMap = connect(
 export const GeoChart = connect(
   mapStateToProps,
   mapDispatchToProps
-)(GeoChartView);
+)(GeoCountriesView);
