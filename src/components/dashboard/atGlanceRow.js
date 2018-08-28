@@ -1,17 +1,16 @@
 import React from 'react';
-import AtGlance from '../components/dashboard/atGlance';
-import UserSources from '../components/dashboard/userSurces';
+import AtGlance from './atGlance';
 
-import '../components/dashboard/dashboard.css';
+import './dashboard.css';
 
-class Dash extends React.Component {
+class atGlanceRow extends React.Component {
   render() {
     return (
       <div className="container row">
         {this.props.usersDetails === null ? (
           <span>{this.props.statusMessage} </span>
         ) : (
-          <div className="col-12">
+          <div>
             <div className="row">
               <AtGlance
                 icon="users"
@@ -42,9 +41,6 @@ class Dash extends React.Component {
                 isIncreased={true}
               />
             </div>
-            <div className="row">
-              <UserSources />
-            </div>
           </div>
         )}
       </div>
@@ -52,4 +48,4 @@ class Dash extends React.Component {
   }
 }
 
-export default Dash;
+export default atGlanceRow;

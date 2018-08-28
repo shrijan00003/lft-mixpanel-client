@@ -23,7 +23,7 @@ class TracksChartView extends React.Component {
   }
   render() {
     return (
-      <div className="App">
+      <div className="col-12">
         <div className="row">
           <div className="col-6" style={{ paddingTop: 50 + 'px' }}>
             <Chart

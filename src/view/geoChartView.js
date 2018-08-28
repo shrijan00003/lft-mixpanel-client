@@ -1,15 +1,9 @@
-import React, { Component } from 'react';
 import Chart from 'react-google-charts';
-import store from '../store';
-
-import TableData from '../components/dashboard/tableData';
-import Dash from './dash';
-import TracksChartView from './tracksChartView';
-import PagesChartView from './pagesChartView';
+import React, { Component } from 'react';
 import { initMap } from '../services/chartServices';
-import '../components/dashboard/dashboard.css';
+import TableData from '../components/dashboard/tableData';
 
-// import SingleMap from "./singleMap";
+import '../components/dashboard/dashboard.css';
 
 class GeoChartView extends React.Component {
   constructor(props) {
@@ -22,9 +16,6 @@ class GeoChartView extends React.Component {
   }
 
   async componentDidMount() {
-    // let locationFromStore = store.getState().track.trackData.data[0].location;
-    // let loc = [];
-    // loc.push(JSON.parse(locationFromStore));
     let locationFromStore = this.props.usersDetails.metaData;
     let loc = [];
     for (let i in locationFromStore) {

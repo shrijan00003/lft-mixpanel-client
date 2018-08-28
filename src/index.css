@@ -110,5 +110,17 @@ body {
 
 .container {
   width: auto;
+}
+
+.content-wrapper {
+  width: auto;
   overflow: hidden;
+}
+
+.padding-left {
+  padding-left: 10px;
+}
+
+.padding-right {
+  padding-right: 10px;
 }
