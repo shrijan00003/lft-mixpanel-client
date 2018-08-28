@@ -52,6 +52,7 @@ const mapStateToProps = state => {
     pageIsLoaded: state.page.isLoaded,
     pageIsLoading: state.page.isLoading,
     pageData: state.page.pageData,
+    chartIsLoaded: state.chart.isLoaded,
     chartData: state.chart.chartData,
     chartSingleData: state.chart.chartSingleData,
     userIsLoaded: state.userData.isLoaded,

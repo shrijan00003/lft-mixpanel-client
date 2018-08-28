@@ -34,7 +34,8 @@ class DashboardView extends React.Component {
             <div>
               <GeoChart />
             </div>
-
+            browser breakdown in tracks and pages: showing 10 of 10 rows date
+            from and to
             <div className="col-6">
               <div className="padding-left">
                 <div className="chart-data">

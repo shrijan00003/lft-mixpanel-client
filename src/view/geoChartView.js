@@ -1,6 +1,6 @@
+import React from 'react';
 import Chart from 'react-google-charts';
-import React, { Component } from 'react';
-import { initMap } from '../services/chartServices';
+import { getTopData } from '../services/topDataServices';
 import TableData from '../components/dashboard/tableData';
 
 import '../components/dashboard/dashboard.css';
@@ -9,31 +9,45 @@ class GeoChartView extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      country: '',
-      totalUsers: '',
-      latlngArray: ['Latitude', 'Longitude'],
+      chartData: [['Country', 'Total Users']],
     };
   }
-
   async componentDidMount() {
-    let locationFromStore = this.props.usersDetails.metaData;
-    let loc = [];
-    for (let i in locationFromStore) {
-      loc.push(locationFromStore[i].location);
-    }
-    let result = await initMap(loc);
-    let singleLatLng = result.latlngArr;
+    if (!this.props.chartIsLoaded) {
+      let metaData = this.props.usersDetails.metaData;
 
-    this.setState({
-      country: result.countries,
-      totalUsers: result.users,
-    });
-    let chartDataArray = [['Country', 'Total users']];
-    for (let i in result.countries) {
-      chartDataArray.push([result.countries[i], result.users[i]]);
-    }
+      let countryName = [];
+      let latlngArr = [];
+      for (let i in metaData) {
+        countryName.push(metaData[i].location.countryName);
+        var latlng = {
+          lat: parseFloat(metaData[i].location.latitude),
+          lng: parseFloat(metaData[i].location.longitude),
+        };
+        latlngArr.push(Object.values(latlng));
+      }
 
-    this.props.fetchChart(chartDataArray, singleLatLng);
+      let userFromCountryResult = [
+        ['Country', 'Total Users'],
+        ...getTopData(countryName).showTopResult,
+      ];
+      console.log(latlng, 'jdfojdsofjf');
+      let latlngArrayResult = [['Latitude', 'Longitude'], ...latlng];
+      this.props.fetchChart(userFromCountryResult, latlngArrayResult);
+
+      this.setState(prevState => ({
+        chartData: [...prevState.chartData, ...userFromCountryResult],
+      }));
+
+      console.log(userFromCountryResult, 'userrrr');
+      // this.setState(prevState => ({
+      //   chartData: [
+      //     ...prevState.chartData,
+      //     ...getTopData(countryName).showTopResult,
+      //   ],
+      // }));
+      console.log(this.state.chartData);
+    }
   }
 
   render() {

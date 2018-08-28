@@ -28,19 +28,11 @@ class SingleMap extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      latlngArr: '',
-      latlngSearch: '',
-      latSearch: '',
-      lngSearch: '',
       isClicked: false,
       searchResult: null,
     };
   }
-  componentDidMount() {
-    this.setState({
-      latlngArr: this.props.latlngArray,
-    });
-  }
+
   chartEvents = [
     {
       eventName: 'select',
@@ -53,28 +45,24 @@ class SingleMap extends React.Component {
   async onSelectEvent(Chart) {
     let val = Chart.chartWrapper.getChart().getSelection()[0];
     if (val) {
-      console.log(val.row, 'single', this.state.latlngArr[val.row + 1][0]);
-      this.setState({
-        latlngSearch:
-          'latitude=' +
-          this.state.latlngArr[val.row + 1][0] +
-          '&longitude=' +
-          this.state.latlngArr[val.row + 1][1],
-      });
+      console.log(
+        val.row,
+        'single',
+        this.props.chartSingleData[val.row + 1][0]
+      );
+
       this.setState({
         isClicked: true,
       });
 
       let params = {
-        // : this.state.search,
-        latitude: this.state.latlngArr[val.row + 1][0],
+        latitude: this.props.chartSingleData[val.row + 1][0],
 
-        longitude: this.state.latlngArr[val.row + 1][1],
+        longitude: this.props.chartSingleData[val.row + 1][1],
       };
 
       let trackResponse = await fetchTracksData(params);
       this.setState({ searchResult: trackResponse.data });
-      //  this.props.fetchTrackWithLocation(this.state.latlngSearch);
     }
   }
 
@@ -88,7 +76,6 @@ class SingleMap extends React.Component {
   ];
 
   render() {
-    console.log(this.props, 'single');
     return (
       <div>
         {this.props.trackData === null ? (
@@ -98,7 +85,7 @@ class SingleMap extends React.Component {
             <div className="col-5">
               <Chart
                 chartType="GeoChart"
-                data={this.state.latlngArr}
+                data={this.props.chartSingleData}
                 chartEvents={this.chartEvents}
                 width="100%"
                 height="400px"
@@ -116,19 +103,21 @@ class SingleMap extends React.Component {
                     <span>{this.props.statusMessage} </span>
                   ) : (
                     <table>
-                      <tr>
-                        <th> EventName </th>
-                        <th> Os </th>
-                        <th> Created At </th>
-                        <th>Browser</th>
-                        <th>IpAddress</th>
-                        <th>Device</th>
-                        <th>Location</th>
-                      </tr>
+                      <tbody>
+                        <tr>
+                          <th> EventName </th>
+                          <th> Os </th>
+                          <th> Created At </th>
+                          <th>Browser</th>
+                          <th>IpAddress</th>
+                          <th>Device</th>
+                          <th>Location</th>
+                        </tr>
 
-                      {this.state.searchResult.data.map((person, index) => (
-                        <Table key={index} {...person} />
-                      ))}
+                        {this.state.searchResult.data.map((person, index) => (
+                          <Table key={index} {...person} />
+                        ))}
+                      </tbody>
                     </table>
                   )}
                 </div>
