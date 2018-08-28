@@ -29,10 +29,10 @@ const Table = ({
     <td>{location.address}</td>
   </tr>
 );
-const Table1 = ({ ...person }) => (
+const Table1 = ({ ...data }) => (
   <tr>
-    <td> {person[Object.keys(person)[0]]} </td>
-    <td> {person[Object.keys(person)[1]]} </td>
+    <td> {data[Object.keys(data)[0]]} </td>
+    <td> {data[Object.keys(data)[1]]} </td>
   </tr>
 );
 
@@ -96,10 +96,10 @@ class Tracks extends React.Component {
 
     let trackResponse = await fetchTracksDataWithCount(params);
     let array = [];
-    trackResponse.data.data.map(person =>
+    trackResponse.data.data.map(data =>
       array.push([
-        person[Object.keys(person)[0]],
-        parseInt(person[Object.keys(person)[1]]),
+        data[Object.keys(data)[0]],
+        parseInt(data[Object.keys(data)[1]]),
       ])
     );
     this.setState(prev => ({
@@ -117,10 +117,10 @@ class Tracks extends React.Component {
     let trackResponse = await fetchTracksDataWithCount(params);
     let array = [];
     console.log(trackResponse.data.data);
-    trackResponse.data.data.map(person =>
+    trackResponse.data.data.map(data =>
       array.push([
-        person[Object.keys(person)[0]],
-        parseInt(person[Object.keys(person)[1]]),
+        data[Object.keys(data)[0]],
+        parseInt(data[Object.keys(data)[1]]),
       ])
     );
     this.setState(prev => ({
@@ -209,8 +209,8 @@ class Tracks extends React.Component {
                       <td> Name </td>
                       <td> Count </td>
                     </tr>
-                    {this.state.ans.map((person, index) => (
-                      <Table1 key={index} {...person} />
+                    {this.state.ans.map((data, index) => (
+                      <Table1 key={index} {...data} />
                     ))}
                   </table>
                 </div>
@@ -248,8 +248,8 @@ class Tracks extends React.Component {
                     <th>Device</th>
                     <th>Location</th>
                   </tr>
-                  {this.state.searchApi.data.map((person, index) => (
-                    <Table key={index} {...person} />
+                  {this.state.searchApi.data.map((data, index) => (
+                    <Table key={index} {...data} />
                   ))}
                 </tbody>
               </table>

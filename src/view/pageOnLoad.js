@@ -27,7 +27,6 @@ import { fetchUsersData } from '../services/userDataServices';
 import GeoChartView from './geoChartView';
 import CheckTracksProps from './checkTrackProps';
 import CheckPagesProps from './checkPageProps';
-import checkWorldMapProps from './checkWorldMapProps';
 import CheckWorldMapProps from './checkWorldMapProps';
 
 let statusMessage = null;
