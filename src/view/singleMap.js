@@ -95,7 +95,7 @@ class SingleMap extends React.Component {
           <span>{this.props.statusMessage}</span>
         ) : (
           <div>
-            <div>
+            <div className="col-5">
               <Chart
                 chartType="GeoChart"
                 data={this.state.latlngArr}
@@ -105,12 +105,13 @@ class SingleMap extends React.Component {
                 options={{
                   region: this.props.code,
                   resolution: 'country',
+                  datalessRegionColor: 'white',
                 }}
               />
             </div>
             <div>
               {this.state.isClicked ? (
-                <div>
+                <div className="row">
                   {this.state.searchResult === null ? (
                     <span>{this.props.statusMessage} </span>
                   ) : (

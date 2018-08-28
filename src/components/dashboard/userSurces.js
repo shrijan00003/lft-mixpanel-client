@@ -6,31 +6,10 @@ const renderUserSource = () => {
   return (
     <div>
       <div style={{ textAlign: 'center', padding: '15px' }}>
-        <h2> Where are your users coming from?</h2>
+        <h2> Who are your Users?</h2>
       </div>
     </div>
   );
 };
-
-// function func(input) {
-//   var arr = ['a', 'b', 'c', 'd', 'e'];
-//   var previous = '',
-//     after = '';
-
-//   arr.map(function(value) {
-//     if (value == input) {
-//       for (var i = arr.indexOf(input) - 1; i >= 0; i--) {
-//         previous += arr[i];
-//       }
-
-//       for (i = arr.indexOf(input) + 1; i < arr.length; i++) {
-//         after += arr[i];
-//       }
-//     }
-//   });
-
-//   console.log('Previous ' + input + ':' + previous);
-//   console.log('After ' + input + ':' + after);
-// }
 
 export default renderUserSource;

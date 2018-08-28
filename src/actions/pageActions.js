@@ -1,22 +1,18 @@
-import {
-  FETCH_PAGE_BEGIN,
-  FETCH_PAGE_SUCCESS,
-  FETCH_PAGE_FAILURE,
-} from '../constants/mixpanelConstants';
+import { PAGE_ACTIONS } from '../constants/mixpanelConstants';
 
 export const fetchPageBegin = () => ({
-  type: FETCH_PAGE_BEGIN,
+  type: PAGE_ACTIONS.FETCH_PAGE_BEGIN,
 });
 
 export const fetchPageSuccess = data => ({
-  type: FETCH_PAGE_SUCCESS,
+  type: PAGE_ACTIONS.FETCH_PAGE_SUCCESS,
   payload: {
     data,
   },
 });
 
 export const fetchPageFailure = error => ({
-  type: FETCH_PAGE_FAILURE,
+  type: PAGE_ACTIONS.FETCH_PAGE_FAILURE,
   payload: {
     error,
   },

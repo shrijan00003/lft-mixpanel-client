@@ -14,7 +14,7 @@ export const loginUserBegin = () => ({
 });
 
 export const setLoginSuccess = (user = {}, tokens = {}) => ({
-  type: ACTIONS.LOGIN_FULFILLLED,
+  type: ACTIONS.LOGIN_FULFILLED,
   payload: {
     user,
     tokens,
@@ -29,7 +29,7 @@ export const setLoginError = error => ({
 });
 
 export const refreshLogin = (tokens = {}) => ({
-  type: ACTIONS.REFRESH_FULFILLLED,
+  type: ACTIONS.REFRESH_FULFILLED,
   payload: {
     tokens,
   },
@@ -40,7 +40,7 @@ export const logoutUserBegin = () => ({
 });
 
 export const setLogoutSuccess = () => ({
-  type: ACTIONS.LOGOUT_FULFILLLED,
+  type: ACTIONS.LOGOUT_FULFILLED,
 });
 
 export const setLogoutError = error => ({

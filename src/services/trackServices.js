@@ -31,10 +31,13 @@ export const fetchTracksData = (props = {}) => {
   return res;
 };
 
-export const fetchTracksDataWithCount = query => {
-  console.log('fhkhfkj', query);
+export const fetchTracksDataWithCount = props => {
+  console.log(props, 'propsincountfetch');
   res = http
-    .get(segment + '/devices' + query)
+    .get(segment + '/devices', {
+      get: props.get,
+      table: props.table,
+    })
     .then(tracksWithMeta => tracksWithMeta)
     .catch(err => {
       return err;

@@ -1,8 +1,4 @@
-import {
-  FETCH_USERDATA_BEGIN,
-  FETCH_USERDATA_SUCCESS,
-  FETCH_USERDATA_FAILURE,
-} from '../constants/mixpanelConstants';
+import { USERDATA_ACTIONS } from '../constants/mixpanelConstants';
 
 const INITIAL_STATE = {
   error: null,
@@ -13,14 +9,14 @@ const INITIAL_STATE = {
 
 const userReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case FETCH_USERDATA_BEGIN:
+    case USERDATA_ACTIONS.FETCH_USERDATA_BEGIN:
       return {
         ...state,
         error: null,
         isLoading: true,
       };
 
-    case FETCH_USERDATA_SUCCESS:
+    case USERDATA_ACTIONS.FETCH_USERDATA_SUCCESS:
       return {
         ...state,
         error: null,
@@ -31,7 +27,7 @@ const userReducer = (state = INITIAL_STATE, action) => {
         avgData: action.payload.avgUser,
       };
 
-    case FETCH_USERDATA_FAILURE:
+    case USERDATA_ACTIONS.FETCH_USERDATA_FAILURE:
       return {
         ...state,
         error: action.payload.error,

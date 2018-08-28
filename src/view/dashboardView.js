@@ -1,37 +1,69 @@
 import React from 'react';
-import AtGlance from '../components/dashboard/atGlance';
-import UserSources from '../components/dashboard/userSurces';
-// import GeoChart from './geoChart';
-// import TableData from '../components/dashboard/tableData';
-import { GeoChart } from './dashboard';
-import TableData from '../components/dashboard/tableData';
-import '../components/dashboard/dashboard.css';
+import Dash from './dash';
 import store from '../store';
-import GeoChartUI from './geoChartUI';
+// import GeoChart from './geoChart';
+import Chart from 'react-google-charts';
+import { GeoChart } from './pageOnLoad';
+import GeoChartView from './geoChartView';
+import PagesChartView from './pagesChartView';
+import TracksChartView from './tracksChartView';
+import AtGlance from '../components/dashboard/atGlance';
+import TableData from '../components/dashboard/tableData';
+// import TableData from '../components/dashboard/tableData';
+import UserSources from '../components/dashboard/userSurces';
+
+import '../components/dashboard/dashboard.css';
 
 class DashboardView extends React.Component {
   componentDidMount() {
-    if (!this.props.isLoaded) {
-      this.props.fetchTrack();
-    }
+    console.log(this.props);
+
     if (!this.props.pageIsLoaded) {
-      this.props.fetchPage();
-    }
-    if (!this.props.userIsLoaded) {
-      this.props.fetchUserData();
+      this.props
+        .fetchPage()
+        .then(() => {
+          if (!this.props.userIsLoaded) {
+            this.props.fetchUserData();
+          }
+        })
+        .catch(err => console.log(err));
     }
   }
   render() {
     return (
       <div className="container row">
         {this.props.usersDetails.userData === null ? (
-          <span>
-            {this.props.statusMessage}
-            kkkkk...{' '}
-          </span>
+          <span>{this.props.statusMessage}</span>
         ) : (
           <div>
-            <GeoChart />
+            <div>
+              <Dash {...this.props} />
+            </div>
+            <div>
+              <GeoChart />
+            </div>
+
+            <div className="col-6">
+              <div className="chart-data">
+                <div style={{ textAlign: 'center', padding: '15px' }}>
+                  <h3> Top Os Usage</h3>
+                </div>
+                <TracksChartView {...this.props} />
+              </div>
+            </div>
+          </div>
+        )}
+
+        {this.props.pageData === null ? (
+          <span>{this.props.statusMessage} </span>
+        ) : (
+          <div className="col-6">
+            <div className="chart-data">
+              <div style={{ textAlign: 'center', padding: '15px' }}>
+                <h3> Top Referrers</h3>
+              </div>
+              <PagesChartView {...this.props} />
+            </div>
           </div>
         )}
       </div>

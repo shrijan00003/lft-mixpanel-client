@@ -155,6 +155,8 @@ header {
 .side-navbar {
   background-color: rgb(13, 71, 88);
   height: 100vh;
+  /* position: fixed; */
+  /* width: 100%; */
 }
 
 .side-navbar-title {

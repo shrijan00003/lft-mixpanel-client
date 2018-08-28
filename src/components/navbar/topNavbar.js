@@ -12,7 +12,7 @@ let menuCollapse = true;
 const LogoutButton = withRouter(({ history }) => (
   <li onClick={() => history.push('/logout')}>
     <span>Log out</span>
-    <FontAwesomeIcon icon="sign-out-alt" pull="right"/>
+    <FontAwesomeIcon icon="sign-out-alt" pull="right" />
   </li>
 ));
 
@@ -79,7 +79,7 @@ const TopNavbar = () => {
                   >
                     <li>
                       <span>Profile</span>{' '}
-                      <FontAwesomeIcon icon="user" pull="right"/>
+                      <FontAwesomeIcon icon="user" pull="right" />
                     </li>
                   </NavLink>
                   <li>

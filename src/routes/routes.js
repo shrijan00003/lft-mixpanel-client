@@ -8,9 +8,7 @@ import NotFound from '../view/notFoundView';
 import NavbarView from '../view/navbarView';
 // import { Dashboard } from '../view/dashboard';
 // import { GeoChart1 } from '../view/geoChart';
-import GeoChartUI from '../view/geoChartUI';
-import { Tracks, Pages, Dashboard, Country } from '../view/dashboard';
-// import Country from '../view/country';
+import { Tracks, Pages, Dashboard, WorldMap } from '../view/pageOnLoad';
 import ProfileView from '../view/profileView';
 import { USER_NAME } from '../constants/authConstants';
 import SideNavView from '../components/navbar/sideNavbar';
@@ -30,6 +28,8 @@ const Routes = () => {
         <SideNavView />
 
         <Switch>
+          <Route exact path="/" component={Login} />
+
           <Route exact path="/login" component={Login} />
           <Route exact path="/signup" component={Signup} />
           <PrivateRoute exact path="/logout" component={Logout} />
@@ -44,7 +44,7 @@ const Routes = () => {
           <PrivateRoute exact path="/audience/pages" component={Pages} />
 
           <PrivateRoute exact path="/audience" component={Tracks} />
-          <PrivateRoute exact path="/country" component={Country} />
+          <PrivateRoute exact path="/country" component={WorldMap} />
 
           <PrivateRoute
             exact

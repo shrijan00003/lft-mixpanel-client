@@ -1,11 +1,4 @@
-import {
-  FETCH_TRACK_BEGIN,
-  FETCH_TRACK_SUCCESS,
-  FETCH_TRACK_FAILURE,
-  FETCH_TRACK_LOCATION_BEGIN,
-  FETCH_TRACK_LOCATION_SUCCESS,
-  FETCH_TRACK_LOCATION_FAILURE,
-} from '../constants/mixpanelConstants';
+import { TRACK_ACTIONS } from '../constants/mixpanelConstants';
 
 const INITIAL_STATE = {
   error: null,
@@ -19,14 +12,14 @@ const INITIAL_STATE = {
 
 const trackReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case FETCH_TRACK_BEGIN:
+    case TRACK_ACTIONS.FETCH_TRACK_BEGIN:
       return {
         ...state,
         error: null,
         isLoading: true,
       };
 
-    case FETCH_TRACK_SUCCESS:
+    case TRACK_ACTIONS.FETCH_TRACK_SUCCESS:
       return {
         ...state,
         error: null,
@@ -35,7 +28,7 @@ const trackReducer = (state = INITIAL_STATE, action) => {
         trackData: action.payload.data,
       };
 
-    case FETCH_TRACK_FAILURE:
+    case TRACK_ACTIONS.FETCH_TRACK_FAILURE:
       return {
         ...state,
         error: action.payload.error,
@@ -43,14 +36,14 @@ const trackReducer = (state = INITIAL_STATE, action) => {
         isLoading: false,
       };
 
-    case FETCH_TRACK_LOCATION_BEGIN:
+    case TRACK_ACTIONS.FETCH_TRACK_LOCATION_BEGIN:
       return {
         ...state,
         error: null,
         lociILoading: true,
       };
 
-    case FETCH_TRACK_LOCATION_SUCCESS:
+    case TRACK_ACTIONS.FETCH_TRACK_LOCATION_SUCCESS:
       return {
         ...state,
         error: null,
@@ -59,7 +52,7 @@ const trackReducer = (state = INITIAL_STATE, action) => {
         trackDataWithLoc: action.payload.data,
       };
 
-    case FETCH_TRACK_LOCATION_FAILURE:
+    case TRACK_ACTIONS.FETCH_TRACK_LOCATION_FAILURE:
       return {
         ...state,
         error: action.payload.error,

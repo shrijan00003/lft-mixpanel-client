@@ -103,6 +103,7 @@ body {
 }
 
 .aside {
+  position: relative;
   float: left;
   width: 220px;
 }

@@ -19,7 +19,7 @@ const reducer = combineReducers({
 });
 
 const rootReducer = (state, action) => {
-  if (action.type === ACTIONS.LOGOUT_FULFILLLED) {
+  if (action.type === ACTIONS.LOGOUT_FULFILLED) {
     state = undefined;
   }
   return reducer(state, action);

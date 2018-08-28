@@ -1,12 +1,8 @@
 import React from 'react';
 import AtGlance from '../components/dashboard/atGlance';
 import UserSources from '../components/dashboard/userSurces';
-// import GeoChart from './geoChart';
-// import TableData from '../components/dashboard/tableData';
-import TableData from '../components/dashboard/tableData';
+
 import '../components/dashboard/dashboard.css';
-import store from '../store';
-import GeoChartUI from './geoChartUI';
 
 class Dash extends React.Component {
   render() {
@@ -28,7 +24,7 @@ class Dash extends React.Component {
                 icon="map"
                 title="Total Countries"
                 percentage={this.props.usersDetails.userData.byWeek.percent}
-                data={this.props.chartData.length - 1}
+                data="1"
                 isIncreased={this.props.usersDetails.userData.byWeek.isIncrease}
               />
               <AtGlance

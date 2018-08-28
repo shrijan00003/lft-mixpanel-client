@@ -25,7 +25,7 @@ const authReducer = (state = INITIAL_STATE, action) => {
         error: null,
       };
 
-    case ACTIONS.LOGIN_FULFILLLED:
+    case ACTIONS.LOGIN_FULFILLED:
       return {
         ...state,
         user: action.payload.user,
@@ -41,7 +41,7 @@ const authReducer = (state = INITIAL_STATE, action) => {
         error: action.payload.error,
       };
 
-    case ACTIONS.REFRESH_FULFILLLED:
+    case ACTIONS.REFRESH_FULFILLED:
       return {
         ...state,
         tokens: action.payload.tokens,
@@ -55,7 +55,7 @@ const authReducer = (state = INITIAL_STATE, action) => {
       };
     }
 
-    case ACTIONS.LOGOUT_FULFILLLED: {
+    case ACTIONS.LOGOUT_FULFILLED: {
       return INITIAL_STATE;
     }
 
