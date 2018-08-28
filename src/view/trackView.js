@@ -26,7 +26,7 @@ const Table = ({
     <td>{ipAddress}</td>
 
     <td>{device}</td>
-    <td>{location.address}</td>
+    <td>{location.countryName}</td>
   </tr>
 );
 const Table1 = ({ ...data }) => (

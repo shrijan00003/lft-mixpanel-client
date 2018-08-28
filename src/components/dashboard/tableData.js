@@ -7,12 +7,14 @@ class TableData extends React.Component {
     return (
       <div>
         <table>
-          {this.props.data.map((data, index) => (
-            <tr key={index}>
-              <td> {data[0]} </td>
-              <td> {data[1]} </td>
-            </tr>
-          ))}
+          <tbody>
+            {this.props.data.map((data, index) => (
+              <tr key={index}>
+                <td> {data[0]} </td>
+                <td> {data[1]} </td>
+              </tr>
+            ))}
+          </tbody>
         </table>
       </div>
     );

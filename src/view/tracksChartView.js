@@ -16,9 +16,10 @@ class TracksChartView extends React.Component {
     let osDataFromMeta = this.props.usersDetails.metaData;
     console.log(this.props);
     let osUse = getTopData(osDataFromMeta, 'os');
+    console.log(osUse);
 
     this.setState(prevState => ({
-      osUsage: [...prevState.osUsage, ...osUse],
+      osUsage: [...prevState.osUsage, ...osUse.showTopResult],
     }));
   }
   render() {

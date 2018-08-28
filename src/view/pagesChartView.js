@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Chart from 'react-google-charts';
+import TableData from '../components/dashboard/tableData';
+
 import { getTopData } from '../services/topDataServices';
 
 class ReferrerChart extends React.Component {
@@ -15,7 +17,7 @@ class ReferrerChart extends React.Component {
 
     let referCount = getTopData(referDataFromMeta, 'referrer');
     this.setState(prevState => ({
-      referrerUsage: [...prevState.referrerUsage, ...referCount],
+      referrerUsage: [...prevState.referrerUsage, ...referCount.showTopResult],
     }));
   }
   render() {
@@ -31,14 +33,7 @@ class ReferrerChart extends React.Component {
             />
           </div>
           <div className="col-6">
-            <table>
-              {this.state.referrerUsage.map((person, index) => (
-                <tr>
-                  <td> {person[0]} </td>
-                  <td> {person[1]} </td>
-                </tr>
-              ))}
-            </table>
+            <TableData data={this.state.referrerUsage} />
           </div>
         </div>
       </div>
