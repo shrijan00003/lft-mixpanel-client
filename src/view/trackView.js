@@ -1,9 +1,9 @@
 import React from 'react';
-import Chart from 'react-google-charts';
 import {
   fetchTracksDataWithCount,
   fetchTracksData,
 } from '../services/trackServices';
+import Chart from 'react-google-charts';
 import { pieOptions } from '../constants/chartConstants';
 
 import '../components/tracks/tracks.css';
@@ -78,7 +78,6 @@ class Tracks extends React.Component {
       page_size: this.state.pageSizeApi,
     };
     let trackResponse = await fetchTracksData(params);
-    console.log(trackResponse);
     this.setState({
       searchApi: trackResponse.data,
       pageSizeApi: trackResponse.data.metadata.pageSize,
@@ -98,7 +97,7 @@ class Tracks extends React.Component {
     trackResponse.data.data.map(data =>
       array.push([
         data[Object.keys(data)[0]],
-        parseInt(data[Object.keys(data)[1]]),
+        parseInt(data[Object.keys(data)[1]], 10),
       ])
     );
     this.setState(prev => ({
@@ -107,7 +106,6 @@ class Tracks extends React.Component {
     }));
   }
   async componentDidMount() {
-    let list = this.props.trackData.data;
     this.setState({ searchApi: this.props.trackData });
     let params = {
       get: 'event_name',
@@ -115,11 +113,10 @@ class Tracks extends React.Component {
     };
     let trackResponse = await fetchTracksDataWithCount(params);
     let array = [];
-    console.log(trackResponse.data.data);
     trackResponse.data.data.map(data =>
       array.push([
         data[Object.keys(data)[0]],
-        parseInt(data[Object.keys(data)[1]]),
+        parseInt(data[Object.keys(data)[1]], 10),
       ])
     );
     this.setState(prev => ({
@@ -141,16 +138,75 @@ class Tracks extends React.Component {
         {this.props.trackData === null ? (
           <span>{this.props.statusMessage} </span>
         ) : (
-          <div className="col-12">
-            <div className="tracks-data row">
-              <div className="tracks-data-header row">
-                <div className="col-6 no-margin-no-padding">
-                  <div className="tracks-data-header-title">
-                    <h3>Tracks statistics</h3>
+          <div>
+            <div className="col-12">
+              <div className="tracks-data row">
+                <div className="tracks-data-header row">
+                  <div className="no-margin-no-padding">
+                    <div className="tracks-data-header-title">
+                      <h3>Tracks Statistics</h3>
+                    </div>
                   </div>
                 </div>
-                <div className="col-6 no-margin-no-padding">
-                  {/* <div className="input-label">Search By Date (After)</div> */}
+
+                <div className="">
+                  {this.state.arr === null ? (
+                    <span>Calculaing... </span>
+                  ) : (
+                    <div className="col-8">
+                      <div className="select-track">
+                        Showing&nbsp;
+                        <select
+                          value={this.state.value}
+                          name="apiCol"
+                          onChange={this.changer}
+                        >
+                          <option value="event_name,tracks">Event</option>
+                          <option value="device,event_metadata">Device</option>
+                          <option value="os,event_metadata">OS</option>
+                          <option value="browser,event_metadata">Browser</option>
+                        </select>
+                      </div>
+                      <Chart
+                        chartType="PieChart"
+                        data={this.state.arr}
+                        options={pieOptions}
+                        graph_id="PieChart"
+                        width={'100%'}
+                        height={'300px'}
+                        legend_toggle
+                      />
+                    </div>
+                  )}
+
+                  {this.state.ans === null ? (
+                    <span>Calculaing... </span>
+                  ) : (
+                    <div className="col-4">
+                      <table className="mixpanel-data-table">
+                        <tbody>
+                          <tr>
+                            <th> Name </th>
+                            <th> Users </th>
+                          </tr>
+                          {this.state.ans.map((data, index) => (
+                            <Table1 key={index} {...data} />
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+            <div className="col-12">
+              <div className="tracks-data row">
+                <div className="col-6">
+                  <div className="tracks-data-header-title">
+                    <h3>Events Tracked</h3>
+                  </div>
+                </div>
+                <div className="col-6">
                   <div className="search-field-wrapper">
                     <input
                       name="search"
@@ -165,109 +221,57 @@ class Tracks extends React.Component {
                       placeholder="Search By Date"
                       onChange={this.handleChange}
                     />
+
+                    <select
+                      className="track-search"
+                      value={this.state.value}
+                      name="pageSizeApi"
+                      onChange={this.handleChange}
+                    >
+                      <option value="5">5</option>
+                      <option value="2">2</option>
+                      <option value="10">10</option>
+                    </select>
                   </div>
                 </div>
-              </div>
-
-              <div className="">
-                {this.state.arr === null ? (
+                {this.state.searchApi === null ? (
                   <span>Calculaing... </span>
                 ) : (
-                  <div className="col-8">
-                    <div className="select-track">
-                      Showing&nbsp;
-                      <select
-                        value={this.state.value}
-                        name="apiCol"
-                        onChange={this.changer}
-                      >
-                        <option value="device,event_metadata">device</option>
-                        <option value="os,event_metadata">os</option>
-                        <option selected value="event_name,tracks">
-                          event
-                        </option>
-                      </select>
-                    </div>
-                    <Chart
-                      chartType="PieChart"
-                      data={this.state.arr}
-                      options={pieOptions}
-                      graph_id="PieChart"
-                      width={'100%'}
-                      legend_toggle
-                    />
-                  </div>
-                )}
-
-                {this.state.ans === null ? (
-                  <span>Calculaing... </span>
-                ) : (
-                  <div className="col-4">
-                    <table className="mixpanel-data-table">
+                  <table className="mixpanel-data-table">
+                    <tbody>
                       <tr>
-                        <th> Name </th>
-                        <th> Users </th>
+                        <th> Event Name </th>
+                        <th> Os </th>
+                        <th> Created At </th>
+                        <th>Browser</th>
+                        <th>Ip Address</th>
+                        <th>Device</th>
+                        <th>Location</th>
                       </tr>
-                      {this.state.ans.map((data, index) => (
-                        <Table1 key={index} {...data} />
+                      {this.state.searchApi.data.map((data, index) => (
+                        <Table key={index} {...data} />
                       ))}
-                    </table>
-                  </div>
+                    </tbody>
+                  </table>
                 )}
-              </div>
-            </div>
-            <div>TRACKS RESULTS</div>
-            <div className="select">
-              No. of results to show: &nbsp;
-              <select
-                className="input-select"
-                value={this.state.value}
-                name="pageSizeApi"
-                onChange={this.handleChange}
-              >
-                <option value="2">2</option>
-                <option value="5">5</option>
-                <option selected value="10">
-                  10
-                </option>
-              </select>
-            </div>
-            {this.state.searchApi === null ? (
-              <span>Calculaing... </span>
-            ) : (
-              <table>
-                <tbody>
-                  <tr>
-                    <th> Event Name </th>
-                    <th> Os </th>
-                    <th> Created At </th>
-                    <th>Browser</th>
-                    <th>Ip Address</th>
-                    <th>Device</th>
-                    <th>Location</th>
-                  </tr>
-                  {this.state.searchApi.data.map((data, index) => (
-                    <Table key={index} {...data} />
-                  ))}
-                </tbody>
-              </table>
-            )}
 
-            <div className="pagination">
-              <strong>
-                Pages: &nbsp;
-                {pageNumbers.map((number, index) => (
-                  <button
-                    className="pager"
-                    name="pageApi"
-                    key={index}
-                    value={number}
-                    onClick={this.handleChange}
-                  >
-                    {number}
-                  </button>
-                ))}
-              </strong>
+                <div className="pagination">
+                  <strong>
+                    Pages: &nbsp;
+                    {pageNumbers.map((number, index) => (
+                      <button
+                        className="pager"
+                        name="pageApi"
+                        key={index}
+                        value={number}
+                        onClick={this.handleChange}
+                      >
+                        {number}
+                      </button>
+                    ))}
+                  </strong>
+                </div>
+              </div>
             </div>
           </div>
         )}

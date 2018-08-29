@@ -1,4 +1,3 @@
-import React from 'react';
 import { connect } from 'react-redux';
 import DashboardView from './dashboardView';
 import {
@@ -67,6 +66,7 @@ const mapDispatchToProps = dispatch => {
       dispatch(fetchPageBegin());
       pageResponse = await fetchPagesData();
       if (pageResponse.status === 200) {
+        // console.log(pageResponse.data);
         dispatch(fetchPageSuccess(pageResponse.data));
       } else {
         dispatch(fetchPageFailure(pageResponse.response));

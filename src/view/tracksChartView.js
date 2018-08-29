@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import Chart from 'react-google-charts';
 import TableData from '../components/dashboard/tableData';
 import { getTopData } from '../services/topDataServices';

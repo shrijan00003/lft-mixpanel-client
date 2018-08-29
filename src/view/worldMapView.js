@@ -1,5 +1,4 @@
-import React, { Component } from 'react';
-import { initMap } from '../services/chartServices';
+import React from 'react';
 import { getTopData } from '../services/topDataServices';
 
 import Chart from 'react-google-charts';
@@ -57,7 +56,7 @@ class WorldMap extends React.Component {
   }
   getName = name => {
     var key = Object.keys(isoCountries).filter(function(key) {
-      return isoCountries[key] == name;
+      return isoCountries[key] === name;
     })[0];
     console.log(key);
     this.setState({

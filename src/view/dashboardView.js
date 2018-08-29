@@ -8,8 +8,6 @@ import '../components/dashboard/dashboard.css';
 
 class DashboardView extends React.Component {
   componentDidMount() {
-    console.log(this.props);
-
     if (!this.props.pageIsLoaded) {
       this.props
         .fetchPage()

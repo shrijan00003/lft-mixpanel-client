@@ -1,7 +1,6 @@
 import React from 'react';
 import auth from '../../utils/auth';
 import { NavLink } from 'react-router-dom';
-import { USER_NAME } from '../../constants/authConstants';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 let $elem = null;

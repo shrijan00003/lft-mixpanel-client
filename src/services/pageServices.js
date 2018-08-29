@@ -1,4 +1,3 @@
-import React from 'react';
 import * as http from '../utils/http';
 
 let res = null;
@@ -19,9 +18,8 @@ export const fetchPagesData = (props = {}) => {
 };
 
 export const fetchPagesDataWithCount = query => {
-  console.log(query);
   res = http
-    .get(segment + '/paths' + query)
+    .get(segment + query)
     .then(tracksWithMeta => tracksWithMeta)
     .catch(err => {
       return err;

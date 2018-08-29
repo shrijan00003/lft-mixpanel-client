@@ -6,7 +6,6 @@ import {
   ACCESS_TOKEN,
   PARSE,
 } from '../constants/authConstants';
-import setUserDetails from '../services/profileServices';
 
 /**
  * creating axios instance

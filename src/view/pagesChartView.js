@@ -1,9 +1,7 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import Chart from 'react-google-charts';
-import TableData from '../components/dashboard/tableData';
-
 import { getTopData } from '../services/topDataServices';
+import TableData from '../components/dashboard/tableData';
 
 class ReferrerChart extends React.Component {
   constructor() {
@@ -34,13 +32,11 @@ class ReferrerChart extends React.Component {
           </div>
           <div className="col-4">
             <table className="mixpanel-data-table">
-              <thead>
+              <tbody>
                 <tr>
                   <th>Referrers</th>
                   <th>Visits</th>
                 </tr>
-              </thead>
-              <tbody>
                 <TableData data={this.state.referrerUsage} />
               </tbody>
             </table>
