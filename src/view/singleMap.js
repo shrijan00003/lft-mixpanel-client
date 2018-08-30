@@ -1,5 +1,4 @@
 import React from 'react';
-import { render } from 'react-dom';
 import { Chart } from 'react-google-charts';
 import { fetchTracksData } from '../services/trackServices';
 
@@ -88,7 +87,7 @@ class SingleMap extends React.Component {
                 data={this.props.chartSingleData}
                 chartEvents={this.chartEvents}
                 width="100%"
-                height="400px"
+                height="378px"
                 options={{
                   region: this.props.code,
                   resolution: 'country',
@@ -96,7 +95,7 @@ class SingleMap extends React.Component {
                 }}
               />
             </div>
-            <div>
+            {/* <div>
               {this.state.isClicked ? (
                 <div className="row">
                   {this.state.searchResult === null ? (
@@ -122,7 +121,7 @@ class SingleMap extends React.Component {
                   )}
                 </div>
               ) : null}
-            </div>
+            </div>*/}
           </div>
         )}
       </div>

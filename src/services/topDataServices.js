@@ -40,7 +40,5 @@ export function getTopData(listOfData, data = null) {
     showTopResult: showResult,
   };
 
-  console.log(resultObj);
-
   return resultObj;
 }

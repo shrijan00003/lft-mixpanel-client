@@ -4,9 +4,9 @@ import { NavLink, withRouter } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import './navbar.css';
-import { USER_NAME } from '../../constants/authConstants';
 
 let $elem = null;
+let $sidebar = null;
 let menuCollapse = true;
 
 const LogoutButton = withRouter(({ history }) => (
@@ -97,15 +97,18 @@ const TopNavbar = () => {
 };
 
 const collapseMenu = () => {
+  $sidebar = document.getElementById('sidebar');
   $elem = document.getElementsByClassName('side-nav');
 
   if (menuCollapse) {
     $elem[0].classList.add('collapsed-menu');
     $elem[1].classList.add('collapsed-menu');
+    $sidebar.classList.add('collapsed-sidebar');
     menuCollapse = false;
   } else {
     $elem[0].classList.remove('collapsed-menu');
     $elem[1].classList.remove('collapsed-menu');
+    $sidebar.classList.remove('collapsed-sidebar');
     menuCollapse = true;
   }
 };

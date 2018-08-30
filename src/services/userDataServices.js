@@ -1,4 +1,3 @@
-import React from 'react';
 import * as http from '../utils/http';
 
 let res = null;

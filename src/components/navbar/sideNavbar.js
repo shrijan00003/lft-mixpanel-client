@@ -1,7 +1,6 @@
 import React from 'react';
 import auth from '../../utils/auth';
 import { NavLink } from 'react-router-dom';
-import { USER_NAME } from '../../constants/authConstants';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 let $elem = null;
@@ -66,128 +65,130 @@ class SideNavbar extends React.Component {
 
   render() {
     return auth.getToken() ? (
-      <div id="" className="aside side-nav">
-        <div className="side-navbar">
-          <div className="side-navbar-title">
-            <h1>MENU</h1>
-          </div>
-          <div className="side-navbar-menu-list">
-            <ul>
-              <NavLink
-                to={{
-                  pathname: '/dashboard',
-                }}
-              >
-                <li id="dashboard" className="menu-list">
-                  <div className="list-menu-titles">
-                    <FontAwesomeIcon icon="tachometer-alt" />
-                    <span className="list-span">Dashboard</span>
-                  </div>
-                </li>
-              </NavLink>
-              <NavLink to={{ pathname: '/customization' }}>
-                <li id="customization" className="menu-list">
-                  <div className="list-menu-titles">
-                    <FontAwesomeIcon icon="chalkboard-teacher" />
-                    <span className="list-span">Customize</span>
-                  </div>
-                </li>
-              </NavLink>
-              <NavLink to={{ pathname: '/realtime' }}>
-                <li id="realtime" className="menu-list">
-                  <div className="list-menu-titles">
-                    <FontAwesomeIcon icon="eye" />
-                    <span className="list-span">Real Time</span>
-                  </div>
-                </li>
-              </NavLink>
-              <NavLink to={{ pathname: '/audience' }}>
-                <li
-                  id="audience"
-                  className="menu-list"
-                  onClick={() => showHideSubMenu()}
+      <div id="sidebar" className="sidebar">
+        <div id="" className="aside side-nav">
+          <div className="side-navbar">
+            <div className="side-navbar-title">
+              <h1>MENU</h1>
+            </div>
+            <div className="side-navbar-menu-list">
+              <ul>
+                <NavLink
+                  to={{
+                    pathname: '/dashboard',
+                  }}
                 >
-                  <div className="has-sub-menu list-menu-titles">
-                    <FontAwesomeIcon icon="user-friends" />
-                    <span className="list-span">Audience</span>
-                    <FontAwesomeIcon icon="angle-down" pull="right" />
-                  </div>
-                </li>
-              </NavLink>
+                  <li id="dashboard" className="menu-list">
+                    <div className="list-menu-titles">
+                      <FontAwesomeIcon icon="tachometer-alt" />
+                      <span className="list-span">Dashboard</span>
+                    </div>
+                  </li>
+                </NavLink>
+                <NavLink to={{ pathname: '/customization' }}>
+                  <li id="customization" className="menu-list">
+                    <div className="list-menu-titles">
+                      <FontAwesomeIcon icon="chalkboard-teacher" />
+                      <span className="list-span">Customize</span>
+                    </div>
+                  </li>
+                </NavLink>
+                <NavLink to={{ pathname: '/realtime' }}>
+                  <li id="realtime" className="menu-list">
+                    <div className="list-menu-titles">
+                      <FontAwesomeIcon icon="eye" />
+                      <span className="list-span">Real Time</span>
+                    </div>
+                  </li>
+                </NavLink>
+                <NavLink to={{ pathname: '/audience' }}>
+                  <li
+                    id="audience"
+                    className="menu-list"
+                    onClick={() => showHideSubMenu()}
+                  >
+                    <div className="has-sub-menu list-menu-titles">
+                      <FontAwesomeIcon icon="user-friends" />
+                      <span className="list-span">Audience</span>
+                      <FontAwesomeIcon icon="angle-down" pull="right" />
+                    </div>
+                  </li>
+                </NavLink>
 
-              <ul id="submenu" className="side-navbar-sub-menu-list">
-                <NavLink to={{ pathname: '/audience/overview' }}>
-                  <li
-                    id="overview"
-                    className="sub-menu-list"
-                    onClick={() => setActiveSubMenu()}
-                  >
-                    <div className="list-menu-titles sub-menu">
-                      <FontAwesomeIcon icon="bookmark" />
-                      <span className="list-span">Overview</span>
-                    </div>
-                  </li>
-                </NavLink>
-                <NavLink to={{ pathname: '/audience/statistics' }}>
-                  <li
-                    id="statistics"
-                    className="sub-menu-list"
-                    onClick={() => setActiveSubMenu()}
-                  >
-                    <div className="list-menu-titles sub-menu">
-                      <FontAwesomeIcon icon="bookmark" />
-                      <span className="list-span">Statatics</span>
-                    </div>
-                  </li>
-                </NavLink>
+                <ul id="submenu" className="side-navbar-sub-menu-list">
+                  <NavLink to={{ pathname: '/audience/overview' }}>
+                    <li
+                      id="overview"
+                      className="sub-menu-list"
+                      onClick={() => setActiveSubMenu()}
+                    >
+                      <div className="list-menu-titles sub-menu">
+                        <FontAwesomeIcon icon="bookmark" />
+                        <span className="list-span">Overview</span>
+                      </div>
+                    </li>
+                  </NavLink>
+                  <NavLink to={{ pathname: '/audience/statistics' }}>
+                    <li
+                      id="statistics"
+                      className="sub-menu-list"
+                      onClick={() => setActiveSubMenu()}
+                    >
+                      <div className="list-menu-titles sub-menu">
+                        <FontAwesomeIcon icon="bookmark" />
+                        <span className="list-span">Statatics</span>
+                      </div>
+                    </li>
+                  </NavLink>
 
-                <NavLink to={{ pathname: '/audience/filter' }}>
-                  <li
-                    id="filter"
-                    className="sub-menu-list"
-                    onClick={() => setActiveSubMenu()}
-                  >
-                    <div className="list-menu-titles sub-menu">
-                      <FontAwesomeIcon icon="bookmark" />
-                      <span className="list-span">Filter</span>
-                    </div>
-                  </li>
-                </NavLink>
-                <NavLink to={{ pathname: '/audience/tracks' }}>
-                  <li
-                    id="tracks"
-                    className="sub-menu-list"
-                    onClick={() => setActiveSubMenu()}
-                  >
-                    <div className="list-menu-titles sub-menu">
-                      <FontAwesomeIcon icon="bookmark" />
-                      <span className="list-span">Tracks</span>
-                    </div>
-                  </li>
-                </NavLink>
-                <NavLink to={{ pathname: '/audience/pages' }}>
-                  <li
-                    id="pages"
-                    className="sub-menu-list"
-                    onClick={() => setActiveSubMenu()}
-                  >
-                    <div className="list-menu-titles sub-menu">
-                      <FontAwesomeIcon icon="bookmark" />
-                      <span className="list-span">Pages</span>
+                  <NavLink to={{ pathname: '/audience/filter' }}>
+                    <li
+                      id="filter"
+                      className="sub-menu-list"
+                      onClick={() => setActiveSubMenu()}
+                    >
+                      <div className="list-menu-titles sub-menu">
+                        <FontAwesomeIcon icon="bookmark" />
+                        <span className="list-span">Filter</span>
+                      </div>
+                    </li>
+                  </NavLink>
+                  <NavLink to={{ pathname: '/audience/tracks' }}>
+                    <li
+                      id="tracks"
+                      className="sub-menu-list"
+                      onClick={() => setActiveSubMenu()}
+                    >
+                      <div className="list-menu-titles sub-menu">
+                        <FontAwesomeIcon icon="bookmark" />
+                        <span className="list-span">Tracks</span>
+                      </div>
+                    </li>
+                  </NavLink>
+                  <NavLink to={{ pathname: '/audience/pages' }}>
+                    <li
+                      id="pages"
+                      className="sub-menu-list"
+                      onClick={() => setActiveSubMenu()}
+                    >
+                      <div className="list-menu-titles sub-menu">
+                        <FontAwesomeIcon icon="bookmark" />
+                        <span className="list-span">Pages</span>
+                      </div>
+                    </li>
+                  </NavLink>
+                </ul>
+
+                <NavLink to={{ pathname: '/country' }}>
+                  <li id="country" className="menu-list">
+                    <div className="list-menu-titles">
+                      <FontAwesomeIcon icon="map" />
+                      <span className="list-span">Country</span>
                     </div>
                   </li>
                 </NavLink>
               </ul>
-
-              <NavLink to={{ pathname: '/country' }}>
-                <li id="country" className="menu-list">
-                  <div className="list-menu-titles">
-                    <FontAwesomeIcon icon="map" />
-                    <span className="list-span">Country</span>
-                  </div>
-                </li>
-              </NavLink>
-            </ul>
+            </div>
           </div>
         </div>
       </div>

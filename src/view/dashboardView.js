@@ -1,23 +1,13 @@
 import React from 'react';
-import Dash from './dash';
-import store from '../store';
-// import GeoChart from './geoChart';
-import Chart from 'react-google-charts';
 import { GeoChart } from './pageOnLoad';
-import GeoChartView from './geoChartView';
 import PagesChartView from './pagesChartView';
 import TracksChartView from './tracksChartView';
-import AtGlance from '../components/dashboard/atGlance';
-import TableData from '../components/dashboard/tableData';
-// import TableData from '../components/dashboard/tableData';
-import UserSources from '../components/dashboard/userSurces';
+import AtGlanceRow from '../components/dashboard/atGlanceRow';
 
 import '../components/dashboard/dashboard.css';
 
 class DashboardView extends React.Component {
   componentDidMount() {
-    console.log(this.props);
-
     if (!this.props.pageIsLoaded) {
       this.props
         .fetchPage()
@@ -37,19 +27,17 @@ class DashboardView extends React.Component {
         ) : (
           <div>
             <div>
-              <Dash {...this.props} />
+              <AtGlanceRow {...this.props} />
             </div>
             <div>
               <GeoChart />
             </div>
-            browser breakdown in tracks and pages: showing 10 of 10 rows date
-            from and to
-            <div className="col-6">
-              <div className="chart-data">
-                <div style={{ textAlign: 'center', padding: '15px' }}>
+            <div className="col-4">
+              <div className="padding-left">
+                <div className="chart-data row">
                   <h3> Top Os Usage</h3>
+                  <TracksChartView {...this.props} />
                 </div>
-                <TracksChartView {...this.props} />
               </div>
             </div>
           </div>
@@ -58,12 +46,13 @@ class DashboardView extends React.Component {
         {this.props.pageData === null ? (
           <span>{this.props.statusMessage} </span>
         ) : (
-          <div className="col-6">
-            <div className="chart-data">
-              <div style={{ textAlign: 'center', padding: '15px' }}>
+          <div className="col-8">
+            <div className="padding-right">
+              <div className="chart-data row">
                 <h3> Top Referrers</h3>
+
+                <PagesChartView {...this.props} />
               </div>
-              <PagesChartView {...this.props} />
             </div>
           </div>
         )}

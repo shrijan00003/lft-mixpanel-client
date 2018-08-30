@@ -1,6 +1,7 @@
 import React from 'react';
-import '../components/dashboard/dashboard.css';
 import Track from './trackView';
+
+import '../components/dashboard/dashboard.css';
 
 class CheckTrackView extends React.Component {
   componentDidMount() {

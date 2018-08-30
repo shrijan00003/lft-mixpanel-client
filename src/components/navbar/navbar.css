@@ -7,6 +7,7 @@ header {
   width: 100%;
   background: rgb(255, 255, 255);
   box-shadow: 0px 1px 2px black;
+  height: 55px;
 }
 
 /* NAVBAR DESIGN */
@@ -22,6 +23,11 @@ header {
 
 .navbar-full {
   width: 100%;
+  background: rgb(255, 255, 255);
+  box-shadow: 0px 1px 2px black;
+  position: fixed;
+  height: 55px;
+  z-index: 100;
 }
 
 .navbar-normal {
@@ -152,11 +158,24 @@ header {
 }
 
 /* Side Nav Menu */
+
+.sidebar {
+  width: 220px;
+  height: 100vh;
+  float: left;
+  clear: both;
+}
+
+.collapsed-sidebar {
+  width: 70px;
+}
+
 .side-navbar {
   background-color: rgb(13, 71, 88);
   height: 100vh;
-  /* position: fixed; */
-  /* width: 100%; */
+  position: fixed;
+  width: inherit;
+  max-width: inherit;
 }
 
 .side-navbar-title {

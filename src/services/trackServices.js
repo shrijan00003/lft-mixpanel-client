@@ -1,4 +1,3 @@
-import React from 'react';
 import * as http from '../utils/http';
 
 let res = null;
@@ -32,7 +31,6 @@ export const fetchTracksData = (props = {}) => {
 };
 
 export const fetchTracksDataWithCount = props => {
-  console.log(props, 'propsincountfetch');
   res = http
     .get(segment + '/devices', {
       get: props.get,

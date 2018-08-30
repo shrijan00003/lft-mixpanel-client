@@ -3,3 +3,23 @@
   display: table;
   clear: both;
 }
+
+.mixpanel-data-table {
+  width: 100%;
+  border-spacing: 0;
+}
+
+.mixpanel-data-table tr {
+  background-color: white;
+}
+
+.mixpanel-data-table tr td {
+  font-size: 13px;
+  color: rgb(56, 56, 58);
+  border-top: 1px solid rgb(238, 237, 237);
+}
+
+.mixpanel-data-table tr th {
+  color: rgb(77, 77, 78);
+  background-color: rgb(240, 240, 240);
+}

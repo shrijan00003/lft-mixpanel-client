@@ -1,22 +1,22 @@
 import React from 'react';
-import auth from '../utils/auth';
+// import auth from '../utils/auth';
 import Logout from '../view/logout';
 import Login from '../view/loginView';
 import Signup from '../view/signupView';
 import PrivateRoute from './privateRoutes';
 import NotFound from '../view/notFoundView';
 import NavbarView from '../view/navbarView';
-// import { Dashboard } from '../view/dashboard';
-// import { GeoChart1 } from '../view/geoChart';
-import { Tracks, Pages, Dashboard, WorldMap } from '../view/pageOnLoad';
 import ProfileView from '../view/profileView';
-import { USER_NAME } from '../constants/authConstants';
+// import { GeoChart1 } from '../view/geoChart';
+// import { Dashboard } from '../view/dashboard';
+// import { USER_NAME } from '../constants/authConstants';
 import SideNavView from '../components/navbar/sideNavbar';
+import { Tracks, Pages, Dashboard, WorldMap } from '../view/pageOnLoad';
 import {
   BrowserRouter as Router,
   Route,
   Switch,
-  Redirect,
+  // Redirect,
 } from 'react-router-dom';
 
 const Routes = () => {
@@ -33,11 +33,7 @@ const Routes = () => {
           <Route exact path="/login" component={Login} />
           <Route exact path="/signup" component={Signup} />
           <PrivateRoute exact path="/logout" component={Logout} />
-          {/* <PrivateRoute
-            exact
-            path="/"
-            render={() => <Redirect to="/dashboard" />}
-          />*/}
+
           <PrivateRoute exact path="/dashboard" component={Dashboard} />
 
           <PrivateRoute exact path="/audience/tracks" component={Tracks} />
@@ -51,6 +47,7 @@ const Routes = () => {
             path={'/profile'} //+ auth.getDetails(USER_NAME)}
             component={ProfileView}
           />
+          <PrivateRoute exact path={'/customization'} component={ProfileView} />
           <Route component={NotFound} />
         </Switch>
       </div>

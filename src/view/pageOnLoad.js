@@ -1,4 +1,3 @@
-import React from 'react';
 import { connect } from 'react-redux';
 import DashboardView from './dashboardView';
 import {
@@ -24,7 +23,7 @@ import { fetchTracksData } from '../services/trackServices';
 import { fetchPagesData } from '../services/pageServices';
 import { fetchUsersData } from '../services/userDataServices';
 
-import GeoChartView from './geoChartView';
+import GeoCountriesView from './geoCountries';
 import CheckTracksProps from './checkTrackProps';
 import CheckPagesProps from './checkPageProps';
 import CheckWorldMapProps from './checkWorldMapProps';
@@ -67,6 +66,7 @@ const mapDispatchToProps = dispatch => {
       dispatch(fetchPageBegin());
       pageResponse = await fetchPagesData();
       if (pageResponse.status === 200) {
+        // console.log(pageResponse.data);
         dispatch(fetchPageSuccess(pageResponse.data));
       } else {
         dispatch(fetchPageFailure(pageResponse.response));
@@ -129,4 +129,4 @@ export const WorldMap = connect(
 export const GeoChart = connect(
   mapStateToProps,
   mapDispatchToProps
-)(GeoChartView);
+)(GeoCountriesView);
