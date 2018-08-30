@@ -22,38 +22,40 @@ class GeoChartView extends React.Component {
   async componentDidMount() {
     if (!this.props.chartIsLoaded) {
       let metaData = this.props.usersDetails.metaData;
+      console.log(metaData);
+      if (metaData.length > 0) {
+        let countryName = [];
+        let latlngArr = [];
+        for (let i in metaData) {
+          countryName.push(metaData[i].location.countryName);
+          var latlng = {
+            lat: parseFloat(metaData[i].location.latitude),
+            lng: parseFloat(metaData[i].location.longitude),
+          };
+          latlngArr.push(Object.values(latlng));
+        }
 
-      let countryName = [];
-      let latlngArr = [];
-      for (let i in metaData) {
-        countryName.push(metaData[i].location.countryName);
-        var latlng = {
-          lat: parseFloat(metaData[i].location.latitude),
-          lng: parseFloat(metaData[i].location.longitude),
-        };
-        latlngArr.push(Object.values(latlng));
+        let userFromCountryResult = [
+          ['Country', 'Total Users'],
+          ...getTopData(countryName).showTopResult,
+        ];
+        console.log(latlng, 'jdfojdsofjf');
+        let latlngArrayResult = [['Latitude', 'Longitude'], ...latlng];
+        this.props.fetchChart(userFromCountryResult, latlngArrayResult);
+
+        this.setState(prevState => ({
+          chartData: [...prevState.chartData, ...userFromCountryResult],
+        }));
+
+        //console.log(userFromCountryResult, 'userrrr');
+        // this.setState(prevState => ({
+        //   chartData: [
+        //     ...prevState.chartData,
+        //     ...getTopData(countryName).showTopResult,
+        //   ],
+        // }));
+        // console.log(this.state.chartData);
       }
-
-      let userFromCountryResult = [
-        ['Country', 'Total Users'],
-        ...getTopData(countryName).showTopResult,
-      ];
-      console.log(latlng, 'jdfojdsofjf');
-      let latlngArrayResult = [['Latitude', 'Longitude'], ...latlng];
-      this.props.fetchChart(userFromCountryResult, latlngArrayResult);
-
-      this.setState(prevState => ({
-        chartData: [...prevState.chartData, ...userFromCountryResult],
-      }));
-
-      console.log(userFromCountryResult, 'userrrr');
-      // this.setState(prevState => ({
-      //   chartData: [
-      //     ...prevState.chartData,
-      //     ...getTopData(countryName).showTopResult,
-      //   ],
-      // }));
-      console.log(this.state.chartData);
     }
   }
 

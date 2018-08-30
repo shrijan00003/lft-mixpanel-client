@@ -16,7 +16,7 @@ const Table = ({
     <td> {eventName} </td>
     <td> {os} </td>
     <td> {createdAt} </td>
-    <td>{browser}</td>
+    <td> {browser}</td>
     <td>{ipAddress}</td>
 
     <td>{device}</td>
