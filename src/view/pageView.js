@@ -6,7 +6,7 @@ import { fetchPagesDataWithCount } from '../services/pageServices';
 
 import '../components/pages/pages.css';
 
-const Page = ({ name, referrer, title, url, path, createdAt }) => (
+const PageRow = ({ name, referrer, title, url, path, createdAt }) => (
   <tr>
     <td> {name} </td>
     <td> {referrer} </td>
@@ -19,7 +19,7 @@ const Page = ({ name, referrer, title, url, path, createdAt }) => (
   </tr>
 );
 
-const PageAnalyticsTable = ({ ...data }) => (
+const PageAnalyticsRow = ({ ...data }) => (
   <tr>
     <td> {data[Object.keys(data)[0]]} </td>
     <td> {data[Object.keys(data)[4]]} </td>
@@ -167,7 +167,7 @@ class Pages extends React.Component {
                           <th> Count </th>
                         </tr>
                         {this.state.ans.map((data, index) => (
-                          <PageAnalyticsTable key={index} {...data} />
+                          <PageAnalyticsRow key={index} {...data} />
                         ))}
                       </tbody>
                     </table>
@@ -225,7 +225,7 @@ class Pages extends React.Component {
                       </tr>
 
                       {this.state.searchApiResult.data.map((data, index) => (
-                        <Page key={index} {...data} />
+                        <PageRow key={index} {...data} />
                       ))}
                     </tbody>
                   </table>

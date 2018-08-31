@@ -127,3 +127,7 @@ body {
   margin: 0;
   padding: 0;
 }
+
+.border-right {
+ border-right:2px solid lightgray;
+}

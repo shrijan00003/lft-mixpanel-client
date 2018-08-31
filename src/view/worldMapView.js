@@ -1,12 +1,11 @@
 import React from 'react';
-import { getTopData } from '../services/topDataServices';
 
+import SingleMap from './singleMap';
 import Chart from 'react-google-charts';
 import isoCountries from '../datas/isoCountries';
-import SingleMap from './singleMap';
+import { getTopData } from '../services/topDataServices';
 
 import '../components/tracks/tracks.css';
-import { DETAILS_STORAGE } from '../constants/authConstants';
 
 const Table = ({ ...data }) => {
   if (data[0] && data[1]) {
@@ -17,7 +16,11 @@ const Table = ({ ...data }) => {
       </tr>
     );
   }
-  return '';
+  return (
+    <tr>
+      <td>No Data found!!!</td>
+    </tr>
+  );
 };
 
 class WorldMap extends React.Component {
@@ -152,29 +155,36 @@ class WorldMap extends React.Component {
     }
 
     return (
-      //   <div>Country</div>
       <div className="container row">
         {this.props.chartData === null ? (
           <span>{this.props.statusMessage} </span>
         ) : (
           <div>
-            <div className="row">
-              <div className="col-7 ">
-                <Chart
-                  chartType="GeoChart"
-                  width="100%"
-                  data={this.props.chartData}
-                  chartEvents={this.chartEvents}
-                />
-              </div>
-
-              {this.state.isClicked ? (
-                <div>
-                  <SingleMap {...this.state} {...this.props} />
+            <div className="col-12">
+              <div className="tracks-data row">
+                <div className="tracks-data-header row">
+                  <div className="no-margin-no-padding">
+                    <div className="tracks-data-header-title">
+                      <h3>Where are your users located?</h3>
+                    </div>
+                  </div>
                 </div>
-              ) : null}
-            </div>
+                <div className="col-8">
+                  <Chart
+                    chartType="GeoChart"
+                    width="100%"
+                    data={this.props.chartData}
+                    chartEvents={this.chartEvents}
+                  />
+                </div>
 
+                {this.state.isClicked ? (
+                  <div className="col-4">
+                    <SingleMap {...this.state} {...this.props} />
+                  </div>
+                ) : null}
+              </div>
+            </div>
             <div className="col-12">
               <div className="tracks-data row">
                 <div className="col-6">
