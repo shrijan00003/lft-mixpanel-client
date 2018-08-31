@@ -2,6 +2,7 @@ import React from 'react';
 import { GeoChart } from './pageOnLoad';
 import PagesChartView from './pagesChartView';
 import TracksChartView from './tracksChartView';
+import BrowserChartView from './browserChartView';
 import AtGlanceRow from '../components/dashboard/atGlanceRow';
 
 import '../components/dashboard/dashboard.css';
@@ -29,6 +30,7 @@ class DashboardView extends React.Component {
             <div>
               <AtGlanceRow {...this.props} />
             </div>
+
             <div>
               <GeoChart />
             </div>
@@ -37,6 +39,15 @@ class DashboardView extends React.Component {
                 <div className="chart-data row">
                   <h3> Top Os Usage</h3>
                   <TracksChartView {...this.props} />
+                </div>
+              </div>
+            </div>
+
+            <div className="col-6">
+              <div>
+                <div className="chart-data row">
+                  <h3> Top Browser Usage</h3>
+                  <BrowserChartView {...this.props} />
                 </div>
               </div>
             </div>

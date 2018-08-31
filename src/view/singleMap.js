@@ -47,7 +47,8 @@ class SingleMap extends React.Component {
       console.log(
         val.row,
         'single',
-        this.props.chartSingleData[val.row + 1][0]
+        this.props.chartSingleData[val.row + 1][0],
+        this.props.chartSingleData[val.row + 1][1]
       );
 
       this.setState({

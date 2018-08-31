@@ -31,7 +31,8 @@ class GeoCountries extends React.Component {
           ...getTopData(countryName).showTopResult,
         ];
 
-        let latlngArrayResult = [['Latitude', 'Longitude'], ...latlng];
+        let latlngArrayResult = [['Latitude', 'Longitude'], ...latlngArr];
+
         this.props.fetchChart(userFromCountryResult, latlngArrayResult);
 
         this.setState(prevState => ({
@@ -42,7 +43,6 @@ class GeoCountries extends React.Component {
   }
 
   render() {
-    console.log(this.props.chartData);
     return (
       <div className="container row">
         {this.props.chartData === null ? (

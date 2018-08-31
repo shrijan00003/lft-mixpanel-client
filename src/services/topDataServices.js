@@ -1,6 +1,11 @@
 export function getTopData(listOfData, data = null) {
+  // console.log(listOfData, 'listofData');
+  let a = [];
+
   var obj = listOfData.reduce(function(acc, curr) {
     //accumulator, currentValue
+    // console.log(acc, curr);
+    a.push([curr.os, curr.userName]);
     switch (data) {
       case 'os':
         acc[curr.os] ? acc[curr.os]++ : (acc[curr.os] = 1);
@@ -9,11 +14,40 @@ export function getTopData(listOfData, data = null) {
       case 'referrer':
         acc[curr.referrer] ? acc[curr.referrer]++ : (acc[curr.referrer] = 1);
         return acc;
+
+      case 'browser':
+        acc[curr.browser] ? acc[curr.browser]++ : (acc[curr.browser] = 1);
+        return acc;
+
       default:
         acc[curr] ? acc[curr]++ : (acc[curr] = 1);
         return acc;
     }
   }, {});
+
+  // let r = a.sort().map(function(x) {
+  //   return {
+  //     os: x[0],
+  //     user: x[1],
+  //   };
+  // });
+
+  var o = [],
+    b = [],
+    prev;
+
+  a.sort();
+  for (var i = 0; i < a.length; i++) {
+    if (a[i] !== prev) {
+      o.push(a[i][1]);
+      b.push(a[i]);
+    } else {
+      b[b.length - 1]++;
+    }
+    prev = a[i];
+  }
+
+  // console.log([a, b]);
   let resultObj = {
     result: Object.keys(obj).map(function(key) {
       return [key, obj[key]];
