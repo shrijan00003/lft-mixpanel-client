@@ -42,9 +42,8 @@ class GeoCountries extends React.Component {
   }
 
   render() {
-    console.log(this.props.chartData);
     return (
-      <div className="container row">
+      <div className="row">
         {this.props.chartData === null ? (
           <span>{this.props.statusMessage} </span>
         ) : (

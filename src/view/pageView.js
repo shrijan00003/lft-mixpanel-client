@@ -115,7 +115,7 @@ class Pages extends React.Component {
     }
 
     return (
-      <div className="container row">
+      <div className="container no-margin-no-padding">
         {this.props.pageData === null ? (
           <span>{this.props.statusMessage} </span>
         ) : (
@@ -132,7 +132,7 @@ class Pages extends React.Component {
                 {this.state.arr === null ? (
                   <span>Calculaing... </span>
                 ) : (
-                  <div className="col-8">
+                  <div className="col-7">
                     <div className="select-track">
                       Showing&nbsp;
                       <select
@@ -159,12 +159,12 @@ class Pages extends React.Component {
                 {this.state.ans === null ? (
                   <span>Calculaing... </span>
                 ) : (
-                  <div className="col-4">
+                  <div className="col-5">
                     <table className="mixpanel-data-table">
                       <tbody>
                         <tr>
                           <th> Name </th>
-                          <th> Count </th>
+                          <th> Views </th>
                         </tr>
                         {this.state.ans.map((data, index) => (
                           <PageAnalyticsRow key={index} {...data} />

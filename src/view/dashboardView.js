@@ -2,6 +2,7 @@ import React from 'react';
 import { GeoChart } from './pageOnLoad';
 import PagesChartView from './pagesChartView';
 import TracksChartView from './tracksChartView';
+import BrowserChartView from './browserChartView';
 import AtGlanceRow from '../components/dashboard/atGlanceRow';
 
 import '../components/dashboard/dashboard.css';
@@ -29,15 +30,22 @@ class DashboardView extends React.Component {
             <div>
               <AtGlanceRow {...this.props} />
             </div>
+
             <div>
               <GeoChart />
             </div>
-            <div className="col-4">
-              <div className="padding-left">
-                <div className="chart-data row">
-                  <h3> Top Os Usage</h3>
-                  <TracksChartView {...this.props} />
-                </div>
+
+            <div className="col-6">
+              <div className="chart-data row">
+                <h3> Top Operating System Usage</h3>
+                <TracksChartView {...this.props} />
+              </div>
+            </div>
+
+            <div className="col-6">
+              <div className="chart-data row">
+                <h3> Top Browser Usage</h3>
+                <BrowserChartView {...this.props} />
               </div>
             </div>
           </div>
@@ -46,13 +54,11 @@ class DashboardView extends React.Component {
         {this.props.pageData === null ? (
           <span>{this.props.statusMessage} </span>
         ) : (
-          <div className="col-8">
-            <div className="padding-right">
-              <div className="chart-data row">
-                <h3> Top Referrers</h3>
+          <div className="col-12">
+            <div className="chart-data row">
+              <h3> Top Referrers</h3>
 
-                <PagesChartView {...this.props} />
-              </div>
+              <PagesChartView {...this.props} />
             </div>
           </div>
         )}

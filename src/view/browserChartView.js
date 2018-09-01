@@ -1,48 +1,46 @@
 import React from 'react';
 import Chart from 'react-google-charts';
-import TableData from '../components/dashboard/tableData';
 import { getTopData } from '../services/topDataServices';
 import { pieOptions } from '../constants/chartConstants';
 
-class TracksChartView extends React.Component {
+import TableData from '../components/dashboard/tableData';
+
+class BrowserChart extends React.Component {
   constructor() {
     super();
     this.state = {
-      osUsage: [['', '']],
+      browserUsage: [['', '']],
     };
   }
   componentDidMount() {
-    let osDataFromMeta = this.props.usersDetails.metaData;
-    let osUse = getTopData(osDataFromMeta, 'os');
+    let browserDataFromMeta = this.props.usersDetails.metaData;
 
+    let browserCount = getTopData(browserDataFromMeta, 'browser');
     this.setState(prevState => ({
-      osUsage: [...prevState.osUsage, ...osUse.showTopResult],
+      browserUsage: [...prevState.browserUsage, ...browserCount.showTopResult],
     }));
   }
   render() {
     return (
       <div className="col-12">
         <div className="row">
-          <div className="col-7" style={{ paddingTop: 50 + 'px' }}>
+          <div className="col-8">
             <Chart
               chartType="PieChart"
-              data={this.state.osUsage}
+              data={this.state.browserUsage} //{data}
               options={pieOptions}
-              graph_id="PieChart"
               width={'100%'}
               legend_toggle
             />
           </div>
-          <div className="col-5">
+          <div className="col-4">
             <table className="mixpanel-data-table">
-              <thead>
-                <tr>
-                  <th>Operating System</th>
-                  <th>Users</th>
-                </tr>
-              </thead>
               <tbody>
-                <TableData data={this.state.osUsage} />
+                <tr>
+                  <th>Browsers</th>
+                  <th>Visits</th>
+                </tr>
+                <TableData data={this.state.browserUsage} />
               </tbody>
             </table>
           </div>
@@ -52,4 +50,4 @@ class TracksChartView extends React.Component {
   }
 }
 
-export default TracksChartView;
+export default BrowserChart;

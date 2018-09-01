@@ -67,7 +67,7 @@ class WorldMap extends React.Component {
     } else {
       this.setState({
         countryTotalUsers: this.props.chartData,
-        displayData: this.props.chartData,
+        displayData: this.props.chartData.slice(1, 3),
       });
     }
   }
