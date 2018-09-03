@@ -68,7 +68,7 @@ class WorldMap extends React.Component {
       let userFromCountryResult = [['', ''], ...getTopData(countryName).result];
 
       let latlngArrayResult = [
-        // ['Latitude', 'Longitude', 'User Id'],
+        //  ['Latitude', 'Longitude', 'UserId'],
         ...latlngArr,
       ];
       this.setState(prevState => ({
