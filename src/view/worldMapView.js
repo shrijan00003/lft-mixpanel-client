@@ -141,7 +141,7 @@ class WorldMap extends React.Component {
   };
 
   render() {
-    const { pageSize, currentPageNo, countryTotalUsers } = this.state;
+    const { pageSize, countryTotalUsers } = this.state;
     // let displayData = null;
     // const pageNumbers = [];
 

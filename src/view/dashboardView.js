@@ -9,6 +9,7 @@ import '../components/dashboard/dashboard.css';
 
 class DashboardView extends React.Component {
   componentDidMount() {
+   
     if (!this.props.pageIsLoaded) {
       this.props
         .fetchPage()
@@ -20,6 +21,8 @@ class DashboardView extends React.Component {
         .catch(err => console.log(err));
     }
   }
+
+  // Renders dashboard
   render() {
     return (
       <div className="container row">

@@ -44,7 +44,7 @@ class GeoCountries extends React.Component {
         ];
 
         let latlngArrayResult = [
-          //  ['Latitude', 'Longitude', 'UserId'],
+          // ['Latitude', 'Longitude', 'UserId'],
           ...latlngArr,
         ];
         this.props.fetchChart(userFromCountryResult, latlngArrayResult);
