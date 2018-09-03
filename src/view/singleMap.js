@@ -65,12 +65,7 @@ class SingleMap extends React.Component {
   async onSelectEvent(Chart) {
     let val = Chart.chartWrapper.getChart().getSelection()[0];
     if (val) {
-      console.log(
-        val.row,
-        'single',
-        this.props.chartSingleData[val.row + 1][0],
-        this.props.chartSingleData[val.row + 1][1]
-      );
+      // console.log(this.props.chartSingleData);
 
       this.setState({
         isClicked: true,

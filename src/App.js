@@ -9,17 +9,19 @@ import './fontAwesomeIcon/fontAwesomeIcon.js';
 import './App.css';
 
 class App extends Component {
-  componentDidMount() {
+  constructor() {
+    super();
     const endPoint = 'http://127.0.0.1:8848';
-    const socket = socketIO(endPoint, {
-      transports: ['websocket', 'polling', 'flashsocket'],
-    });
-    socket.on('FromAPI', data => console.log(data));
-
-    // socket.on('new message', function(data) {
-    //   console.log('hello');
-    // });
+    const socket = socketIO(endPoint);
+    socket.on('FromAPI', console.log);
   }
+
+  // componentDidMount() {
+
+  //   // socket.on('new message', function(data) {
+  //   //   console.log('hello');
+  //   // });
+  // }
 
   render() {
     return (
