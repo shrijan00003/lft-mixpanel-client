@@ -6,7 +6,7 @@ import { fetchPagesDataWithCount } from '../services/pageServices';
 
 import '../components/pages/pages.css';
 
-const Page = ({ name, referrer, title, url, path, createdAt }) => (
+const PageRow = ({ name, referrer, title, url, path, createdAt }) => (
   <tr>
     <td> {name} </td>
     <td> {referrer} </td>
@@ -19,7 +19,7 @@ const Page = ({ name, referrer, title, url, path, createdAt }) => (
   </tr>
 );
 
-const PageAnalyticsTable = ({ ...data }) => (
+const PageAnalyticsRow = ({ ...data }) => (
   <tr>
     <td> {data[Object.keys(data)[0]]} </td>
     <td> {data[Object.keys(data)[4]]} </td>
@@ -115,7 +115,7 @@ class Pages extends React.Component {
     }
 
     return (
-      <div className="container row">
+      <div className="container no-margin-no-padding">
         {this.props.pageData === null ? (
           <span>{this.props.statusMessage} </span>
         ) : (
@@ -132,7 +132,7 @@ class Pages extends React.Component {
                 {this.state.arr === null ? (
                   <span>Calculaing... </span>
                 ) : (
-                  <div className="col-8">
+                  <div className="col-7">
                     <div className="select-track">
                       Showing&nbsp;
                       <select
@@ -159,15 +159,15 @@ class Pages extends React.Component {
                 {this.state.ans === null ? (
                   <span>Calculaing... </span>
                 ) : (
-                  <div className="col-4">
+                  <div className="col-5">
                     <table className="mixpanel-data-table">
                       <tbody>
                         <tr>
                           <th> Name </th>
-                          <th> Count </th>
+                          <th> Views </th>
                         </tr>
                         {this.state.ans.map((data, index) => (
-                          <PageAnalyticsTable key={index} {...data} />
+                          <PageAnalyticsRow key={index} {...data} />
                         ))}
                       </tbody>
                     </table>
@@ -225,7 +225,7 @@ class Pages extends React.Component {
                       </tr>
 
                       {this.state.searchApiResult.data.map((data, index) => (
-                        <Page key={index} {...data} />
+                        <PageRow key={index} {...data} />
                       ))}
                     </tbody>
                   </table>

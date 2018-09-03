@@ -6,7 +6,7 @@ import './dashboard.css';
 class atGlanceRow extends React.Component {
   render() {
     return (
-      <div className="container row">
+      <div className="row">
         {this.props.usersDetails === null ? (
           <span>{this.props.statusMessage} </span>
         ) : (

@@ -103,7 +103,7 @@ class SingleMap extends React.Component {
           <span>{this.props.statusMessage}</span>
         ) : (
           <div>
-            <div className="col-5">
+            <div>
               <Chart
                 chartType="GeoChart"
                 rows={this.props.chartSingleData}

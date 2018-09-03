@@ -23,7 +23,7 @@ class TracksChartView extends React.Component {
     return (
       <div className="col-12">
         <div className="row">
-          <div className="col-6" style={{ paddingTop: 50 + 'px' }}>
+          <div className="col-7" style={{ paddingTop: 50 + 'px' }}>
             <Chart
               chartType="PieChart"
               data={this.state.osUsage}
@@ -33,11 +33,11 @@ class TracksChartView extends React.Component {
               legend_toggle
             />
           </div>
-          <div className="col-6">
+          <div className="col-5">
             <table className="mixpanel-data-table">
               <thead>
                 <tr>
-                  <th>OS</th>
+                  <th>Operating System</th>
                   <th>Users</th>
                 </tr>
               </thead>

@@ -3,6 +3,7 @@ import {
   fetchTracksDataWithCount,
   fetchTracksData,
 } from '../services/trackServices';
+import utils from '../utils/utils';
 import Chart from 'react-google-charts';
 import { pieOptions } from '../constants/chartConstants';
 
@@ -28,7 +29,7 @@ const Table = ({
     <td>{location.countryName}</td>
   </tr>
 );
-const Table1 = ({ ...data }) => (
+const TrackAnalyticsTable = ({ ...data }) => (
   <tr>
     <td> {data[Object.keys(data)[0]]} </td>
     <td> {data[Object.keys(data)[1]]} </td>
@@ -40,9 +41,7 @@ class Tracks extends React.Component {
     super();
     this.state = {
       search: '',
-
       date: '',
-
       apiTable: 'tracks',
       apiCol: 'event_name',
       ans: null,
@@ -77,6 +76,7 @@ class Tracks extends React.Component {
       page: this.state.pageApi,
       page_size: this.state.pageSizeApi,
     };
+
     let trackResponse = await fetchTracksData(params);
     this.setState({
       searchApi: trackResponse.data,
@@ -86,7 +86,10 @@ class Tracks extends React.Component {
   }
 
   async changer(event) {
-    await this.setState({ [event.target.name]: event.target.value });
+    await this.setState({
+      [event.target.name]: event.target.value,
+    });
+
     let params = {
       get: this.state.apiCol.split(',')[0],
       table: this.state.apiCol.split(',')[1],
@@ -94,17 +97,21 @@ class Tracks extends React.Component {
 
     let trackResponse = await fetchTracksDataWithCount(params);
     let array = [];
-    trackResponse.data.data.map(data =>
-      array.push([
+    trackResponse.data.data.map(data => {
+      if (this.state.apiCol.split(',')[0] === 'device') {
+        data = utils.deviceDetector(data);
+      }
+      return array.push([
         data[Object.keys(data)[0]],
         parseInt(data[Object.keys(data)[1]], 10),
-      ])
-    );
-    this.setState(prev => ({
+      ]);
+    });
+    this.setState(() => ({
       ans: trackResponse.data.data,
       arr: [['Name', 'Count'], ...array],
     }));
   }
+
   async componentDidMount() {
     this.setState({ searchApi: this.props.trackData });
     let params = {
@@ -134,14 +141,14 @@ class Tracks extends React.Component {
     }
 
     return (
-      <div className="container">
+      <div className="container no-margin-no-padding">
         {this.props.trackData === null ? (
           <span>{this.props.statusMessage} </span>
         ) : (
           <div>
             <div className="col-12">
               <div className="tracks-data row">
-                <div className="tracks-data-header row">
+                <div className="tracks-data-header">
                   <div className="no-margin-no-padding">
                     <div className="tracks-data-header-title">
                       <h3>Tracks Statistics</h3>
@@ -149,54 +156,52 @@ class Tracks extends React.Component {
                   </div>
                 </div>
 
-                <div className="">
-                  {this.state.arr === null ? (
-                    <span>Calculaing... </span>
-                  ) : (
-                    <div className="col-8">
-                      <div className="select-track">
-                        Showing&nbsp;
-                        <select
-                          value={this.state.value}
-                          name="apiCol"
-                          onChange={this.changer}
-                        >
-                          <option value="event_name,tracks">Event</option>
-                          <option value="device,event_metadata">Device</option>
-                          <option value="os,event_metadata">OS</option>
-                          <option value="browser,event_metadata">Browser</option>
-                        </select>
-                      </div>
-                      <Chart
-                        chartType="PieChart"
-                        data={this.state.arr}
-                        options={pieOptions}
-                        graph_id="PieChart"
-                        width={'100%'}
-                        height={'300px'}
-                        legend_toggle
-                      />
+                {this.state.arr === null ? (
+                  <span>Calculaing... </span>
+                ) : (
+                  <div className="col-7">
+                    <div className="select-track">
+                      Showing&nbsp;
+                      <select
+                        value={this.state.value}
+                        name="apiCol"
+                        onChange={this.changer}
+                      >
+                        <option value="event_name,tracks">Event</option>
+                        <option value="device,event_metadata">Device</option>
+                        <option value="os,event_metadata">OS</option>
+                        <option value="browser,event_metadata">Browser</option>
+                      </select>
                     </div>
-                  )}
+                    <Chart
+                      chartType="PieChart"
+                      data={this.state.arr}
+                      options={pieOptions}
+                      graph_id="PieChart"
+                      width={'100%'}
+                      height={'300px'}
+                      legend_toggle
+                    />
+                  </div>
+                )}
 
-                  {this.state.ans === null ? (
-                    <span>Calculaing... </span>
-                  ) : (
-                    <div className="col-4">
-                      <table className="mixpanel-data-table">
-                        <tbody>
-                          <tr>
-                            <th> Name </th>
-                            <th> Users </th>
-                          </tr>
-                          {this.state.ans.map((data, index) => (
-                            <Table1 key={index} {...data} />
-                          ))}
-                        </tbody>
-                      </table>
-                    </div>
-                  )}
-                </div>
+                {this.state.ans === null ? (
+                  <span>Calculaing... </span>
+                ) : (
+                  <div className="col-5">
+                    <table className="mixpanel-data-table">
+                      <tbody>
+                        <tr>
+                          <th> Name </th>
+                          <th> Users </th>
+                        </tr>
+                        {this.state.ans.map((data, index) => (
+                          <TrackAnalyticsTable key={index} {...data} />
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                )}
               </div>
             </div>
             <div className="col-12">
