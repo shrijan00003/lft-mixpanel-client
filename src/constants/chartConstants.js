@@ -16,8 +16,7 @@ export const pieOptions = {
     },
   ],
   legend: {
-    position: 'bottom',
-    alignment: 'center',
+    position: 'left',
     textStyle: {
       color: '#233238',
       fontSize: 14,

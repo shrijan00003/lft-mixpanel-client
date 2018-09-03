@@ -2,6 +2,27 @@ import React from 'react';
 import { Chart } from 'react-google-charts';
 import { fetchTracksData } from '../services/trackServices';
 
+const data = [
+  ['Year', 'Fixations'],
+  ['2015', '80 <bold>iii</bold>'],
+  ['2016', '90'],
+  ['2017', '100'],
+  ['2018', '90'],
+  ['2019', '80'],
+];
+
+const columns = [
+  {
+    type: 'number',
+    label: 'Latitude',
+  },
+  {
+    type: 'number',
+    label: 'Longitude',
+  },
+  { type: 'string', role: 'tooltip', p: { html: true } },
+];
+
 const Table = ({
   eventName,
   os,
@@ -85,7 +106,8 @@ class SingleMap extends React.Component {
             <div className="col-5">
               <Chart
                 chartType="GeoChart"
-                data={this.props.chartSingleData}
+                rows={this.props.chartSingleData}
+                columns={columns} //data={this.props.chartSingleData}
                 chartEvents={this.chartEvents}
                 width="100%"
                 height="378px"
@@ -93,6 +115,7 @@ class SingleMap extends React.Component {
                   region: this.props.code,
                   resolution: 'country',
                   datalessRegionColor: 'white',
+                  tooltip: { isHtml: true },
                 }}
               />
             </div>

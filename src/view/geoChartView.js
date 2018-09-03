@@ -28,11 +28,12 @@ class GeoChartView extends React.Component {
         let latlngArr = [];
         for (let i in metaData) {
           countryName.push(metaData[i].location.countryName);
-          var latlng = {
+          var details = {
             lat: parseFloat(metaData[i].location.latitude),
             lng: parseFloat(metaData[i].location.longitude),
+            userId: metaData[i].userId,
           };
-          latlngArr.push(Object.values(latlng));
+          latlngArr.push(Object.values(details));
         }
 
         let userFromCountryResult = [
@@ -40,7 +41,10 @@ class GeoChartView extends React.Component {
           ...getTopData(countryName).showTopResult,
         ];
         console.log(latlng, 'jdfojdsofjf');
-        let latlngArrayResult = [['Latitude', 'Longitude'], ...latlng];
+        let latlngArrayResult = [
+          ['Latitude', 'Longitude', 'User Id'],
+          ...latlngArr,
+        ];
         this.props.fetchChart(userFromCountryResult, latlngArrayResult);
 
         this.setState(prevState => ({
