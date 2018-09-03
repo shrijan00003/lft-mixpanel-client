@@ -46,16 +46,31 @@ class WorldMap extends React.Component {
       let latlngArr = [];
       for (let i in metaData) {
         countryName.push(metaData[i].location.countryName);
-        var latlng = {
+        var details = {
           lat: parseFloat(metaData[i].location.latitude),
           lng: parseFloat(metaData[i].location.longitude),
+          userInfo:
+            '<strong>User Id:</strong> ' +
+            metaData[i].userId +
+            '<br/>' +
+            '<strong>Browser:</strong> ' +
+            metaData[i].browser +
+            '<br/>' +
+            '<strong>Os: </strong>' +
+            metaData[i].os +
+            '<br/>' +
+            '<strong>Device: </strong>' +
+            metaData[i].device,
         };
-        latlngArr.push(Object.values(latlng));
+        latlngArr.push(Object.values(details));
       }
 
       let userFromCountryResult = [['', ''], ...getTopData(countryName).result];
 
-      let latlngArrayResult = [['Latitude', 'Longitude'], ...latlngArr];
+      let latlngArrayResult = [
+        // ['Latitude', 'Longitude', 'User Id'],
+        ...latlngArr,
+      ];
       this.setState(prevState => ({
         countryTotalUsers: [
           ...prevState.countryTotalUsers,

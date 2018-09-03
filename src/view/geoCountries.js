@@ -22,6 +22,18 @@ class GeoCountries extends React.Component {
           var latlng = {
             lat: parseFloat(metaData[i].location.latitude),
             lng: parseFloat(metaData[i].location.longitude),
+            userInfo:
+              '<strong>User Id:</strong> ' +
+              metaData[i].userId +
+              '<br/>' +
+              '<strong>Browser:</strong> ' +
+              metaData[i].browser +
+              '<br/>' +
+              '<strong>Os: </strong>' +
+              metaData[i].os +
+              '<br/>' +
+              '<strong>Device: </strong>' +
+              metaData[i].device,
           };
           latlngArr.push(Object.values(latlng));
         }
