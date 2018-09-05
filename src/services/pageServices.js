@@ -9,6 +9,7 @@ export const fetchPagesData = (props = {}) => {
       page_size: props ? props.page_size : null,
       page: props ? props.page : null,
       date: props ? props.date : null,
+      query: props ? props.search : null,
     })
     .then(pagesWithMeta => pagesWithMeta)
     .catch(err => {

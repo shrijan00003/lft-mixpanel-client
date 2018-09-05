@@ -21,7 +21,7 @@ class ReferrerChart extends React.Component {
   render() {
     return (
       <div>
-        <div className="col-7">
+        <div className="col-8">
           <Chart
             chartType="BarChart"
             data={this.state.referrerUsage} //{data}
@@ -29,7 +29,7 @@ class ReferrerChart extends React.Component {
             height={'215px'}
           />
         </div>
-        <div className="col-5">
+        <div className="col-4">
           <table className="mixpanel-data-table">
             <tbody>
               <tr>

@@ -44,6 +44,7 @@ const mapStateToProps = state => {
   }
 
   return {
+    usersDetails: state.userData,
     statusMessage: statusMessage,
     isLoaded: state.track.isLoaded,
     isLoading: state.track.isLoading,
@@ -56,7 +57,7 @@ const mapStateToProps = state => {
     chartSingleData: state.chart.chartSingleData,
     userIsLoaded: state.userData.isLoaded,
     userIsLoading: state.userData.isLoading,
-    usersDetails: state.userData,
+    countryMetadata: state.userData.metaData ? state.userData.metaData : 0,
   };
 };
 
@@ -96,7 +97,8 @@ const mapDispatchToProps = dispatch => {
           fetchUserDataSuccess(
             trackResponse.data.allMetadata,
             trackResponse.data.averageUser,
-            trackResponse.data.totalUserData
+            trackResponse.data.totalUserData,
+            trackResponse.data.monthlyUserData
           )
         );
       } else {

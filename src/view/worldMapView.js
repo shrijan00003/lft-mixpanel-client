@@ -39,52 +39,53 @@ class WorldMap extends React.Component {
   }
 
   async componentDidMount() {
-    if (!this.props.chartIsLoaded) {
-      let metaData = this.props.usersDetails.metaData;
+    let metaData = this.props.usersDetails.metaData;
 
-      let countryName = [];
-      let latlngArr = [];
-      for (let i in metaData) {
-        countryName.push(metaData[i].location.countryName);
-        var details = {
-          lat: parseFloat(metaData[i].location.latitude),
-          lng: parseFloat(metaData[i].location.longitude),
-          userInfo:
-            '<strong>User Id:</strong> ' +
-            metaData[i].userId +
-            '<br/>' +
-            '<strong>Browser:</strong> ' +
-            metaData[i].browser +
-            '<br/>' +
-            '<strong>Os: </strong>' +
-            metaData[i].os +
-            '<br/>' +
-            '<strong>Device: </strong>' +
-            metaData[i].device,
-        };
-        latlngArr.push(Object.values(details));
-      }
-
-      let userFromCountryResult = [['', ''], ...getTopData(countryName).result];
-
-      let latlngArrayResult = [
-        //  ['Latitude', 'Longitude', 'UserId'],
-        ...latlngArr,
-      ];
-      this.setState(prevState => ({
-        countryTotalUsers: [
-          ...prevState.countryTotalUsers,
-          ...userFromCountryResult,
-        ],
-        displayData: userFromCountryResult.slice(1, 3),
-      }));
-      this.props.fetchChart(userFromCountryResult, latlngArrayResult);
-    } else {
-      this.setState({
-        countryTotalUsers: this.props.chartData,
-        displayData: this.props.chartData.slice(1, 3),
-      });
+    let countryName = [];
+    let latlngArr = [];
+    for (let i in metaData) {
+      countryName.push(metaData[i].location.countryName);
+      var details = {
+        lat: parseFloat(metaData[i].location.latitude),
+        lng: parseFloat(metaData[i].location.longitude),
+        userInfo:
+          '<strong>User Id:</strong> ' +
+          metaData[i].userId +
+          '<br/>' +
+          '<strong>Browser:</strong> ' +
+          metaData[i].browser +
+          '<br/>' +
+          '<strong>Os: </strong>' +
+          metaData[i].os +
+          '<br/>' +
+          '<strong>Device: </strong>' +
+          metaData[i].device,
+      };
+      latlngArr.push(Object.values(details));
     }
+
+    let userFromCountryResult = [['', ''], ...getTopData(countryName).result];
+
+    let latlngArrayResult = [
+      //  ['Latitude', 'Longitude', 'UserId'],
+      ...latlngArr,
+    ];
+    this.setState(prevState => ({
+      countryTotalUsers: [
+        ...prevState.countryTotalUsers,
+        ...userFromCountryResult,
+      ],
+      displayData: userFromCountryResult.slice(1, 3),
+    }));
+    if (!this.props.chartIsLoaded) {
+      this.props.fetchChart(userFromCountryResult, latlngArrayResult);
+    }
+    // else {
+    //   this.setState({
+    //     countryTotalUsers: this.props.chartData,
+    //     displayData: this.props.chartData.slice(1, 3),
+    //   });
+    //}
   }
 
   async handleChange(event) {

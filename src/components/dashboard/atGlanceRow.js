@@ -2,6 +2,7 @@ import React from 'react';
 import AtGlance from './atGlance';
 
 import './dashboard.css';
+import { getTopData } from '../../services/topDataServices';
 
 class atGlanceRow extends React.Component {
   render() {
@@ -23,7 +24,7 @@ class atGlanceRow extends React.Component {
                 icon="map"
                 title="Total Countries"
                 percentage={this.props.usersDetails.userData.byWeek.percent}
-                data="1"
+                data={getTopData(this.props.countryMetadata).result.length}
                 isIncreased={this.props.usersDetails.userData.byWeek.isIncrease}
               />
               <AtGlance
