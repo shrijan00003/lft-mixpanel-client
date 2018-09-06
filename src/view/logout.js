@@ -2,6 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { logout } from '../services/authServices';
+import { disconnectRoom } from '../utils/liveConnection';
+
 import {
   logoutUserBegin,
   setLogoutSuccess,
@@ -52,6 +54,7 @@ const mapDispatchToProps = dispatch => {
 
 class Logout extends React.Component {
   componentDidMount = () => {
+    disconnectRoom();
     this.props.logoutUser();
   };
 

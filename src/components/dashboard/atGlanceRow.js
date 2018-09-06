@@ -1,9 +1,31 @@
 import React from 'react';
 import AtGlance from './atGlance';
+import { connectLiveServer } from '../../utils/liveConnection';
 
 import './dashboard.css';
+let socket = null;
 
 class atGlanceRow extends React.Component {
+  constructor() {
+    super();
+    socket = connectLiveServer();
+
+    this.state = {
+      liveUsers: 0,
+    };
+
+    // socket.on('liveUsers', users => (liveUsers = users));
+    socket.on('liveUsers', console.log);
+  }
+
+  componentDidMount = () => {
+    socket.on('liveUsers', users => {
+      this.setState({
+        liveUsers: users,
+      });
+    });
+  };
+
   render() {
     return (
       <div className="row">
@@ -33,11 +55,12 @@ class atGlanceRow extends React.Component {
                 data={this.props.usersDetails.avgData.dailyUser.average}
                 isIncreased={this.props.usersDetails.userData.byWeek.isIncrease}
               />
+
               <AtGlance
                 icon="circle"
                 title="Active Users"
-                percentage="9"
-                data="10"
+                percentage=""
+                data={this.state.liveUsers}
                 isIncreased={true}
               />
             </div>

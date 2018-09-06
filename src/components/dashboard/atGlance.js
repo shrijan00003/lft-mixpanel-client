@@ -10,7 +10,9 @@ const renderAtGlance = ({ icon, title, data, percentage, isIncreased }) => {
         </p>
         <h1>{data}</h1>
         <p>
-          {isIncreased ? (
+          {title === 'Active Users' ? (
+            <span>Total live users currently.</span>
+          ) : isIncreased ? (
             <span>
               <span className="is-increased">
                 <FontAwesomeIcon icon="caret-up" />
