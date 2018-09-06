@@ -37,7 +37,7 @@ class TracksChartView extends React.Component {
             <table className="mixpanel-data-table">
               <thead>
                 <tr>
-                  <th>Operating System</th>
+                  <th>OS</th>
                   <th>Users</th>
                 </tr>
               </thead>

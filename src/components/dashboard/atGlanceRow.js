@@ -42,7 +42,9 @@ class atGlanceRow extends React.Component {
               icon="map"
               title="Total Countries"
               percentage={this.props.usersDetails.totalCountries.percent}
-              data={this.props.usersDetails.totalCountries.total}
+              data={
+                this.props.usersDetails.totalCountries.data[0].totalCountries
+              }
               isIncreased={this.props.usersDetails.totalCountries.isIncrease}
             />
             <AtGlance
