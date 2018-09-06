@@ -63,23 +63,20 @@ class SingleMap extends React.Component {
   ];
 
   async onSelectEvent(Chart) {
-    let val = Chart.chartWrapper.getChart().getSelection()[0];
-    if (val) {
-      // console.log(this.props.latLngArray);
-
-      this.setState({
-        isClicked: true,
-      });
-
-      let params = {
-        latitude: this.props.latLngArray[val.row + 1][0],
-
-        longitude: this.props.latLngArray[val.row + 1][1],
-      };
-
-      let trackResponse = await fetchTracksData(params);
-      this.setState({ searchResult: trackResponse.data });
-    }
+    // let val = Chart.chartWrapper.getChart().getSelection()[0];
+    // if (val) {
+    //   // console.log(this.props.latLngArray);
+    //   this.setState({
+    //     isClicked: true,
+    //   });
+    //   let params = {
+    //     latitude: this.props.latLngArray[val.row + 1][0],
+    //     longitude: this.props.latLngArray[val.row + 1][1],
+    //   };
+    //   console.log(params, val.row, this.props.latLngArray);
+    // let trackResponse = await fetchTracksData(params);
+    // this.setState({ searchResult: trackResponse.data });
+    //}
   }
 
   chartEvents = [

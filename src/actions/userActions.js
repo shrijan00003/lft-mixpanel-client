@@ -9,7 +9,8 @@ export const fetchUserDataSuccess = (
   allMeta,
   avgUser,
   totalUser,
-  weeklyUser
+  weeklyUser,
+  totalCountries
 ) => ({
   type: USERDATA_ACTIONS.FETCH_USERDATA_SUCCESS,
   payload: {
@@ -17,6 +18,7 @@ export const fetchUserDataSuccess = (
     avgUser,
     totalUser,
     weeklyUser,
+    totalCountries,
   },
 });
 
@@ -33,13 +35,16 @@ export const getUserData = () => {
     dispatch(fetchUserDataBegin());
     userDataResponse = await fetchUsersData();
 
+    console.log(userDataResponse, 'userdata');
+
     if (userDataResponse.status === 200) {
       dispatch(
         fetchUserDataSuccess(
           userDataResponse.data.allMetadata,
           userDataResponse.data.averageUser,
           userDataResponse.data.totalUserData,
-          userDataResponse.data.monthlyUserData
+          userDataResponse.data.monthlyUserData,
+          userDataResponse.data.totalCountriesData
         )
       );
     } else {

@@ -26,6 +26,7 @@ const userReducer = (state = INITIAL_STATE, action) => {
         metaData: action.payload.allMeta,
         avgData: action.payload.avgUser,
         weeklyUser: action.payload.weeklyUser,
+        totalCountries: action.payload.totalCountries,
       };
 
     case USERDATA_ACTIONS.FETCH_USERDATA_FAILURE:

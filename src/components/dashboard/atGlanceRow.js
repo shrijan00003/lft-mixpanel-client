@@ -19,9 +19,9 @@ class atGlanceRow extends React.Component {
             <AtGlance
               icon="map"
               title="Total Countries"
-              percentage={this.props.usersDetails.userData.byWeek.percent}
-              data="1"
-              isIncreased={this.props.usersDetails.userData.byWeek.isIncrease}
+              percentage={this.props.usersDetails.totalCountries.percent}
+              data={this.props.usersDetails.totalCountries.total}
+              isIncreased={this.props.usersDetails.totalCountries.isIncrease}
             />
             <AtGlance
               icon="bookmark"

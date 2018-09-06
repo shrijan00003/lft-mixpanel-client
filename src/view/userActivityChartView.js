@@ -12,6 +12,7 @@ const options = {
     title: 'Users Count',
     logScale: false,
   },
+  chartArea: { width: '90%' },
 };
 
 class UserActivityChartView extends React.Component {
