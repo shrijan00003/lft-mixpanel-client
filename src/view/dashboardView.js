@@ -39,21 +39,15 @@ class DashboardView extends React.Component {
             <div>
               <AtGlanceRow {...this.props} />
             </div>
-            <div className="col-7">
-              <div className="chart-data row">
-                <h3>User Activities</h3>
-                <UserActivityChartView {...this.props} />
-              </div>
-            </div>
-            <div className="col-5">
-              <div className="chart-data row">
-                <h3> Top Browser Usage</h3>
-                <BrowserChartView {...this.props} />
-              </div>
-            </div>
-
             <div>
               <GeoChartView {...this.props} />
+            </div>
+
+            <div className="col-12">
+              <div className="chart-data row">
+                <h3>Users Incoming Rate</h3>
+                <UserActivityChartView {...this.props} />
+              </div>
             </div>
 
             <div className="col-6">
@@ -62,10 +56,18 @@ class DashboardView extends React.Component {
                 <TracksChartView {...this.props} />
               </div>
             </div>
+
+            <div className="col-6">
+              <div className="chart-data row">
+                <h3> Top Browser Usage</h3>
+                <BrowserChartView {...this.props} />
+              </div>
+            </div>
+
             {this.props.pageData === null ? (
               <span>{this.props.statusMessage} </span>
             ) : (
-              <div className="col-6">
+              <div className="col-12">
                 <div className="chart-data row">
                   <h3> Top Referrers</h3>
 
