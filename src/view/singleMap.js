@@ -1,6 +1,5 @@
 import React from 'react';
 import { Chart } from 'react-google-charts';
-import { fetchTracksData } from '../services/trackServices';
 
 // const data = [
 //   ['Year', 'Fixations'],
@@ -23,26 +22,26 @@ const columns = [
   { type: 'string', role: 'tooltip', p: { html: true } },
 ];
 
-const Table = ({
-  eventName,
-  os,
-  createdAt,
-  browser,
-  ipAddress,
-  device,
-  location,
-}) => (
-  <tr>
-    <td> {eventName} </td>
-    <td> {os} </td>
-    <td> {createdAt} </td>
-    <td> {browser}</td>
-    <td>{ipAddress}</td>
+// const Table = ({
+//   eventName,
+//   os,
+//   createdAt,
+//   browser,
+//   ipAddress,
+//   device,
+//   location,
+// }) => (
+//   <tr>
+//     <td> {eventName} </td>
+//     <td> {os} </td>
+//     <td> {createdAt} </td>
+//     <td> {browser}</td>
+//     <td>{ipAddress}</td>
 
-    <td>{device}</td>
-    <td>{JSON.stringify(location)}</td>
-  </tr>
-);
+//     <td>{device}</td>
+//     <td>{JSON.stringify(location)}</td>
+//   </tr>
+// );
 
 class SingleMap extends React.Component {
   constructor(props) {

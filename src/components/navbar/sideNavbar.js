@@ -116,7 +116,7 @@ class SideNavbar extends React.Component {
                 </NavLink>
 
                 <ul id="submenu" className="side-navbar-sub-menu-list">
-                  <NavLink to={{ pathname: '/audience/overview' }}>
+                  {/* <NavLink to={{ pathname: '/audience/overview' }}>
                     <li
                       id="overview"
                       className="sub-menu-list"
@@ -152,7 +152,7 @@ class SideNavbar extends React.Component {
                         <span className="list-span">Filter</span>
                       </div>
                     </li>
-                  </NavLink>
+                  </NavLink> */}
                   <NavLink to={{ pathname: '/audience/tracks' }}>
                     <li
                       id="tracks"

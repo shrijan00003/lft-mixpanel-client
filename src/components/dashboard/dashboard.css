@@ -72,3 +72,35 @@ td {
   border-right: 2px solid rgb(226, 226, 226);
   width: 100%;
 } */
+
+/*  live activity-list */
+.activity-list {
+  width: 100%;
+  margin-top: -20px;
+}
+
+.activity-list ul li {
+  list-style-type: none;
+  list-style-position: inside;
+  padding: 8px;
+  background: rgb(186, 248, 217);
+  border-radius: 3px;
+  margin: 5px 0px 5px 0px;
+}
+
+.activity-list ul li span {
+  font-size: 14px;
+  color: rgb(112, 111, 111);
+}
+
+.activity-list p {
+  font-size: 14px;
+  color: rgb(112, 111, 111);
+  text-align: center;
+}
+
+.activity-list h1 {
+  font-size: 25px;
+  color: rgb(2, 184, 77);
+  text-align: right;
+}

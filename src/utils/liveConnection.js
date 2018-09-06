@@ -13,7 +13,9 @@ export const connectLiveServer = () => {
     console.log(room);
     socket.emit('room', room);
   });
+};
 
+export const getSocket = () => {
   return socket;
 };
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import AtGlance from './atGlance';
-import { connectLiveServer } from '../../utils/liveConnection';
+import { getSocket, connectLiveServer } from '../../utils/liveConnection';
 
 import './dashboard.css';
 let socket = null;
@@ -8,18 +8,18 @@ let socket = null;
 class atGlanceRow extends React.Component {
   constructor() {
     super();
-    socket = connectLiveServer();
 
     this.state = {
       liveUsers: 0,
     };
-
+    connectLiveServer();
     // socket.on('liveUsers', users => (liveUsers = users));
-    socket.on('liveUsers', console.log);
+    getSocket().on('liveUsers', console.log);
+    getSocket().on('liveUsersActivity', console.log);
   }
 
   componentDidMount = () => {
-    socket.on('liveUsers', users => {
+    getSocket().on('liveUsers', users => {
       this.setState({
         liveUsers: users,
       });
