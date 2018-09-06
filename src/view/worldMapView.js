@@ -3,7 +3,7 @@ import React from 'react';
 import SingleMap from './singleMap';
 import Chart from 'react-google-charts';
 import isoCountries from '../datas/isoCountries';
-import { getTopData } from '../services/topDataServices';
+import { getTopData } from '../logic/topDataLogic';
 
 import '../components/tracks/tracks.css';
 
@@ -29,7 +29,8 @@ class WorldMap extends React.Component {
     this.state = {
       isClicked: false,
       code: '',
-      countryTotalUsers: '',
+      chartData: '',
+      latLngArray: '',
       currentPageNo: '1',
       pageSize: '2',
       displayData: null,
@@ -39,52 +40,51 @@ class WorldMap extends React.Component {
   }
 
   async componentDidMount() {
-    if (!this.props.chartIsLoaded) {
-      let metaData = this.props.usersDetails.metaData;
+    let metaData = this.props.usersDetails.metaData;
 
-      let countryName = [];
-      let latlngArr = [];
-      for (let i in metaData) {
-        countryName.push(metaData[i].location.countryName);
-        var details = {
-          lat: parseFloat(metaData[i].location.latitude),
-          lng: parseFloat(metaData[i].location.longitude),
-          userInfo:
-            '<strong>User Id:</strong> ' +
-            metaData[i].userId +
-            '<br/>' +
-            '<strong>Browser:</strong> ' +
-            metaData[i].browser +
-            '<br/>' +
-            '<strong>Os: </strong>' +
-            metaData[i].os +
-            '<br/>' +
-            '<strong>Device: </strong>' +
-            metaData[i].device,
-        };
-        latlngArr.push(Object.values(details));
-      }
-
-      let userFromCountryResult = [['', ''], ...getTopData(countryName).result];
-
-      let latlngArrayResult = [
-        // ['Latitude', 'Longitude', 'User Id'],
-        ...latlngArr,
-      ];
-      this.setState(prevState => ({
-        countryTotalUsers: [
-          ...prevState.countryTotalUsers,
-          ...userFromCountryResult,
-        ],
-        displayData: userFromCountryResult.slice(1, 3),
-      }));
-      this.props.fetchChart(userFromCountryResult, latlngArrayResult);
-    } else {
-      this.setState({
-        countryTotalUsers: this.props.chartData,
-        displayData: this.props.chartData.slice(1, 3),
-      });
+    let countryName = [];
+    let latlngArr = [];
+    for (let i in metaData) {
+      countryName.push(metaData[i].location.countryName);
+      var details = {
+        lat: parseFloat(metaData[i].location.latitude),
+        lng: parseFloat(metaData[i].location.longitude),
+        userInfo:
+          '<strong>User Id:</strong> ' +
+          metaData[i].userId +
+          '<br/>' +
+          '<strong>Browser:</strong> ' +
+          metaData[i].browser +
+          '<br/>' +
+          '<strong>Os: </strong>' +
+          metaData[i].os +
+          '<br/>' +
+          '<strong>Device: </strong>' +
+          metaData[i].device,
+      };
+      latlngArr.push(Object.values(details));
     }
+
+    let userFromCountryResult = [['', ''], ...getTopData(countryName).result];
+
+    let latlngArrayResult = [
+      //  ['Latitude', 'Longitude', 'UserId'],
+      ...latlngArr,
+    ];
+    this.setState(prevState => ({
+      chartData: [...prevState.chartData, ...userFromCountryResult],
+      latLngArray: [...latlngArrayResult],
+      displayData: userFromCountryResult.slice(1, 3),
+    }));
+    // if (!this.props.chartIsLoaded) {
+    //   this.props.fetchChart(userFromCountryResult, latlngArrayResult);
+    // }
+    // else {
+    //   this.setState({
+    //     chartData: this.props.chartData,
+    //     displayData: this.props.chartData.slice(1, 3),
+    //   });
+    //}
   }
 
   async handleChange(event) {
@@ -92,20 +92,20 @@ class WorldMap extends React.Component {
       [event.target.name]: event.target.value,
     });
 
-    const { pageSize, currentPageNo, countryTotalUsers } = this.state;
+    const { pageSize, currentPageNo, chartData } = this.state;
 
-    if (countryTotalUsers) {
+    if (chartData) {
       const lastDataIndex = currentPageNo * pageSize + 1;
 
       let firstDataIndex = lastDataIndex - pageSize;
-      if (firstDataIndex >= countryTotalUsers.length) {
+      if (firstDataIndex >= chartData.length) {
         firstDataIndex = 0;
       }
       this.setState({
-        displayData: countryTotalUsers.slice(firstDataIndex, lastDataIndex),
+        displayData: chartData.slice(firstDataIndex, lastDataIndex),
       });
 
-      //  displayData = countryTotalUsers.slice(firstDataIndex, lastDataIndex);
+      //  displayData = chartData.slice(firstDataIndex, lastDataIndex);
     }
   }
 
@@ -127,7 +127,7 @@ class WorldMap extends React.Component {
   onSelectEvent(Chart) {
     let val = Chart.chartWrapper.getChart().getSelection()[0];
     if (val) {
-      this.getName(this.props.chartData[val.row + 1][0]);
+      this.getName(this.state.chartData[val.row + 1][0]);
     }
   }
   getName = name => {
@@ -141,39 +141,36 @@ class WorldMap extends React.Component {
   };
 
   render() {
-    const { pageSize, countryTotalUsers } = this.state;
+    const { pageSize, chartData } = this.state;
     // let displayData = null;
     // const pageNumbers = [];
 
-    // if (countryTotalUsers) {
+    // if (chartData) {
     //   const lastDataIndex = currentPageNo * pageSize;
 
     //   let firstDataIndex = lastDataIndex - pageSize;
-    //   if (firstDataIndex >= countryTotalUsers.length) {
+    //   if (firstDataIndex >= chartData.length) {
     //     firstDataIndex = 0;
     //   }
 
-    //   displayData = countryTotalUsers.slice(firstDataIndex, lastDataIndex);
+    //   displayData = chartData.slice(firstDataIndex, lastDataIndex);
 
     //   console.log(
     //     displayData,
-    //     countryTotalUsers,
+    //     chartData,
     //     'firstDataIndex',
     //     this.props.chartData
     //   );
     const pageNumbers = [];
 
-    let totalPage = Math.ceil((countryTotalUsers.length - 1) / pageSize);
+    let totalPage = Math.ceil((chartData.length - 1) / pageSize);
 
     for (let i = 1; i <= totalPage; i++) {
       pageNumbers.push(i);
     }
-
-    return (
-      <div className="container row">
-        {this.props.chartData === null ? (
-          <span>{this.props.statusMessage} </span>
-        ) : (
+    if (this.state.chartData !== null)
+      return (
+        <div className="container row">
           <div>
             <div className="col-12">
               <div className="tracks-data row">
@@ -188,14 +185,14 @@ class WorldMap extends React.Component {
                   <Chart
                     chartType="GeoChart"
                     width="100%"
-                    data={this.props.chartData}
+                    data={this.state.chartData}
                     chartEvents={this.chartEvents}
                   />
                 </div>
 
                 {this.state.isClicked ? (
                   <div className="col-4">
-                    <SingleMap {...this.state} {...this.props} />
+                    <SingleMap {...this.state} />
                   </div>
                 ) : null}
               </div>
@@ -257,9 +254,8 @@ class WorldMap extends React.Component {
               </div>
             </div>
           </div>
-        )}
-      </div>
-    );
+        </div>
+      );
   }
 }
 

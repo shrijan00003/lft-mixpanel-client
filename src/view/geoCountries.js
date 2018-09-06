@@ -65,7 +65,7 @@ class GeoCountries extends React.Component {
           <div>
             <div className="col-12">
               <div className="users-country row">
-                <h3>Where are your users from</h3>
+                <h3>Where are your users from?</h3>
                 {this.props.chartData === null ? (
                   <span>{this.props.statusMessage}</span>
                 ) : (

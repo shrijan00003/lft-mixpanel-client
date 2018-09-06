@@ -1,30 +1,20 @@
 import React from 'react';
-import auth from '../utils/auth';
-import socketIO from 'socket.io-client';
-import { GeoChart } from './pageOnLoad';
+import GeoChartView from './geoCountriesView';
 import PagesChartView from './pagesChartView';
 import TracksChartView from './tracksChartView';
 import BrowserChartView from './browserChartView';
-import { USER_NAME } from '../constants/authConstants';
+import UserActivityChartView from './userActivityChartView';
 import AtGlanceRow from '../components/dashboard/atGlanceRow';
 
 import '../components/dashboard/dashboard.css';
 
 class DashboardView extends React.Component {
-  constructor() {
-    super();
-    // const endPoint = 'http://127.0.0.1:8848';
-    // const socket = socketIO(endPoint);
-
-    // let room = auth.getDetails(USER_NAME);
-
-    // socket.on('connect', function() {
-    //   socket.emit('room', room);
-    // });
-
-    // socket.on('liveUsers', console.log);
+  constructor(props) {
+    super(props);
+    this.state = {
+      totalCountries: null,
+    };
   }
-
   componentDidMount() {
     if (!this.props.pageIsLoaded) {
       this.props
@@ -40,18 +30,28 @@ class DashboardView extends React.Component {
 
   // Renders dashboard
   render() {
-    return (
-      <div className="container row">
-        {this.props.usersDetails.userData === null ? (
-          <span>{this.props.statusMessage}</span>
-        ) : (
+    if (this.props.usersDetails.userData !== null) {
+      return (
+        <div className="container row">
           <div>
             <div>
               <AtGlanceRow {...this.props} />
             </div>
+            <div className="col-7">
+              <div className="chart-data row">
+                <h3>User Activities</h3>
+                <UserActivityChartView {...this.props} />
+              </div>
+            </div>
+            <div className="col-5">
+              <div className="chart-data row">
+                <h3> Top Browser Usage</h3>
+                <BrowserChartView {...this.props} />
+              </div>
+            </div>
 
             <div>
-              <GeoChart />
+              <GeoChartView {...this.props} />
             </div>
 
             <div className="col-6">
@@ -60,29 +60,23 @@ class DashboardView extends React.Component {
                 <TracksChartView {...this.props} />
               </div>
             </div>
+            {this.props.pageData === null ? (
+              <span>{this.props.statusMessage} </span>
+            ) : (
+              <div className="col-6">
+                <div className="chart-data row">
+                  <h3> Top Referrers</h3>
 
-            <div className="col-6">
-              <div className="chart-data row">
-                <h3> Top Browser Usage</h3>
-                <BrowserChartView {...this.props} />
+                  <PagesChartView {...this.props} />
+                </div>
               </div>
-            </div>
+            )}
           </div>
-        )}
-
-        {this.props.pageData === null ? (
-          <span>{this.props.statusMessage} </span>
-        ) : (
-          <div className="col-12">
-            <div className="chart-data row">
-              <h3> Top Referrers</h3>
-
-              <PagesChartView {...this.props} />
-            </div>
-          </div>
-        )}
-      </div>
-    );
+        </div>
+      );
+    } else {
+      return '';
+    }
   }
 }
 

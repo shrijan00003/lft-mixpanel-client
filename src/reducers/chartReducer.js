@@ -1,4 +1,4 @@
-import { FETCH_CHART_SUCCESS } from '../actions/chartAction';
+import { FETCH_CHART_SUCCESS } from '../actions/chartActions';
 
 const INITIAL_STATE = {
   error: null,
