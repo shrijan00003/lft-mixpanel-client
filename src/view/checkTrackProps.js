@@ -1,11 +1,36 @@
 import React from 'react';
 import Track from './trackView';
+import { connect } from 'react-redux';
 
 import '../components/dashboard/dashboard.css';
+import { getTrack } from '../actions/trackActions';
+
+let statusMessage = null;
+
+const mapStateToProps = state => {
+  if (state.track.isLoading) {
+    statusMessage = 'Please wait...';
+  } else {
+    statusMessage = null;
+  }
+
+  return {
+    statusMessage: statusMessage,
+    trackIsLoaded: state.track.isLoaded,
+    trackIsLoading: state.track.isLoading,
+    trackData: state.track.trackData,
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    fetchTrack: async () => dispatch(getTrack()),
+  };
+};
 
 class CheckTrackView extends React.Component {
   componentDidMount() {
-    if (!this.props.isLoaded) {
+    if (!this.props.trackIsLoaded) {
       this.props.fetchTrack();
     }
   }
@@ -24,4 +49,9 @@ class CheckTrackView extends React.Component {
   }
 }
 
-export default CheckTrackView;
+const EnhancedCheckTrackView = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(CheckTrackView);
+
+export default EnhancedCheckTrackView;

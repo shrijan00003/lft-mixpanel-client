@@ -1,7 +1,7 @@
 import React from 'react';
 import Chart from 'react-google-charts';
 import TableData from '../components/dashboard/tableData';
-import { getTopData } from '../services/topDataServices';
+import { getTopData } from '../logic/topDataLogic';
 import { pieOptions } from '../constants/chartConstants';
 
 class TracksChartView extends React.Component {

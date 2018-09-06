@@ -1,6 +1,6 @@
 import React from 'react';
 import Chart from 'react-google-charts';
-import { getTopData } from '../services/topDataServices';
+import { getTopData } from '../logic/topDataLogic';
 import TableData from '../components/dashboard/tableData';
 
 class ReferrerChart extends React.Component {

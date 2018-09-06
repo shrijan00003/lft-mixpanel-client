@@ -1,3 +1,4 @@
+import { fetchPagesData } from '../services/pageServices';
 import { PAGE_ACTIONS } from '../constants/mixpanelConstants';
 
 export const fetchPageBegin = () => ({
@@ -17,3 +18,16 @@ export const fetchPageFailure = error => ({
     error,
   },
 });
+
+export const getPage = () => {
+  let pageResponse = null;
+  return async dispatch => {
+    dispatch(fetchPageBegin());
+    pageResponse = await fetchPagesData();
+    if (pageResponse.status === 200) {
+      dispatch(fetchPageSuccess(pageResponse.data));
+    } else {
+      dispatch(fetchPageFailure(pageResponse.response));
+    }
+  };
+};

@@ -1,10 +1,11 @@
 import React from 'react';
-import { GeoChart } from './pageOnLoad';
+import GeoChartView from './geoCountriesView';
 import PagesChartView from './pagesChartView';
 import TracksChartView from './tracksChartView';
 import BrowserChartView from './browserChartView';
 import UserActivityChartView from './userActivityChartView';
 import AtGlanceRow from '../components/dashboard/atGlanceRow';
+// import fetchUserDataSuccess from '../actions/userActions';
 
 import '../components/dashboard/dashboard.css';
 
@@ -16,36 +17,23 @@ class DashboardView extends React.Component {
     };
   }
   componentDidMount() {
-    if (!this.props.userIsLoaded) {
+    if (!this.props.pageIsLoaded) {
       this.props
-        .fetchUserData()
+        .fetchPage()
         .then(() => {
-          if (!this.props.pageIsLoaded) {
-            this.props.fetchPage();
+          if (!this.props.userIsLoaded) {
+            this.props.fetchUserData();
           }
         })
         .catch(err => console.log(err));
     }
   }
 
-  componentWillReceiveProps(nextProps) {
-    // let metaData = this.props.usersDetails.metaData;
-    // let countryName = [];
-    // for (let i in metaData) {
-    //   countryName.push(metaData[i].location.countryName);
-    // }
-    // let y = getTopData(countryName).result;
-    // console.log(y.length, 'iiiiiiiii');
-    // this.
-  }
-
   // Renders dashboard
   render() {
-    return (
-      <div className="container row">
-        {this.props.usersDetails.userData === null ? (
-          <span>{this.props.statusMessage}</span>
-        ) : (
+    if (this.props.usersDetails.userData !== null) {
+      return (
+        <div className="container row">
           <div>
             <div>
               <AtGlanceRow {...this.props} />
@@ -64,7 +52,7 @@ class DashboardView extends React.Component {
             </div>
 
             <div>
-              <GeoChart />
+              <GeoChartView {...this.props} />
             </div>
 
             <div className="col-6">
@@ -85,9 +73,11 @@ class DashboardView extends React.Component {
               </div>
             )}
           </div>
-        )}
-      </div>
-    );
+        </div>
+      );
+    } else {
+      return '';
+    }
   }
 }
 

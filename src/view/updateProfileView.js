@@ -6,8 +6,8 @@ import {
   fetchProfileSuccess,
   fetchProfileFailure,
 } from '../actions/profileActions';
-import { fetchProfile } from '../services/profileServices';
 import { USER_NAME } from '../constants/authConstants';
+import { fetchProfile } from '../services/profileServices';
 
 import '../components/profile/profile.css';
 

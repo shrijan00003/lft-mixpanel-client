@@ -3,7 +3,7 @@ import Chart from 'react-google-charts';
 
 const options = {
   curveType: 'function',
-  legend: { position: 'right' },
+  legend: { position: 'top' },
   hAxis: {
     title: 'Time Line',
     logScale: true,
@@ -24,7 +24,6 @@ class UserActivityChartView extends React.Component {
   componentDidMount() {
     let userDataFromMeta = this.props.usersDetails.weeklyUser.dataObj;
     let daily = [];
-    console.log(userDataFromMeta);
     userDataFromMeta.map((data, index) => {
       let dateData = new Date(data.dailydata);
       let dateAfterSplit = dateData.toString().split(' ');
@@ -45,6 +44,7 @@ class UserActivityChartView extends React.Component {
           data={this.state.userVsdate}
           options={options}
           width={'100%'}
+          height="300px"
           legend_toggle
         />
       </div>

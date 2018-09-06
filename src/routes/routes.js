@@ -11,7 +11,10 @@ import ProfileView from '../view/profileView';
 // import { Dashboard } from '../view/dashboard';
 // import { USER_NAME } from '../constants/authConstants';
 import SideNavView from '../components/navbar/sideNavbar';
-import { Tracks, Pages, Dashboard, WorldMap } from '../view/pageOnLoad';
+import Tracks from '../view/checkTrackProps';
+import Pages from '../view/checkPageProps';
+import WorldMap from '../view/checkWorldMapProps';
+import Dashboard from '../view/dashboard';
 import {
   BrowserRouter as Router,
   Route,

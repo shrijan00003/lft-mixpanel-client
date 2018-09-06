@@ -2,14 +2,14 @@ import React from 'react';
 import { Chart } from 'react-google-charts';
 import { fetchTracksData } from '../services/trackServices';
 
-const data = [
-  ['Year', 'Fixations'],
-  ['2015', '80 <bold>iii</bold>'],
-  ['2016', '90'],
-  ['2017', '100'],
-  ['2018', '90'],
-  ['2019', '80'],
-];
+// const data = [
+//   ['Year', 'Fixations'],
+//   ['2015', '80 <bold>iii</bold>'],
+//   ['2016', '90'],
+//   ['2017', '100'],
+//   ['2018', '90'],
+//   ['2019', '80'],
+// ];
 
 const columns = [
   {
@@ -65,16 +65,16 @@ class SingleMap extends React.Component {
   async onSelectEvent(Chart) {
     let val = Chart.chartWrapper.getChart().getSelection()[0];
     if (val) {
-      // console.log(this.props.chartSingleData);
+      // console.log(this.props.latLngArray);
 
       this.setState({
         isClicked: true,
       });
 
       let params = {
-        latitude: this.props.chartSingleData[val.row + 1][0],
+        latitude: this.props.latLngArray[val.row + 1][0],
 
-        longitude: this.props.chartSingleData[val.row + 1][1],
+        longitude: this.props.latLngArray[val.row + 1][1],
       };
 
       let trackResponse = await fetchTracksData(params);
@@ -94,27 +94,24 @@ class SingleMap extends React.Component {
   render() {
     return (
       <div>
-        {this.props.trackData === null ? (
-          <span>{this.props.statusMessage}</span>
-        ) : (
+        <div>
           <div>
-            <div>
-              <Chart
-                chartType="GeoChart"
-                rows={this.props.chartSingleData}
-                columns={columns} //data={this.props.chartSingleData}
-                chartEvents={this.chartEvents}
-                width="100%"
-                height="378px"
-                options={{
-                  region: this.props.code,
-                  resolution: 'country',
-                  datalessRegionColor: 'white',
-                  tooltip: { isHtml: true },
-                }}
-              />
-            </div>
-            {/* <div>
+            <Chart
+              chartType="GeoChart"
+              rows={this.props.latLngArray}
+              columns={columns} //data={this.props.latLngArray}
+              chartEvents={this.chartEvents}
+              width="100%"
+              height="378px"
+              options={{
+                region: this.props.code,
+                resolution: 'country',
+                datalessRegionColor: 'white',
+                tooltip: { isHtml: true },
+              }}
+            />
+          </div>
+          {/* <div>
               {this.state.isClicked ? (
                 <div className="row">
                   {this.state.searchResult === null ? (
@@ -141,8 +138,7 @@ class SingleMap extends React.Component {
                 </div>
               ) : null}
             </div>*/}
-          </div>
-        )}
+        </div>
       </div>
     );
   }

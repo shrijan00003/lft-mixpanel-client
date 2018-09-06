@@ -1,3 +1,4 @@
+import { fetchUsersData } from '../services/userDataServices';
 import { USERDATA_ACTIONS } from '../constants/mixpanelConstants';
 
 export const fetchUserDataBegin = () => ({
@@ -25,3 +26,24 @@ export const fetchUserDataFailure = error => ({
     error,
   },
 });
+
+export const getUserData = () => {
+  let userDataResponse = null;
+  return async dispatch => {
+    dispatch(fetchUserDataBegin());
+    userDataResponse = await fetchUsersData();
+
+    if (userDataResponse.status === 200) {
+      dispatch(
+        fetchUserDataSuccess(
+          userDataResponse.data.allMetadata,
+          userDataResponse.data.averageUser,
+          userDataResponse.data.totalUserData,
+          userDataResponse.data.monthlyUserData
+        )
+      );
+    } else {
+      dispatch(fetchUserDataFailure(userDataResponse.response));
+    }
+  };
+};
