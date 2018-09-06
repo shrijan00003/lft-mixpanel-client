@@ -5,7 +5,6 @@ import TracksChartView from './tracksChartView';
 import BrowserChartView from './browserChartView';
 import UserActivityChartView from './userActivityChartView';
 import AtGlanceRow from '../components/dashboard/atGlanceRow';
-// import fetchUserDataSuccess from '../actions/userActions';
 
 import '../components/dashboard/dashboard.css';
 
