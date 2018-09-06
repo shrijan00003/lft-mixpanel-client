@@ -23,7 +23,10 @@ export const fetchTracksData = (props = {}) => {
       longitude: props ? props.longitude : null,
       latitude: props ? props.latitude : null,
     })
-    .then(tracksWithMeta => tracksWithMeta)
+    .then(tracksWithMeta => {
+      console.log('sjdfhkjshfbjhhhhhhhhhhhhhhhhhh', tracksWithMeta);
+      return tracksWithMeta;
+    })
     .catch(err => {
       return err;
     });

@@ -28,7 +28,7 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-class CheckTrackView extends React.Component {
+class CheckTrackProps extends React.Component {
   componentDidMount() {
     if (!this.props.trackIsLoaded) {
       this.props.fetchTrack();
@@ -49,9 +49,9 @@ class CheckTrackView extends React.Component {
   }
 }
 
-const EnhancedCheckTrackView = connect(
+const EnhancedCheckTrackProps = connect(
   mapStateToProps,
   mapDispatchToProps
-)(CheckTrackView);
+)(CheckTrackProps);
 
-export default EnhancedCheckTrackView;
+export default EnhancedCheckTrackProps;

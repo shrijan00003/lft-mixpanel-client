@@ -9,7 +9,7 @@ export const fetchPagesData = (props = {}) => {
       page_size: props ? props.page_size : null,
       page: props ? props.page : null,
       date: props ? props.date : null,
-      query: props ? props.search : null,
+      page_name: props ? props.page_name : null,
     })
     .then(pagesWithMeta => pagesWithMeta)
     .catch(err => {
@@ -18,9 +18,11 @@ export const fetchPagesData = (props = {}) => {
   return res;
 };
 
-export const fetchPagesDataWithCount = query => {
+export const fetchPagesDataWithCount = (props = {}) => {
   res = http
-    .get(segment + query)
+    .get(segment + '/analytics', {
+      getBy: props ? props.getBy : null,
+    })
     .then(tracksWithMeta => tracksWithMeta)
     .catch(err => {
       return err;

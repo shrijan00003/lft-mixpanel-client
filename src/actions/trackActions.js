@@ -42,6 +42,8 @@ export const getTrack = () => {
     dispatch(fetchTrackBegin());
     trackResponse = await fetchTracksData();
 
+    console.log('kjsfhkjshfks', trackResponse);
+
     if (trackResponse.status === 200) {
       dispatch(fetchTrackSuccess(trackResponse.data));
     } else {

@@ -36,7 +36,7 @@ class Pages extends React.Component {
       date: '',
       searchApiResult: null,
       ans: null,
-      apiCol: 'referrer',
+      apiCol: 'path',
       arr: null,
     };
 
@@ -54,7 +54,7 @@ class Pages extends React.Component {
     await this.setState({ [event.target.name]: event.target.value });
 
     let params = {
-      search: this.state.search,
+      page_name: this.state.search,
       date: this.state.date,
       page: this.state.page,
       page_size: this.state.page_size,
@@ -68,9 +68,10 @@ class Pages extends React.Component {
 
   async changer(event) {
     await this.setState({ [event.target.name]: event.target.value });
-    let pageResponse = await fetchPagesDataWithCount(
-      '/analytics?getBy=' + this.state.apiCol
-    );
+    let params = {
+      getBy: this.state.apiCol,
+    };
+    let pageResponse = await fetchPagesDataWithCount(params);
     let array = [];
 
     pageResponse.data.data.map(data =>
@@ -88,9 +89,12 @@ class Pages extends React.Component {
   async componentDidMount() {
     this.setState({ searchApiResult: this.props.pageData });
 
+    let params = {
+      getBy: this.state.apiCol,
+    };
     // console.log(this.props.pageData);
 
-    let pageResponse = await fetchPagesDataWithCount('/analytics');
+    let pageResponse = await fetchPagesDataWithCount(params);
     console.log(pageResponse);
     let array = [];
 
@@ -109,6 +113,7 @@ class Pages extends React.Component {
   render() {
     const pageNumbers = [];
     if (this.state.searchApiResult !== null) {
+      console.log(this.state.searchApiResult);
       for (let i = 1; i <= this.state.searchApiResult.meta.pageCount; i++) {
         pageNumbers.push(i);
       }

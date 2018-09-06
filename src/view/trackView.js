@@ -9,6 +9,8 @@ import { pieOptions } from '../constants/chartConstants';
 
 import '../components/tracks/tracks.css';
 
+let deviceData = {};
+
 const Table = ({
   eventName,
   os,
@@ -25,7 +27,7 @@ const Table = ({
     <td>{browser}</td>
     <td>{ipAddress}</td>
 
-    <td>{device}</td>
+    <td>{utils.deviceDetector((deviceData = { device })).device}</td>
     <td>{location.countryName}</td>
   </tr>
 );
@@ -49,6 +51,8 @@ class Tracks extends React.Component {
       pageApi: '1',
       pageSizeApi: '10',
       arr: null,
+      searchApiData: null,
+      arrData: null,
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -78,6 +82,7 @@ class Tracks extends React.Component {
     };
 
     let trackResponse = await fetchTracksData(params);
+    console.log(trackResponse, 'track');
     this.setState({
       searchApi: trackResponse.data,
       pageSizeApi: trackResponse.data.metadata.pageSize,
@@ -118,14 +123,16 @@ class Tracks extends React.Component {
       get: 'event_name',
       table: 'tracks',
     };
-    let trackResponse = await fetchTracksData(params);
+    let trackResponse = await fetchTracksDataWithCount(params);
+    console.log(trackResponse, 'trackresponse', this.props.trackData);
+
     let array = [];
-    trackResponse.data.data.map(data =>
+    trackResponse.data.data.map(data => {
       array.push([
         data[Object.keys(data)[0]],
         parseInt(data[Object.keys(data)[1]], 10),
-      ])
-    );
+      ]);
+    });
     this.setState(prev => ({
       ans: trackResponse.data.data,
       arr: [['Name', 'Count'], ...array],
@@ -254,7 +261,7 @@ class Tracks extends React.Component {
                         <th>Location</th>
                       </tr>
                       {this.state.searchApi.data.map((data, index) => (
-                        <Table key={index} {...utils.deviceDetector(data)} />
+                        <Table key={index} {...data} />
                       ))}
                     </tbody>
                   </table>
