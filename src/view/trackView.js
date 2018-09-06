@@ -118,7 +118,7 @@ class Tracks extends React.Component {
       get: 'event_name',
       table: 'tracks',
     };
-    let trackResponse = await fetchTracksDataWithCount(params);
+    let trackResponse = await fetchTracksData(params);
     let array = [];
     trackResponse.data.data.map(data =>
       array.push([
@@ -254,7 +254,7 @@ class Tracks extends React.Component {
                         <th>Location</th>
                       </tr>
                       {this.state.searchApi.data.map((data, index) => (
-                        <Table key={index} {...data} />
+                        <Table key={index} {...utils.deviceDetector(data)} />
                       ))}
                     </tbody>
                   </table>

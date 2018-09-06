@@ -17,14 +17,16 @@ class DashboardView extends React.Component {
   }
   componentDidMount() {
     if (!this.props.pageIsLoaded) {
-      this.props
-        .fetchPage()
-        .then(() => {
-          if (!this.props.userIsLoaded) {
-            this.props.fetchUserData();
-          }
-        })
-        .catch(err => console.log(err));
+      this.props.fetchPage();
+      // .then(() => {
+      //   if (!this.props.userIsLoaded) {
+      //     this.props.fetchUserData();
+      //   }
+      // })
+      // .catch(err => console.log(err));
+    }
+    if (!this.props.userIsLoaded) {
+      this.props.fetchUserData();
     }
   }
 
