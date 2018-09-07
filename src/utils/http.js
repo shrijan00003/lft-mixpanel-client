@@ -11,15 +11,8 @@ import {
  * creating axios instance
  */
 
-console.log(process.env.TARGET);
-
-const axiosInstance = axios.create({
+export const axiosInstance = axios.create({
   baseURL: 'http://127.0.0.1:8848/api/',
-  headers: {
-    authorization: auth.getToken(ACCESS_TOKEN),
-    // clientid: setUser,
-    // Email: email,
-  },
 });
 
 /**
@@ -70,6 +63,9 @@ export function get(url, params = {}) {
     method: 'get',
     url,
     params,
+    headers: {
+      authorization: auth.getToken(ACCESS_TOKEN),
+    },
   });
 }
 
@@ -83,6 +79,9 @@ export function post(url, data) {
     method: 'post',
     url,
     data,
+    headers: {
+      authorization: auth.getToken(ACCESS_TOKEN),
+    },
   });
 }
 
@@ -96,5 +95,8 @@ export function put(url, data) {
     method: 'put',
     url,
     data,
+    headers: {
+      authorization: auth.getToken(ACCESS_TOKEN),
+    },
   });
 }

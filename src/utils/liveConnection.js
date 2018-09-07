@@ -10,7 +10,6 @@ export const connectLiveServer = () => {
   socket = socketIO(endPoint);
 
   socket.on('connect', function() {
-    console.log(room);
     socket.emit('room', room);
   });
 };

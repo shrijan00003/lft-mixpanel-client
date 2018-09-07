@@ -36,6 +36,7 @@ td {
   width: 100%;
   background-color: white;
   border: 1px solid rgb(226, 226, 226);
+  min-height: 360px;
 }
 
 .chart-data h3 {
@@ -86,6 +87,7 @@ td {
   background: rgb(186, 248, 217);
   border-radius: 3px;
   margin: 5px 0px 5px 0px;
+  transition: cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
 .activity-list ul li span {

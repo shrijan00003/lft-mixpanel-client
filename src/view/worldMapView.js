@@ -170,9 +170,9 @@ class WorldMap extends React.Component {
     }
     if (this.state.chartData !== null)
       return (
-        <div className="container row">
+        <div className="container row no-margin-no-padding">
           <div>
-            <div className="col-12">
+            <div className="col-12 ">
               <div className="tracks-data row">
                 <div className="tracks-data-header row">
                   <div className="no-margin-no-padding">
@@ -197,8 +197,8 @@ class WorldMap extends React.Component {
                 ) : null}
               </div>
             </div>
-            <div className="col-12">
-              <div className="tracks-data row">
+            <div className="col-12 ">
+              <div className="tracks-data">
                 <div className="col-6">
                   <div className="tracks-data-header-title">
                     <h3>User Details</h3>

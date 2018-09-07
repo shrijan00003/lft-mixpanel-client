@@ -35,8 +35,6 @@ export const getUserData = () => {
     dispatch(fetchUserDataBegin());
     userDataResponse = await fetchUsersData();
 
-    console.log(userDataResponse, 'userdata');
-
     if (userDataResponse.status === 200) {
       dispatch(
         fetchUserDataSuccess(

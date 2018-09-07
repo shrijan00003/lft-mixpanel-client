@@ -14,8 +14,8 @@ class atGlanceRow extends React.Component {
     };
     connectLiveServer();
     // socket.on('liveUsers', users => (liveUsers = users));
-    getSocket().on('liveUsers', console.log);
-    getSocket().on('liveUsersActivity', console.log);
+    // getSocket().on('liveUsers', console.log);
+    // getSocket().on('liveUsersActivity', console.log);
   }
 
   componentDidMount = () => {
