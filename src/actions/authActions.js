@@ -1,11 +1,20 @@
-import { ACTIONS } from '../constants/auth/authConstants';
+import store from '../store';
+import auth from '../utils/auth';
+import {
+  ID,
+  NAME,
+  ACTIONS,
+  USER_NAME,
+  ACCESS_TOKEN,
+  REFRESH_TOKEN,
+} from '../constants/authConstants';
 
-export const loginUserBegin = data => ({
+export const loginUserBegin = () => ({
   type: ACTIONS.LOGIN_PENDING,
 });
 
 export const setLoginSuccess = (user = {}, tokens = {}) => ({
-  type: ACTIONS.LOGIN_FULFILLLED,
+  type: ACTIONS.LOGIN_FULFILLED,
   payload: {
     user,
     tokens,
@@ -20,7 +29,7 @@ export const setLoginError = error => ({
 });
 
 export const refreshLogin = (tokens = {}) => ({
-  type: ACTIONS.REFRESH_FULFILLLED,
+  type: ACTIONS.REFRESH_FULFILLED,
   payload: {
     tokens,
   },
@@ -31,7 +40,7 @@ export const logoutUserBegin = () => ({
 });
 
 export const setLogoutSuccess = () => ({
-  type: ACTIONS.LOGOUT_FULFILLLED,
+  type: ACTIONS.LOGOUT_FULFILLED,
 });
 
 export const setLogoutError = error => ({
@@ -40,3 +49,29 @@ export const setLogoutError = error => ({
     error,
   },
 });
+
+export const setLoginDetailsAfterReload = (user, tokens) => ({
+  type: ACTIONS.PAGE_RELODED,
+  payload: {
+    user,
+    tokens,
+  },
+});
+
+window.onload = () => {
+  if (auth.getToken()) {
+    store.dispatch(
+      setLoginDetailsAfterReload(
+        {
+          id: auth.getDetails(ID),
+          name: auth.getDetails(NAME),
+          userName: auth.getDetails(USER_NAME),
+        },
+        {
+          accessToken: auth.getToken(ACCESS_TOKEN),
+          refreshToken: auth.getToken(REFRESH_TOKEN),
+        }
+      )
+    );
+  }
+};

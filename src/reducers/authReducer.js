@@ -1,13 +1,14 @@
-import { ACTIONS } from '../constants/auth/authConstants';
+import { ACTIONS } from '../constants/authConstants';
 
 const INITIAL_STATE = {
   error: null,
-  isLogedIn: false,
   isLoggingIn: false,
   isLoggingOut: false,
+  isLogedIn: false,
   user: {
     id: null,
     name: null,
+    userName: null,
   },
   tokens: {
     accessToken: null,
@@ -24,7 +25,7 @@ const authReducer = (state = INITIAL_STATE, action) => {
         error: null,
       };
 
-    case ACTIONS.LOGIN_FULFILLLED:
+    case ACTIONS.LOGIN_FULFILLED:
       return {
         ...state,
         user: action.payload.user,
@@ -40,7 +41,7 @@ const authReducer = (state = INITIAL_STATE, action) => {
         error: action.payload.error,
       };
 
-    case ACTIONS.REFRESH_FULFILLLED:
+    case ACTIONS.REFRESH_FULFILLED:
       return {
         ...state,
         tokens: action.payload.tokens,
@@ -54,7 +55,7 @@ const authReducer = (state = INITIAL_STATE, action) => {
       };
     }
 
-    case ACTIONS.LOGOUT_FULFILLLED: {
+    case ACTIONS.LOGOUT_FULFILLED: {
       return INITIAL_STATE;
     }
 
@@ -65,8 +66,18 @@ const authReducer = (state = INITIAL_STATE, action) => {
         error: action.payload.error,
       };
     }
+
+    case ACTIONS.PAGE_RELODED:
+      return {
+        ...state,
+        user: action.payload.user,
+        tokens: action.payload.tokens,
+        isLogedIn: true,
+      };
+
     default:
       return state;
   }
 };
+
 export default authReducer;

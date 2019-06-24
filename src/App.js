@@ -3,6 +3,8 @@ import Routes from './routes/routes';
 import { Provider } from 'react-redux';
 import React, { Component } from 'react';
 
+import './fontAwesomeIcon/fontAwesomeIcon.js';
+
 import './App.css';
 
 class App extends Component {

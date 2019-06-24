@@ -1,0 +1,108 @@
+.dashboard-at-glance {
+  width: 100%;
+  padding: 15px;
+  background: rgb(233, 231, 231);
+  border-radius: 4px;
+}
+
+.dashboard-at-glance p {
+  font-size: 13px;
+  color: rgb(13, 93, 146);
+}
+
+.dashboard-at-glance h1 {
+  font-size: 35px;
+  color: rgb(121, 123, 124);
+  padding: 5px;
+}
+
+.dashboard-at-glance .is-increased {
+  color: rgb(13, 146, 42);
+}
+
+.dashboard-at-glance .is-decreased {
+  color: rgb(243, 12, 4);
+}
+
+/******************** Google table CSS  ***********************/
+th,
+td {
+  padding: 12px;
+  text-align: left;
+  font-size: 14px;
+}
+
+.chart-data {
+  width: 100%;
+  background-color: white;
+  border: 1px solid rgb(226, 226, 226);
+  min-height: 360px;
+}
+
+.chart-data h3 {
+  font-size: 16px;
+  color: rgb(13, 93, 146);
+  border-bottom: 2px solid rgb(226, 226, 226);
+  font-weight: bold;
+  margin: 15px;
+  padding: 0 0 8px 0;
+}
+.users-country {
+  border: 1px solid rgb(226, 226, 226);
+  background-color: white;
+}
+
+.users-country h3 {
+  font-size: 16px;
+  color: rgb(13, 93, 146);
+  border-bottom: 2px solid rgb(226, 226, 226);
+  margin: 15px;
+  font-weight: bold;
+  padding: 0 0 8px 0;
+}
+
+.top-countries h3 {
+  font-size: 16px;
+  color: rgb(13, 93, 146);
+  border-bottom: 2px solid rgb(226, 226, 226);
+  font-weight: bold;
+  margin: 0;
+  padding: 0 0 8px 0;
+}
+/* .countries-map {
+  border-right: 2px solid rgb(226, 226, 226);
+  width: 100%;
+} */
+
+/*  live activity-list */
+.activity-list {
+  width: 100%;
+  margin-top: -20px;
+}
+
+.activity-list ul li {
+  list-style-type: none;
+  list-style-position: inside;
+  padding: 8px;
+  background: rgb(186, 248, 217);
+  border-radius: 3px;
+  margin: 5px 0px 5px 0px;
+  transition: cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.activity-list ul li span {
+  font-size: 14px;
+  color: rgb(112, 111, 111);
+}
+
+.activity-list p {
+  font-size: 14px;
+  color: rgb(112, 111, 111);
+  text-align: center;
+}
+
+.activity-list h1 {
+  font-size: 25px;
+  color: rgb(2, 184, 77);
+  text-align: right;
+}

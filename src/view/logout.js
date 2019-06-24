@@ -2,6 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { logout } from '../services/authServices';
+import { disconnectRoom } from '../utils/liveConnection';
+
 import {
   logoutUserBegin,
   setLogoutSuccess,
@@ -40,40 +42,26 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-const Logout = ({ loginStatus, isLogedIn, logoutUser = f => f }) => {
-  logoutUser();
+// const Logout = ({ loginStatus, isLogedIn, logoutUser = f => f }) => {
+//   logoutUser();
 
-  if (!isLogedIn) {
-    return <Redirect to={'/login'} />;
-  } else {
-    return <span>{loginStatus}</span>;
+//   if (!isLogedIn) {
+//     return <Redirect to={'/login'} />;
+//   } else {
+//     return <span>{loginStatus}</span>;
+//   }
+// };
+
+class Logout extends React.Component {
+  componentDidMount = () => {
+    disconnectRoom();
+    this.props.logoutUser();
+  };
+
+  render() {
+    return !this.props.isLogedIn ? <Redirect to={'/login'} /> : <span />;
   }
-};
-
-// class Logout extends React.Component {
-//   constructor() {
-//     super();
-//     this.state = {
-//       isLogedOut: false,
-//     };
-//   }
-
-//   componentDidMount = () => {
-//     new Promise((resolve, reject) => {
-//       resolve(this.props.logoutUser());
-//     }).then(res => {
-//       if (res.status === 200) {
-//         this.setState({
-//           isLogedOut: true,
-//         });
-//       }
-//     });
-//   };
-
-//   render() {
-//     return this.state.isLogedOut ? <Redirect to={'/login'} /> : <span />;
-//   }
-// }
+}
 
 const EnhancedLogout = connect(
   mapStateToProps,

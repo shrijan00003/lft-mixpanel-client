@@ -1,0 +1,43 @@
+/***************  INPUT *************/
+
+.input-search {
+  float: left;
+  width: 100%;
+  border: 1px solid silver;
+  padding: 5px;
+  width: 60%;
+
+  height: 40px;
+  border-radius: 5px;
+  outline: none;
+  color: #ddd;
+}
+
+.input-search:focus {
+  color: #000000;
+}
+.input-label {
+  padding-bottom: 10px;
+}
+.select {
+  padding: 14px;
+}
+.input-select {
+  padding: 6px;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+.pagination {
+  text-align: right;
+  padding: 15px;
+}
+.pager {
+  padding: 3px 5px;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+}
+.pager:hover {
+  background: #ddd;
+}

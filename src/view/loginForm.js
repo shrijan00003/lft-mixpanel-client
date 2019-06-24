@@ -56,12 +56,13 @@ class UserLogin extends React.Component {
     if (!this.state.email) {
       emailErr = 'Email cannot be empty.';
       $emailErr.classList.add('show-tooltip');
-    } else if (
-      !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(this.state.email)
-    ) {
-      emailErr = 'Invalid email address';
-      $emailErr.classList.add('show-tooltip');
     }
+    //  else if (
+    //   !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(this.state.email)
+    // ) {
+    //   emailErr = 'Invalid email address';
+    //   $emailErr.classList.add('show-tooltip');
+    // }
 
     if (!this.state.password) {
       pwErr = 'Password cannot be empty.';
@@ -104,7 +105,7 @@ class UserLogin extends React.Component {
           onChange={input => this.setStateValue('email', input)}
           name="email"
           type="text"
-          placeholder="Enter email"
+          placeholder="Email or Username"
           autoComplete="off"
         />
         <div className="tooltip" id="email_error">
@@ -114,7 +115,7 @@ class UserLogin extends React.Component {
           onChange={input => this.setStateValue('password', input)}
           name="password"
           type="password"
-          placeholder="Enter email"
+          placeholder="Password"
         />
         <div className="tooltip" id="pw_error">
           <span className="tooltiptext">{this.state.passwordError}</span>

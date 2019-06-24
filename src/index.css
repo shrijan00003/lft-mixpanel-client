@@ -1,5 +1,6 @@
 body {
-  font-family: sans-serif;
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: rgb(248, 247, 247);
 }
 
 * {
@@ -100,4 +101,41 @@ body {
   .col-12 {
     width: 100%;
   }
+}
+
+.aside {
+  position: relative;
+  float: left;
+  width: 220px;
+}
+
+.container {
+  width: auto;
+  overflow: hidden;
+  padding: 10px;
+}
+
+.padding-left {
+  padding-left: 10px;
+}
+
+.padding-right {
+  padding-right: 10px;
+}
+
+.margin-left {
+  margin-left: 10px;
+}
+
+.margin-right {
+  margin-right: 10px;
+}
+
+.no-margin-no-padding {
+  margin: 0;
+  padding: 0;
+}
+
+.border-right {
+  border-right: 2px solid lightgray;
 }
